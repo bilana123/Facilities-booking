@@ -2,13 +2,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './Navbar.css'; // import CSS file for the navbar
 import {Link} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 export default function Navbar() {
     <Navbar/>
   return (
+    <div class="container">
+       
     <nav className="navbar">
-    <h1 className="navbar-title">JNEC</h1>
+    <a className="navbar-brand" href="/">
+    <img src="jnec\public\logo.png" alt="Logo" width="50" height="50" />
+      </a>
+   
     <header id="header" class="header-two"></header>
       <ul className="navbar-list">
       <li><a href="About us">Home</a></li>
@@ -18,6 +24,7 @@ export default function Navbar() {
         <li><a href="Account">Account</a></li>
     </ul>
     </nav>
+    </div>
  );
 }
  

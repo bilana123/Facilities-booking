@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export const Register =(props) => {
     const [Email, setEmail]= useState('');
@@ -16,27 +18,34 @@ export const Register =(props) => {
     }
 
     return(
-<div className="auth-form-container">
+<div className=" roundede-4 auth-form-container">
     <h2>Register</h2>
-
-<form onSubmit={handleSubmit} >
+<div className="form-group">
     <label htmlfor="Name">Full name</label>
     <input Name="Name"id="Name" placeholder="Full name"/><br></br>
+    </div>
+    <div className="form-group">
     <label htmlfor="Email">Email</label>
-    <input value={Email} onChange={(e) => setEmail(e.target.value)} type="Email" placeholder="youemail@gmail.com" id="email" name="Email"/><br></br>
+    <input value={Email} onChange={(e) => setEmail(e.target.value)}
+     type="Email" placeholder="youemail@gmail.com" id="email" name="Email"/><br></br>
+    </div>
+    <div className="form-group">
     <label htmlfor="password">password</label>
-    <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="******" id="password" name="password"/><br></br>
+    <input value={pass} onChange={(e) => setPass(e.target.value)}
+     type="password" placeholder="******" id="password" name="password"/><br></br>
+    </div>
+    <div className="form-group">
     <label htmlfor="Confirm password">Confirm password</label>
-    <input value={Confirm} onChange={(e) =>Confirm(e.target.value)} type="Confirm password" placeholder="******" id="Confirm password" name="Confirm password"/><br></br>
-    <button type="Submit">Login</button>
-</form>
-
-<Link to="/login">
-Already have an account?Login here.
+    <input Name={Confirm} onChange={(e) =>Confirm(e.target.value)} 
+    type="Confirm password" placeholder="******" id="Confirm password" name="Confirm password"/>
+    </div><br></br>
+    <button type="Submit">Register</button>
+   <Link to="/login">
+    Already have an account?Login here.
 </Link>
 </div>
 
         
     )
 }
-export default Register;
+export default Register
