@@ -1,0 +1,23 @@
+.Aboutus{
+    text-align: center;
+    color: blue;
+    background-color: rgb(89, 37, 138);
+    max-width: 1000px;
+    margin-bottom: auto;
+    padding-bottom: 6000px;
+    height: 400px;
+}
+.Billu{
+    text-align: center;
+    text-align-last: justify;
+   
+ 
+}
+.center{
+    text-align: center;
+    float: right;
+    display:center;
+}
+.right-align{
+    text-align: right;
+}

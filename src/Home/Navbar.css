@@ -41,3 +41,32 @@
     margin-left: 60;
   }
   
+  .dropdown:hover .dropdown-menu {
+    display: block;
+    background-color: #5f28e9;
+    margin: 0%;
+    margin: 0.9rem 0;
+    line-height: 100%;
+    text-align: initial;
+    width: 100%;
+  }
+  .dropdown-menu {
+    width:20px;
+    height: 60px 50px;
+    display: none;
+    position: absolute;
+    z-index: 1;
+    color: rgb(158, 145, 191)
+  
+
+ 
+    
+  }
+
+
+
+
+
+
+
+  

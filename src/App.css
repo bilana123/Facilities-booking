@@ -49,7 +49,7 @@ button{
   border: none;
   background-color: rgb(9, 108, 20);
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 40 px;
   cursor: pointer;
   color: #03b02e;
 
@@ -58,4 +58,12 @@ button{
   background:none ;
   color: rgb(169, 176, 168);
   text-decoration: underline;
+}
+.Aboutus{
+  text-align: center;
+  color: blue;
+  background-color: blueviolet;
+  max-width: 100px;
+  margin-bottom: auto;
+  padding-bottom: 80px;
 }
