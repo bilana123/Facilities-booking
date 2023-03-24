@@ -3,9 +3,10 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 90px;
-    background-color: #5f28e9;
+    height: 100px;
+    background-color: #e3ef5e;
     color: #791d1d;
+    z-index: 2;
   }
   
   .navbar-title {
@@ -14,11 +15,11 @@
   
   .navbar-list {
     list-style: none;
-    margin: 30;
+    margin: 60;
     padding: 20;
-    margin-right: 500px;
+    margin-right: 600px;
     text-align:right ;
-    font-display: 30px;
+    font-display: 300px;
     display:inherit;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     
@@ -35,15 +36,15 @@
   }
   
   .navbar-list li a {
-    color: #f7f2f2;
+    color: #0f0202;
     text-decoration: none;
-    padding: 15px ;
+    padding: 10px  5px;
     margin-left: 60;
   }
   
   .dropdown:hover .dropdown-menu {
     display: block;
-    background-color: #5f28e9;
+    background-color: #f1e378;
     margin: 0%;
     margin: 0.9rem 0;
     line-height: 100%;
@@ -56,13 +57,10 @@
     display: none;
     position: absolute;
     z-index: 1;
-    color: rgb(158, 145, 191)
-  
+    color: rgb(237, 235, 242)
 
- 
     
   }
-
 
 
 

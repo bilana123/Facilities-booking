@@ -7,17 +7,18 @@
     padding-bottom: 6000px;
     height: 400px;
 }
-.Billu{
-    text-align: center;
-    text-align-last: justify;
-   
- 
-}
 .center{
+    text-align: justify;
     text-align: center;
-    float: right;
-    display:center;
 }
-.right-align{
-    text-align: right;
+.billu{
+border-image-width: 60px;
+text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 40px;
+}
+#about_container{
+    margin-top: 150px;
 }

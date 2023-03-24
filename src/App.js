@@ -9,6 +9,10 @@ import Navbar from "./Home/Navbar";
 //import logo from './jnec/public/logo.png'; 
 //import { auth, db } from '.Database/Firebase.js';
 import Aboutus from "./Component/Pages/Aboutus";
+import Home from "./Component/Pages/Home";
+import Footer  from "./Component/Pages/Footer";
+
+
 
 function App() {
  return(
@@ -16,17 +20,21 @@ function App() {
  <>
       <BrowserRouter>
       <Navbar/>
-     
-            <Routes>
+ 
+      <Routes>
+              
+              
               <Route path="/login" element={<Login/>}/>
               <Route path="/register" element={<Register/>} />
               <Route path="/About us" element={<Aboutus/>} />
+              <Route path="/" element={<Home/>} />
+             
 
-            
-            </Routes> 
-            
+ </Routes> 
+        <Footer/>
       </BrowserRouter>
- 
+      
+      
  </>
 
  

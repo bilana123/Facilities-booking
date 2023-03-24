@@ -2,8 +2,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './Navbar.css'; // import CSS file for the navbar
 import {Link} from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css'
-//import images from './Img/images.png';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import logo from "../Component/Image/logo.png";
+import lhaden from  "../Component/Image/lhaden.jpg";
 
 
 export default function Navbar() {
@@ -15,8 +16,12 @@ export default function Navbar() {
      <a className="navbar-brand" >
    
       </a>
-   
-    <header id="header" class="header-two"></header>
+      <div class="logo">
+     
+       <img src={logo} alt="logo.png" height="2px" width="2px" />
+       
+   </div>
+    
       <ul className="navbar-list">
       <li><a href="Home">Home</a></li>
       <li><a href="About us">About us</a></li>
@@ -33,9 +38,14 @@ export default function Navbar() {
     
        <li><a href="Login">Login</a></li>
         <li><a href="Register">Register</a></li>
+        
     </ul>
+    
     </nav>
+    
     </div>
+    
+    
     
  );
 }
