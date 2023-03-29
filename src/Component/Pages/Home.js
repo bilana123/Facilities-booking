@@ -5,8 +5,12 @@ import ball from '../Image/ball.jpg';
 import theature from '../Image/theature.jpg';
 import Mph from '../Image/Mph.jpg';
 import Winner from '../Image/Winner.jpg';
-
+import foot from '../Image/foot.jpg';
 import { Carousel } from "react-bootstrap";
+import "./Home.css";
+import volleyball from '../Image/volleyball.png';
+import book from '../Image/book.jpeg';
+import bas from '../Image/bas.jpg';
 
 
 
@@ -49,6 +53,22 @@ function Home() {
           </Carousel.Item>
         ))}
       </Carousel>
+      <div className='billlu'>
+        <h1>Explore our facilities</h1>
+        <div id="you">
+        <img src={foot} alt="foot.jpg" style={{borderRadius:'20%' , width:'150px' , height: '150px'}} />
+        <div className='love'>
+       <img src={volleyball} alt="volleyball.jpg" style={{borderRadius:'20%' , width:'150px' , height: '150px'}} />
+       </div>
+       <div className='bil'>
+       <img src={book} alt="copy.jpg" style={{borderRadius:'20%' , width:'150px' , height: '150px'}}/>
+       </div>
+       <div className='photo'>
+       
+       <img src={bas} alt="bas.jpg" style={{borderRadius:'20%' , width:'150px' , height: '150px'}}/>
+       </div>
+       </div>
+        </div>
 
     </>
   );
