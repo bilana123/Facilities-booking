@@ -14,6 +14,9 @@ import Home from "./Component/Pages/Home";
 
 import Footer from "./Component/Pages/Footer";
 import Facilities from "./Component/Pages/Facilities";
+import AdminHome from "./Component/Admin/AdminHome";
+import Create from "./Component/Admin/Create";
+import Delete from "./Component/Admin/Delete";
 
 //import { FirebaseApp } from "firebase/app";
 
@@ -29,6 +32,9 @@ function App() {
           <Route path="/About us" element={<Aboutus />} />
           <Route path="/home" element={<Home />} />
           <Route path="/Facilities" element={<Facilities />} />
+          <Route path="/admin" element={<AdminHome />} />
+          <Route path="/admin/create" element={<Create />} />
+          <Route path="/admin/delete" element={<Delete />} />
         </Routes>
         <Footer />
       </BrowserRouter>

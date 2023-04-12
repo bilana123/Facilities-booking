@@ -1,69 +1,167 @@
-import React, { useRef, useState } from "react";
-import { Card, Form, Button, Alert } from "react-bootstrap";
 
-function Register() {
-  const emailRef = useRef(null);
-  const PasswordRef = useRef(null);
-  const PasswordConfirmedRef = useRef(null);
+import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
+import {  signInWithEmailAndPassword } from "firebase/auth";
+//import { authentication } from "../../Database/Firebase";
+import "./Register.css";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+//import { signInWithEmailAndPassword } from "firebase/auth";
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+const firebaseConfig = {
+  /* Your Firebase config */
+};
 
-    if (PasswordRef.current.value !== PasswordConfirmedRef.current.value) {
-      return setError("passwords do not match");
-    }
+class Register extends Component {
+  constructor(props) {
+    super(props);
 
-    try {
-      setError("");
-      setLoading(true);
-      await Register(emailRef.current.value, PasswordRef.current.value);
-    } catch {
-      setError("Failed to create an account");
-    }
+    this.state = {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      errors: {},
+    };
 
-    setLoading(false);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  return (
-    <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center" mb-2>
-            Register
-          </h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={PasswordRef} required />
-            </Form.Group>
-            <Form.Group id="password-confirmed">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control
-                type="password"
-                ref={PasswordConfirmedRef}
-                required
-              />
-            </Form.Group>
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    // validate form inputs
+    let errors = {};
+    let isValid = true;
+
+    if (!this.state.username) {
+      isValid = false;
+      errors["username"] = "Please enter your username.";
+    }
+
+    if (!this.state.email) {
+      isValid = false;
+      errors["email"] = "Please enter your email.";
+    }
+
+    if (!this.state.password) {
+      isValid = false;
+      errors["password"] = "Please enter your password.";
+    }
+
+    if (!this.state.confirmPassword) {
+      isValid = false;
+      errors["confirmPassword"] = "Please confirm your password.";
+    }
+
+    if (this.state.password !== this.state.confirmPassword) {
+      isValid = false; 
+      errors["confirmPassword"] = "Passwords do not match.";
+    }
+
+    this.setState({ errors: errors });
+
+    if (isValid) {
+      // submit form data
+      console.log("Submitting form data:", this.state);
+      const app = initializeApp(firebaseConfig);
+      let userCredential; // Define userCredential variable
+      signInWithEmailAndPassword(
+       
+        this.state.email,
+        this.state.password
+      )
+        .then((result) => {
+          userCredential = result; // Assign value to userCredential
+          console.log(userCredential.user);
+          const db = getFirestore(app);
+          db.collection("UserData")
+            .doc(userCredential.user.uid)
+            .set({ Email: userCredential.user.email });
+        })
+        .catch((error) => {
+          // Handle errors
+          console.log(error);
+          userCredential = { user: { uid: "" } };
+          const db = getFirestore(app);
+          db.collection("UserData")
+            .doc(userCredential.user.uid) // Use userCredential here
+            .set({ Error: error });
+        });
+    }
+  }
+  render() {
+    return (
+      <div className="form-group ">
+        <h2>Register</h2>
+        <form onSubmit={this.handleSubmit}>
+          <div className="w-100 p-20">
+            <span class="border-0"></span>
+            <label htmlFor="username">Username:</label>
+            <input
+              style={{ outline: "1px solid black" }}
+              type="text"
+              name="username"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
+            <div className="text-danger">{this.state.errors.username}</div>
+          </div>
+          <div className="w-100 p-20">
+            <label htmlFor="email">Email:</label>
+            <input
+              style={{ outline: "1px solid black" }}
+              type="email"
+              name="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+            <div className="text-danger">{this.state.errors.email}</div>
+          </div>
+          <div className="100 p-20">
+            <label htmlFor="password">Password:</label>
+            <input
+              style={{ outline: "1px solid black" }}
+              type="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            <div className="text-danger">{this.state.errors.password}</div>
+          </div>
+          <div className="w-100 p-20">
+            <label htmlFor="confirmPassword">Confirm Password:</label>
+            <input
+              style={{ outline: "1px solid black" }}
+              type="password"
+              name="confirmPassword"
+              value={this.state.confirmPassword}
+              onChange={this.handleChange}
+            />
+            <div className="text-danger">
+              {this.state.errors.confirmPassword}
+            </div>
             <br></br>
-            <Button disabled={loading} lassName="w-100" type="submit">
-              Register
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? Login
+          </div>
+          <br></br>
+          <div className="w-100 p-20">
+            <button type="Register">Register</button>
+          </div>
+        </form>
+
+        <Link to="/Create">Already have an account?Login here.</Link>
       </div>
-    </>
-  );
+    );
+  }
 }
 
 export default Register;

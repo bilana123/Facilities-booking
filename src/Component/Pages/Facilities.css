@@ -1,36 +1,15 @@
-container {
-  border-radius: 20px;
-  margin-top: 200px;
-  border-bottom: 20px;
-  border: 1px solid black;
-  padding: 200px;
-  position: relative;
-  align-items: center;
+@media screen and (min-width: 768px) {
+  .card {
+    max-width: 50%;
+    min-width: 300px;
+  }
 
-  justify-content: center;
-}
-.image {
-  margin-top: 200px;
-  border: 1px solid black;
-}
-.Hall {
-  text-align: center;
-  margin-top: auto;
-  padding-top: auto;
-  text-align: initial;
-}
-.img-container {
-  max-width: 1000%;
-  max-height: 1000%;
-  padding: 20px;
-  margin-top: auto;
-}
-.Facilities {
-  margin: 700px;
-  padding: 300px;
-}
-
-.col-md {
-  width: 500px;
-  height: 500px;
+  .card img {
+    width: 100%;
+    height: auto;
+  }
+  .form-group {
+    max-width: 500px; /* set a larger max-width value */
+    margin-bottom: 1rem;
+  }
 }
