@@ -1,61 +1,51 @@
-import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
+import { useLogin } from "../../Hooks/useLogin";
+import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
-export const Login = (props) => {
-  const [Email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+export default function Login() {
+  const [email, setemail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login, error, ispending } = useLogin();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(Email);
+
+    login(email, password);
+    navigate("/home");
   };
   return (
-    <div className="auth-form-container" style={{ borderRadius: "30px" }}>
-      <h4>Login</h4>
-      <div className="field1">
-        <form onSubmit={handleSubmit}>
-          <label for="Email....">Email</label>
+    <div>
+      <form onSubmit={handleSubmit} className="Login-form mt-5">
+        <h2>Login</h2>
+        <label>
+          <span>email:</span>
           <input
-            style={{ outline: "1px solid black" }}
-            value={Email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="Email"
-            placeholder="youemail@gmail.com"
-            id="email"
-            name="Email"
-            Fill
-            nn
-            up
-            the
-            required
+            type="email"
+            onChange={(e) => setemail(e.target.value)}
+            value={email}
           />
-          <br></br>
-          <label for="password">password</label>
+        </label>
+
+        <label>
+          <span>password:</span>
           <input
-            style={{ outline: "1px solid black" }}
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
             type="password"
-            placeholder="******"
-            id="password"
-            name="password"
-            Fill
-            up
-            the
-            required
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
-          <br></br>
-          <br></br>
-          <button
-            style={{ outline: "1px solid black", borderRadius: "10px" }}
-            type="Submit"
-          >
-            Login
+        </label>
+        <br></br>
+
+        {!ispending && <button className="btn">Login</button>}
+        {ispending && (
+          <button className="btn" disabled>
+            loading
           </button>
-        </form>
-      </div>
-      <br></br>
-      <Link to="/register">Don't have an account?Register here.</Link>
+        )}
+        {error && <p>{error}</p>}
+      </form>
     </div>
   );
-};
+}

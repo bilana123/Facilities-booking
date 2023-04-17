@@ -61,9 +61,9 @@ export default function Navbar() {
               <Link
                 class="nav-link active rounded-5"
                 aria-current="page"
-                to="/Register"
+                to="/Signup"
               >
-                <b>Register</b>
+                <b>Sign Up</b>
               </Link>
             </div>
           </div>

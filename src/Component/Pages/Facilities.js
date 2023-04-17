@@ -1,81 +1,60 @@
-import React from "react";
-import Mph from "../../Component/Image/Mph.jpg";
-import "./Facilities.css";
 
-export default function Facilities() {
+
+
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import copy from '../Image/copy.jpg';
+
+function Facilities() {
   return (
-    <div className="d-flex flex-wrap justify-content-center">
-      <div className="card mb-4 mx-3 borders" style={{ maxWidth: "540px", minWidth: "300px" }}>
-        <div className="row g-0 flex-row align-items-center">
-          <div className="col-md-4">
-            <img
-              src={Mph}
-              className="img-fluid rounded-start w-100 h-100"
-              alt="..."
-            />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">MPH Booking</h5>
-              <div className="form-group">
-                <label htmlFor="time">Time:</label>
-                <input
-                  type="time"
-                  id="time"
-                  placeholder="enter time in HH:MM AM/PM --HH:MM AM/PMformat"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="date">Date</label>
-                <input
-                  type="date"
-                  id="date"
-                  placeholder="enter time in dd/mm/yyyy format"
-                />
-              </div>
-              <p className="card-text">
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className='container mt-5 p-5'>
+      <div className="card mb-3 m-5 p-5" >
+        <div className="row g-2">
+          <div className="col-md-4 ">
+          <img src={copy} className="img-fluid rounded-start w-100 h-100" alt="..."  />
 
-      <div className="card mb-4 mx-3 borders" style={{ maxWidth: "540px", minWidth: "300px" }}>
-        <div className="row g-0 flex-row align-items-center">
-          <div className="col-md-4">
-            <img
-              src={Mph}
-              className="img-fluid rounded-start w-100 h-100"
-              alt="..."
-            />
           </div>
-          <div className="col-md-2">
+          <div className="col-md-8 ">
+          
             <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <div className="form-group">
-                <label htmlFor="time">Time:</label>
+            <h5 class="card-title">MPH </h5>
+            <div className="group">
+                <label htmlFor="time">Start-Time</label>
                 <input
                   type="time"
+                  className="form-control rounded-3"
                   id="time"
-                  placeholder="enter time in HH:MM AM/PM --HH:MM AM/PMformat"
+                  placeholder="Enter time in HH:MM AM/PM format"
                 />
-              </div>
-              <div className="form-group">
-                <label htmlFor="date">Date:</label>
+                 <label htmlFor="time">End-Time</label>
+                <input
+                  type="time"
+                  className="form-control rounded-3"
+                  id="time"
+                  placeholder="Enter time in HH:MM AM/PM format"
+                />
+                 
+                <div className="group">
+                <label htmlFor="date">date</label>
                 <input
                   type="date"
+                  className="form-control rounded-3"
                   id="date"
-                  placeholder="enter time in dd/mm/yyyy format"
+                  
+                  placeholder="Enter time in MM/dd/yyyy format"
+                 
                 />
+                <div className="col-md-2 mt-5">
+                    <button className="btn btn-primary booked-btn" style={{fontSize: '10px'}}>BOOKED</button>
+                  </div>
               </div>
-              <p className="card-text">
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
+
+export default Facilities;
