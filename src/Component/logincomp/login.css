@@ -1,0 +1,19 @@
+.Login-form {
+  max-width: 360px;
+  margin: 90px;
+  padding: 5px;
+}
+.Login-form label {
+  display: block;
+  margin: 30px;
+}
+.Login-form span {
+  display: block;
+  margin-bottom: 4px;
+}
+.Login-form input {
+  padding: 4px;
+  font-size: 1em;
+  color: #777;
+  width: 100%;
+}

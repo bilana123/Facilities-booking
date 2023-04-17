@@ -1,70 +1,72 @@
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100px;
-    background-color: #e3ef5e;
-    color: #791d1d;
-    z-index: 2;
-  }
-  
-  .navbar-title {
-    margin: 100;
-  }
-  
-  .navbar-list {
-    list-style: none;
-    margin: 60;
-    padding: 20;
-    margin-right: 500px;
-    text-align:right ;
-    font-display: 300px;
-    display:inherit;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background-color: #e3ef5e;
+  color: #791d1d;
+  z-index: 2;
+}
 
+.navbar-title {
+  margin: 100;
+}
 
-  }
-  
-  .navbar-list li {
-    display: inline-block;
-    margin: 0 5px;
-     margin-left: 10;
-     margin-inline-start: 30px;
-     
-  }
-  
-  .navbar-list li a {
-    color: #0f0202;
-    text-decoration: none;
-    padding: 10px  5px;
-    margin-left: 60;
-  }
-  
-  .dropdown:hover .dropdown-menu {
-    display: block;
-    background-color: #f1e378;
-    margin: 0%;
-    margin: 0.9rem 0;
-    line-height: 100%;
-    text-align: initial;
-    width: 100%;
-  }
-  .dropdown-menu {
-    width:20px;
-    height: 60px 50px;
-    display: none;
-    position: absolute;
-    z-index: 1;
-    color: rgb(237, 235, 242)
+.navbar-list {
+  list-style: none;
+  margin: 60;
+  padding: 20;
+  margin-right: 500px;
+  text-align: right;
+  font-display: 300px;
+  display: inherit;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
 
-    
-  }
-  
+.navbar-list li {
+  display: inline-block;
+  margin: 0 5px;
+  margin-left: 10;
+  margin-inline-start: 30px;
+}
 
+.navbar-list li a {
+  color: #0f0202;
+  text-decoration: none;
+  padding: 10px 5px;
+  margin-left: 60;
+}
 
-
-
-
-  
+.dropdown:hover .dropdown-menu {
+  display: block;
+  background-color: #f1e378;
+  margin: 0%;
+  margin: 0.9rem 0;
+  line-height: 100%;
+  text-align: initial;
+  width: 100%;
+}
+.dropdown-menu {
+  width: 20px;
+  height: 60px 50px;
+  display: none;
+  position: absolute;
+  z-index: 1;
+  color: rgb(237, 235, 242);
+}
+.mb-7 {
+  row-gap: 400px;
+  margin-right: 50px;
+}
+.container-fluid {
+  margin-top: -0.25rem !important;
+}
+.text-secondary {
+  margin: left 30px;
+  gap: 30px;
+  padding-right: 5%;
+}
+.nav-item {
+  padding-right: 5%;
+}

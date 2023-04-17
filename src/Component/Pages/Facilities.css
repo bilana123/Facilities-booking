@@ -1,0 +1,15 @@
+@media screen and (min-width: 768px) {
+  .card {
+    max-width: 50%;
+    min-width: 300px;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+  }
+  .form-group {
+    max-width: 500px; /* set a larger max-width value */
+    margin-bottom: 1rem;
+  }
+}

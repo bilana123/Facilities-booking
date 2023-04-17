@@ -1,25 +1,26 @@
-import React from 'react'
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import ball from '../Image/ball.jpg';
-import theature from '../Image/theature.jpg';
-import Mph from '../Image/Mph.jpg';
-import Winner from '../Image/Winner.jpg';
-import foot from '../Image/foot.jpg';
+import ball from "../Image/ball.jpg";
+import theature from "../Image/theature.jpg";
+import Mph from "../Image/Mph.jpg";
+import Winner from "../Image/Winner.jpg";
+import foot from "../Image/foot.jpg";
 import { Carousel } from "react-bootstrap";
 import "./Home.css";
-import volleyball from '../Image/volleyball.png';
-import book from '../Image/book.jpeg';
-import bas from '../Image/bas.jpg';
-
-
+import volleyball from "../Image/volleyball.png";
+import book from "../Image/book.jpeg";
+import bas from "../Image/bas.jpg";
+import { AuthContext } from "../Context/AuthContex";
 
 function Home() {
- 
-  
+  const [currentUser] = useContext(AuthContext);
+
+  console.log(currentUser)
+
   const images = [
     {
-      url:ball,
+      url: ball,
       caption: "tg,mrbhwjekfeh2uo",
     },
     {
@@ -31,7 +32,7 @@ function Home() {
       caption: "",
     },
     {
-      url:Winner,
+      url: Winner,
       caption: "",
     },
   ];
@@ -53,28 +54,39 @@ function Home() {
           </Carousel.Item>
         ))}
       </Carousel>
-      <div className='billlu'>
+      <div className="billlu">
         <h1>Explore our facilities</h1>
         <div id="you">
-        <img src={foot} alt="foot.jpg" style={{borderRadius:'20%' , width:'150px' , height: '150px'}} />
-        <div className='love'>
-       <img src={volleyball} alt="volleyball.jpg" style={{borderRadius:'20%' , width:'150px' , height: '150px'}} />
-       </div>
-       <div className='bil'>
-       <img src={book} alt="copy.jpg" style={{borderRadius:'20%' , width:'150px' , height: '150px'}}/>
-       </div>
-       <div className='photo'>
-       
-       <img src={bas} alt="bas.jpg" style={{borderRadius:'20%' , width:'150px' , height: '150px'}}/>
-       </div>
-       </div>
+          <img
+            src={foot}
+            alt="foot.jpg"
+            style={{ borderRadius: "20%", width: "150px", height: "150px" }}
+          />
+          <div className="love">
+            <img
+              src={volleyball}
+              alt="volleyball.jpg"
+              style={{ borderRadius: "20%", width: "150px", height: "150px" }}
+            />
+          </div>
+          <div className="bil">
+            <img
+              src={book}
+              alt="copy.jpg"
+              style={{ borderRadius: "20%", width: "150px", height: "150px" }}
+            />
+          </div>
+          <div className="photo">
+            <img
+              src={bas}
+              alt="bas.jpg"
+              style={{ borderRadius: "20%", width: "150px", height: "150px" }}
+            />
+          </div>
         </div>
-
+      </div>
     </>
   );
 }
 
-
-
-
-export default Home
+export default Home;
