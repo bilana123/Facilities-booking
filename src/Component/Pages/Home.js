@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+//import { Link } from "react-router-dom";
 
 import ball from "../Image/ball.jpg";
 import theature from "../Image/theature.jpg";
@@ -14,9 +14,9 @@ import bas from "../Image/bas.jpg";
 
 
 function Home() {
-  
+  const { currentUser } = useContext(AuthContext);
 
- 
+  console.log(currentUser.email);
 
   const images = [
     {
