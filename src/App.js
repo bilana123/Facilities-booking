@@ -17,30 +17,30 @@ import Facilities from "./Component/Pages/Facilities";
 import AdminHome from "./Component/Admin/AdminHome";
 import Create from "./Component/Admin/Create";
 import Delete from "./Component/Admin/Delete";
-import { AuthContextProvider } from "./Component/Context/AuthContex";
+import { AuthProvider } from "./Component/Context/AuthContex";
 
 //import { FirebaseApp } from "firebase/app";
 
 function App() {
   return (
     <>
-    <AuthContextProvider>
-      <BrowserRouter>
-        <Navbar />
+      <AuthProvider>
+        <BrowserRouter>
+          <Navbar />
 
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/About us" element={<Aboutus />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/Facilities" element={<Facilities />} />
-          <Route path="/admin" element={<AdminHome />} />
-          <Route path="/admin/create" element={<Create />} />
-          <Route path="/admin/delete" element={<Delete />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-      </AuthContextProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/About us" element={<Aboutus />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/Facilities" element={<Facilities />} />
+            <Route path="/admin" element={<AdminHome />} />
+            <Route path="/admin/create" element={<Create />} />
+            <Route path="/admin/delete" element={<Delete />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </AuthProvider>
     </>
   );
 }

@@ -1,25 +1,29 @@
-import { createContext, useReducer } from "react";
+import React, { useEffect, useState } from "react";
+import { Auth } from "../../Database/Firebase-config";
 
-export const AuthContext = createContext();
-export const authReducer = (state, action) => {
-  switch (action.type) {
-    case "LOGIN":
-      return { ...state, user: action.payload };
-    case "LOGOUT":
-      return { ...state, user: null };
+export const AuthContext = React.createContext();
 
-    default:
-      return state;
+export const AuthProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [pending, setPending] = useState(true);
+
+  useEffect(() => {
+    Auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setPending(false);
+    });
+  }, []);
+
+  if (pending) {
+    return <>Loading...</>;
   }
-};
 
-export const AuthContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, {
-    user: null,
-  });
-  console.log("AuthContext state:", state);
   return (
-    <AuthContext.Provider value={{ ...state, dispatch }}>
+    <AuthContext.Provider
+      value={{
+        currentUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

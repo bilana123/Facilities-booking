@@ -17,3 +17,17 @@
   color: #777;
   width: 100%;
 }
+.Login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: azure;
+}
+
+.Login-form {
+  width: 300px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}

@@ -10,13 +10,13 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    login(email, password)
-    navigate("/home");
+    e.preventDefault();
+    login(email, password);
+    navigate("/");
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="Login-form mt-5">
+    <div className="Login-container">
+      <form onSubmit={handleSubmit} className="Login-form mt-5 rounded-5">
         <h2>Login</h2>
         <label>
           <span>email:</span>
@@ -24,15 +24,23 @@ export default function Login() {
             type="email"
             onChange={(e) => setemail(e.target.value)}
             value={email}
+            style={{
+              fontWeight: email ? "normal" : "normal",
+              color: "black",
+            }}
           />
         </label>
 
         <label>
-          <span>password:</span>
+          <span style={{ font }}> password:</span>
           <input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            style={{
+              fontWeight: password ? "normal" : "normal",
+              color: "black",
+            }}
           />
         </label>
         <br></br>
