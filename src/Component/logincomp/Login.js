@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLogin } from "../../Hooks/useLogin";
-import './login.css';
+import './Login.css';
 
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +29,7 @@ export default function Login() {
         </label>
 
         <label>
-          <span style={{ font }}> password:</span>
+          <span> password:</span>
           <input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
