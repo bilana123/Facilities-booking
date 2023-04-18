@@ -14,7 +14,7 @@ export default function Login() {
     e.preventDefault();
 
     login(email, password);
-    navigate("/home");
+    navigate("/Facilities");
   };
   return (
     <div>
