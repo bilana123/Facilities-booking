@@ -26,6 +26,7 @@ export default function Login() {
             type="email"
             onChange={(e) => setemail(e.target.value)}
             value={email}
+            style={{ fontWeight: email ? "normal" : "normal", color: "black" }} // added to make email text black
           />
         </label>
 
@@ -35,6 +36,7 @@ export default function Login() {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            style={{ fontWeight: password ? "normal" : "normal", color: "black" }} // added to make email text black
           />
         </label>
         <br></br>

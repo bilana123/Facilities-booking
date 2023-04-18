@@ -21,7 +21,7 @@ function Home() {
   const images = [
     {
       url: ball,
-      caption: "tg,mrbhwjekfeh2uo",
+      caption: "",
     },
     {
       url: theature,
