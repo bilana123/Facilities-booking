@@ -10,9 +10,8 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
-    login(email, password);
+    e.preventDefault()
+    login(email, password)
     navigate("/home");
   };
   return (

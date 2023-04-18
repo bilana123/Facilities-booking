@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignup } from "../../Hooks/useSignup";
 
-
 export default function Signup() {
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");

@@ -9,13 +9,13 @@ export const useLogin = () => {
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useAuthContext();
 
-  const login = async (email, password) => {
+  const login = async ( email, password) => {
     setError(null);
     setIsPending(true);
 
     //sign the user out
     try {
-      const res = await signInWithEmailAndPassword(Auth, email, password);
+      const res = await signInWithEmailAndPassword(Auth, email, password) 
       //dispatch login action
       dispatch({ type: "LOGIN", payload: res.user });
       //UPDATE STATE
