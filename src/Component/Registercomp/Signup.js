@@ -83,7 +83,7 @@ export default function Signup() {
             style={{
               fontWeight: password ? "normal" : "normal",
               color: "black",
-            }} // added to make email text black
+            }} // added to make email text blackbhgh
           />
         </label>
 
