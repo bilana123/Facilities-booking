@@ -49,7 +49,7 @@ function Home() {
       </Carousel>
       <div className="billlu">
         <h1>Explore our facilities</h1>
-        <div className="second">
+        <div className="second"> 
           <div className="card-container">
             <div className="card">
               <img className="card-img-top" src={book} alt="poster" />
@@ -72,6 +72,17 @@ function Home() {
                 </a>
               </div>
             </div>
+            <div className="card">
+              <img className="card-img-top" src={bas} alt="poster" />
+              <div className="card-body">
+                <h5 className="card-title">Basket Ball Ground</h5>
+                <p className="card-text">Basket Ball Ground is equipped with state-of-the-art equipment for all your fitness needs.</p>
+                <a href="here" className="btn btn-info">
+                  Book Now
+                </a>
+              </div>
+            </div>
+
 
             <div className="card">
               <img className="card-img-top" src={foot} alt="poster" />
