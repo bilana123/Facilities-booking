@@ -1,11 +1,12 @@
 import React from "react";
+import "./Admin.css";
 
 function AdminHome() {
   return (
     <div>
       <div class="row justify-content-center mt-5">
         <div class="col-lg">
-          <div class="card" id="admin_card">
+          <div class="card admin-card">
             <div class="card-body d-flex flex-column justify-content-center text-center">
               <button type="button" class="btn btn-primary ">
                 Create Facility
@@ -14,7 +15,7 @@ function AdminHome() {
           </div>
         </div>
         <div class="col-lg">
-          <div class="card" id="admin_card">
+          <div class="card admin-card">
             <div class="card-body d-flex flex-column justify-content-center text-center">
               <button type="button" class="btn btn-primary">
                 Edit Facility
@@ -23,7 +24,7 @@ function AdminHome() {
           </div>
         </div>
         <div class="col-lg">
-          <div class="card" id="admin_card">
+          <div class="card admin-card">
             <div class="card-body d-flex flex-column justify-content-center text-center">
               <button type="button" class="btn btn-primary">
                 Delete Facility

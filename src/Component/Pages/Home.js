@@ -21,15 +21,15 @@ function Home() {
   const images = [
     {
       url: ball,
-      caption: "tg,mrbhwjekfeh2uo",
+      caption: "Football",
     },
     {
       url: theature,
-      caption: "",
+      caption: "Lecture Theature",
     },
     {
       url: Mph,
-      caption: "",
+      caption: "MPHall ",
     },
     {
       url: Winner,

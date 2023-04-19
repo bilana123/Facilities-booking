@@ -34,7 +34,7 @@ export default function Signup() {
     >
       <form
         onSubmit={handleSubmit}
-        className="Login-form mt-5 rounded-5"
+        className="Login-form mt-5 rounded-2"
         style={{
           height: "500px",
           width: "400px",
@@ -59,7 +59,6 @@ export default function Signup() {
             }} // added to make email text black
           />
         </label>
-
         <label>
           <span style={{ fontWeight: email ? "bold" : "normal" }}>email:</span>
           <input
@@ -70,7 +69,6 @@ export default function Signup() {
             style={{ fontWeight: email ? "normal" : "normal", color: "black" }} // added to make email text black
           />
         </label>
-
         <label>
           <span style={{ fontWeight: password ? "bold" : "normal" }}>
             password:
@@ -86,7 +84,6 @@ export default function Signup() {
             }} // added to make email text blackbhgh
           />
         </label>
-
         <label>
           <span
             style={{
@@ -121,7 +118,6 @@ export default function Signup() {
         >
           Sign up
         </button>
-
         {error && <p>{error}</p>}
       </form>
     </div>

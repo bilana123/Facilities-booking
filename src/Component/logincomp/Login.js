@@ -12,11 +12,11 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     login(email, password);
-    navigate("/");
+    navigate("/Facilities");
   };
   return (
     <div className="Login-container">
-      <form onSubmit={handleSubmit} className="Login-form mt-5 rounded-5">
+      <form onSubmit={handleSubmit} className="Login-form mt-5 rounded-2">
         <h2>Login</h2>
         <label>
           <span>email:</span>
@@ -32,7 +32,7 @@ export default function Login() {
         </label>
 
         <label>
-          <span style={{ font }}> password:</span>
+          <span> password:</span>
           <input
             type="password"
             onChange={(e) => setPassword(e.target.value)}

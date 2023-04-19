@@ -36,6 +36,15 @@ export default function Navbar() {
                 <b> Home </b>
               </Link>
             </div>
+            <div class="nav-item mt-90 text-secondary">
+              <Link
+                class="nav-link active rounded-5"
+                aria-current="page"
+                to="/aboutus"
+              >
+                <b> Aboutus </b>
+              </Link>
+            </div>
 
             <div class="nav-item mt-90 text-secondary">
               <Link
