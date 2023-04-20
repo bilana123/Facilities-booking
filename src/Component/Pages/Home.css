@@ -23,4 +23,14 @@
     
 }
 
-
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .card {
+    width: 20%;
+    margin: 10px;
+  }
+  
+    

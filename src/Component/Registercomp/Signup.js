@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignup } from "../../Hooks/useSignup";
-import "./Register.css";
 
 export default function Signup() {
   const [email, setemail] = useState("");
@@ -34,7 +33,7 @@ export default function Signup() {
     >
       <form
         onSubmit={handleSubmit}
-        className="Login-form mt-5 rounded-2"
+        className="Login-form mt-5 rounded-5"
         style={{
           height: "500px",
           width: "400px",
@@ -45,20 +44,14 @@ export default function Signup() {
       >
         <h2>Register</h2>
         <label>
-          <span style={{ fontWeight: username ? "bold" : "normal" }}>
-            username:
-          </span>
+          <span>username:</span>
           <input
             type="username"
             onChange={(e) => setusername(e.target.value)}
             value={username}
-            placeholder="Enter your name"
-            style={{
-              fontWeight: username ? "normal" : "normal",
-              color: "black",
-            }} // added to make email text black
           />
         </label>
+
         <label>
           <span style={{ fontWeight: email ? "bold" : "normal" }}>email:</span>
           <input
@@ -69,6 +62,7 @@ export default function Signup() {
             style={{ fontWeight: email ? "normal" : "normal", color: "black" }} // added to make email text black
           />
         </label>
+
         <label>
           <span style={{ fontWeight: password ? "bold" : "normal" }}>
             password:
@@ -84,6 +78,7 @@ export default function Signup() {
             }} // added to make email text blackbhgh
           />
         </label>
+
         <label>
           <span
             style={{
@@ -118,6 +113,7 @@ export default function Signup() {
         >
           Sign up
         </button>
+
         {error && <p>{error}</p>}
       </form>
     </div>
