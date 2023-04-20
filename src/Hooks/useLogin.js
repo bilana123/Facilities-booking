@@ -4,7 +4,7 @@ import { Auth } from "../Database/Firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export const useLogin = () => {
-  const [isCancelled, setIsCancelled] = useState(false);
+
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const { dispatch } = useAuthContext();
@@ -19,20 +19,17 @@ export const useLogin = () => {
       //dispatch login action
       dispatch({ type: "LOGIN", payload: res.user });
       //UPDATE STATE
-      if (!isCancelled) {
+     
         setIsPending(false);
         setError(null);
       }
-    } catch (err) {
-      if (!isCancelled) {
+    catch (err) {
+    
         console.log(err.message);
         setError(err.message);
         setIsPending(false);
       }
     }
-  };
-  useEffect(() => {
-    return () => setIsCancelled(true);
-  }, []);
+ 
   return { login, error, isPending };
 };

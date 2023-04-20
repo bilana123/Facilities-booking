@@ -32,7 +32,7 @@ export default function Login() {
         </label>
 
         <label>
-          <span style={{ font }}> password:</span>
+          <span> password:</span>
           <input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
