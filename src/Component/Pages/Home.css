@@ -1,36 +1,22 @@
-.billuu{
-    height: 700%;
-    width: 700%;
-    margin: center;
-    padding: center;
-    background-size: cover;
-    position: relative;
-    vertical-align: baseline;
-}  
-.billu, h1{
-    text-align:center;
-
+.billuu {
+  height: 700%;
+  width: 700%;
+  margin: center;
+  padding: center;
+  background-size: cover;
+  position: relative;
+  vertical-align: baseline;
 }
-#you{
-    align-items: left;
-    border-image-width: 600px;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    gap: 150px;
-    border-radius: 25px;
-    
-    
+.billu,
+h1 {
+  text-align: center;
 }
-
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-  .card {
-    width: 20%;
-    margin: 10px;
-  }
-  
-    
+#you {
+  align-items: left;
+  border-image-width: 600px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 150px;
+  border-radius: 25px;
+}
