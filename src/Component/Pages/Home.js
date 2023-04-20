@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import ball from "../Image/ball.jpg";
 import theature from "../Image/theature.jpg";
 import Mph from "../Image/Mph.jpg";
@@ -9,6 +9,8 @@ import "./Home.css";
 import volleyball from "../Image/volleyball.png";
 import book from "../Image/book.jpeg";
 import bas from "../Image/bas.jpg";
+import { Link } from "react-router-dom";
+
 
 function Home() {
   const images = [
@@ -29,6 +31,14 @@ function Home() {
       caption: "",
     },
   ];
+  const [searchQuery, setSearchQuery] = useState('');
+ 
+
+  function handleSearch(event) {
+    setSearchQuery(event.target.value);
+    // Perform search operation using the searchQuery state value
+    
+  }
   return (
     <>
       <Carousel>
@@ -48,68 +58,62 @@ function Home() {
         ))}
       </Carousel>
       <div className="billlu">
-        <h1>Explore our facilities</h1>
-        <div className="second"> 
-          <div className="card-container">
-            <div className="card">
-              <img className="card-img-top" src={book} alt="poster" />
-              <div className="card-body">
-                <h5 className="card-title">MPH</h5>
-                <p className="card-text"> Provide a convenient and adaptable space that can cater to a wide range of events and activities, making it an important asset for many organizations and communities with up to 800 people.</p>
-                <a href="here" className="btn btn-info">
-                  Book Now
-                </a>
-              </div>
-            </div>
-
-            <div className="card">
-              <img className="card-img-top" src={bas} alt="poster" />
-              <div className="card-body">
-                <h5 className="card-title">Basket Ball Ground</h5>
-                <p className="card-text">Basket Ball Ground is equipped with state-of-the-art equipment for all your fitness needs.</p>
-                <a href="here" className="btn btn-info">
-                  Book Now
-                </a>
-              </div>
-            </div>
-            <div className="card">
-              <img className="card-img-top" src={bas} alt="poster" />
-              <div className="card-body">
-                <h5 className="card-title">Basket Ball Ground</h5>
-                <p className="card-text">Basket Ball Ground is equipped with state-of-the-art equipment for all your fitness needs.</p>
-                <a href="here" className="btn btn-info">
-                  Book Now
-                </a>
-              </div>
-            </div>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+  <div className="header-container">
+    <h1>Explore our facilities</h1>
+  </div>
+  <div className="row">
+  <div className="col-sm-8">
+    <input type="text" className="form-control" placeholder="Search..." id="search-input" />
+  </div>
+  <div className="col-sm-4">
+    <button className="btn btn-primary" onClick={handleSearch}>Search</button>
+  </div>
+</div>
 
 
-            <div className="card">
-              <img className="card-img-top" src={foot} alt="poster" />
-              <div className="card-body">
-                <h5 className="card-title">Football Ground</h5>
-                <p className="card-text">Football Ground has multiple soccer fields for all your team's practice and game needs.</p>
-                <a href="here" className="btn btn-info">
-                  Book Now
-                </a>
-              </div>
-            </div>
+  
+</div>
 
-            <div className="card">
-              <img className="card-img-top" src={volleyball} alt="poster" />
-              <div className="card-body">
-                <h5 className="card-title">Volly Court</h5>
-                <p className="card-text">Volly Court is perfect for volleyball tournaments and practices.</p>
-                <a href="here" className="btn btn-info">
-                  Book Now
-                </a>
-             
 
-              </div>
-            </div>
-          </div>
+  <div className="second"> 
+    <div className="card-container">
+      <div className="card">
+        <img className="card-img-top" src={Mph} alt="poster" />
+        <div className="card-body">
+          <h5 className="card-title">Halls</h5>
+          <p className="card-text"> For gatherings, events, or performances, and can serve a variety of purposes, including entertainment, sports, conferences.</p>
+          <Link to="/HallCard" className="btn btn-info">
+                  View More
+                </Link>
         </div>
       </div>
+      <div className="card">
+        <img className="card-img-top" src={ball} alt="poster" />
+        <div className="card-body">
+          <h5 className="card-title">Sports Complex</h5>
+          <p className="card-text">Offer facilities such as fields,courts,organized sports leagues or individual training and fitness activities,serve as community centers for social gatherings and events.</p>
+          <Link to="/Sport" className="btn btn-info">
+                  View More
+                </Link>
+        </div>
+      </div>
+      <div className="card">
+        <img className="card-img-top" src={book} alt="poster" />
+        <div className="card-body">
+          <h5 className="card-title">Classrooms</h5>
+          <p className="card-text">Facilitate instruction, learning, collaboration, assessment, and safety and comfort for students. </p>
+          <Link to="/HallCard" className="btn btn-info">
+    View More
+  </Link>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
     </>
   );
 }

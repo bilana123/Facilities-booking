@@ -18,7 +18,9 @@ import AdminHome from "./Component/Admin/AdminHome";
 import Create from "./Component/Admin/Create";
 import Delete from "./Component/Admin/Delete";
 import { AuthProvider } from "./Component/Context/AuthContex";
-
+import HallCard from './Component/Pages/HallCard';
+import Classroom from './Component/Pages/Classroom';
+import Sport from './Component/Pages/Sport';
 //import { FirebaseApp } from "firebase/app";
 
 function App() {
@@ -37,6 +39,9 @@ function App() {
             <Route path="/admin" element={<AdminHome />} />
             <Route path="/admin/create" element={<Create />} />
             <Route path="/admin/delete" element={<Delete />} />
+            <Route path="/HallCard" element={<HallCard/>}/>
+            <Route path="/Classroom" element={<Classroom/>}/>
+            <Route path="/Sport" element={<Sport/>}/>
           </Routes>
           <Footer />
         </BrowserRouter>
