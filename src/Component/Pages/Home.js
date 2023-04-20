@@ -11,12 +11,10 @@ import "./Home.css";
 import volleyball from "../Image/volleyball.png";
 import book from "../Image/book.jpeg";
 import bas from "../Image/bas.jpg";
-import { AuthContext } from "../Context/AuthContex";
+
 
 function Home() {
-  const { currentUser } = useContext(AuthContext);
-
-  console.log(currentUser.email);
+ 
 
   const images = [
     {

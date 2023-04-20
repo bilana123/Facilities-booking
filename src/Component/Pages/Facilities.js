@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import copy from "../Image/copy.jpg";
 import { useEffect } from "react";
 import { collection, getDocs, addDoc } from "firebase/firestore";
-import { db } from "../../Database/Firebase-config";
+import {db}  from "../../Database/Firebase-config";
 
 function Facilities() {
   const [Username, setUsername] = useState("");
@@ -15,23 +15,29 @@ function Facilities() {
   const [date, setdate] = useState("");
 
   const [Facility, setFacility] = useState([]);
-  const FacilityCollectionRef = collection(db, "Facility");
+  
 
   const BOOKED = async () => {
-    await addDoc(FacilityCollectionRef, {
-      Username: Username,
-      location: location,
-      Department: Department,
-      Start_Time: Start_Time,
-      Email: Email,
-      End_Time: End_Time,
-      date: date,
-    }); // add code to update the database with the booking details
+    try {
+      const docRef = await addDoc(collection(db, "Users"), {
+        Username: Username,
+        Location: location,
+        Department: Department,
+        Start_Time: Start_Time,
+        Email: Email,
+        End_Time: End_Time,
+        date: date,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+    // add code to update the database with the booking details
   };
 
   useEffect(() => {
     const getFacility = async () => {
-      const data = await getDocs(FacilityCollectionRef);
+      const data = await getDocs(collection(db, "Users"));
       setFacility(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getFacility();

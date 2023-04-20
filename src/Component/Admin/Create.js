@@ -1,10 +1,49 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Create.css";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
+import { storage, db } from "../../Database/Firebase-config";
 
 export default function Create() {
-  function handleSubmit(event) {
+ const [facility, setFacility] = useState("")
+ const [image, setImage] = useState(null)
+ const [description, setDescription] = useState("")
+
+ const types = ["image/png", "image/jpeg"];
+ const ImgHandler = (e) => {
+  
+  let selectedFile = e.target.files[0];
+  console.log(selectedFile)
+  if (selectedFile && types.includes(selectedFile.type)) {
+    setImage(selectedFile);
+
+   
+  } else {
+    setImage(null);
+ 
+  }
+};
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // handle form submission
+
+    const uploadTask = ref(storage, `images/${image}`);
+    await uploadBytes(uploadTask, image);
+    console.log("file uploaded");
+
+    // Get the download URL for the file
+    const url = await getDownloadURL(uploadTask);
+    console.log(`File URL: ${url}`);
+    try {
+      const docRef = await addDoc(collection(db, "Facility"), {
+       facility_name: facility,
+       Image:url,
+       Description:description
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   }
 
   return (
@@ -37,9 +76,12 @@ export default function Create() {
                   <label htmlFor="facilityname">Facility Name</label>
                   <input
                     type="text"
+                    name="facilityname"
                     className="form-control rounded-3"
                     id="facilityname"
                     placeholder="Alpha Hall"
+                    value={facility}
+                    onChange={(e) => setFacility(e.target.value)}
                     style={{ width: "350px" }}
                   />
                 </div>
@@ -47,25 +89,31 @@ export default function Create() {
                   <label htmlFor="Selectimage">Select Image</label>
                   <input
                     type="file"
+                    name="selectimage"
                     className="form-control rounded-3"
-                    id="Selectimage"
+                  
+                    onChange={ImgHandler}
+                    id="file"
                     placeholder="insert image"
                   />
                 </div>
                 <div className="group">
-                  <label htmlFor="time">Time</label>
-                  <input
-                    type="time"
+                  <label htmlFor="time">Description</label>
+                  <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    name="description"
                     className="form-control rounded-3"
-                    id="time"
-                    placeholder="Enter time in HH:MM AM/PM format"
-                  />
+                    id="description"
+                  
+                  ></textarea>
                 </div>
                 <br></br>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <button
                     type="submit"
                     className="btn"
+                    onClick={handleSubmit}
                     style={{
                       backgroundColor: "green",
                       fontSize: "12px",
