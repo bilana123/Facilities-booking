@@ -27,4 +27,9 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
+<<<<<<< HEAD
 export { Auth, db, storage};
+=======
+
+export { Auth };
+>>>>>>> origin/neten

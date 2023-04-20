@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLogin } from "../../Hooks/useLogin";
-import "./Login.css";
+import './Login.css';
+
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -12,7 +13,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     login(email, password);
-    navigate("/");
+    navigate("/home");
   };
   return (
     <div className="Login-container">
@@ -24,10 +25,6 @@ export default function Login() {
             type="email"
             onChange={(e) => setemail(e.target.value)}
             value={email}
-            style={{
-              fontWeight: email ? "normal" : "normal",
-              color: "black",
-            }}
           />
         </label>
 
@@ -37,10 +34,6 @@ export default function Login() {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
-            style={{
-              fontWeight: password ? "normal" : "normal",
-              color: "black",
-            }}
           />
         </label>
         <br></br>

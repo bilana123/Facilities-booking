@@ -1,6 +1,4 @@
-import React, { useContext, useEffect } from "react";
-//import { Link } from "react-router-dom";
-
+import React from "react";
 import ball from "../Image/ball.jpg";
 import theature from "../Image/theature.jpg";
 import Mph from "../Image/Mph.jpg";
@@ -12,14 +10,11 @@ import volleyball from "../Image/volleyball.png";
 import book from "../Image/book.jpeg";
 import bas from "../Image/bas.jpg";
 
-
 function Home() {
- 
-
   const images = [
     {
       url: ball,
-      caption: "tg,mrbhwjekfeh2uo",
+      caption: "",
     },
     {
       url: theature,
@@ -54,32 +49,79 @@ function Home() {
       </Carousel>
       <div className="billlu">
         <h1>Explore our facilities</h1>
-        <div id="you">
-          <img
-            src={foot}
-            alt="foot.jpg"
-            style={{ borderRadius: "20%", width: "150px", height: "150px" }}
-          />
-          <div className="love">
-            <img
-              src={volleyball}
-              alt="volleyball.jpg"
-              style={{ borderRadius: "20%", width: "150px", height: "150px" }}
-            />
-          </div>
-          <div className="bil">
-            <img
-              src={book}
-              alt="copy.jpg"
-              style={{ borderRadius: "20%", width: "150px", height: "150px" }}
-            />
-          </div>
-          <div className="photo">
-            <img
-              src={bas}
-              alt="bas.jpg"
-              style={{ borderRadius: "20%", width: "150px", height: "150px" }}
-            />
+        <div className="second">
+          <div className="card-container">
+            <div className="card">
+              <img className="card-img-top" src={book} alt="poster" />
+              <div className="card-body">
+                <h5 className="card-title">MPH</h5>
+                <p className="card-text">
+                  {" "}
+                  Provide a convenient and adaptable space that can cater to a
+                  wide range of events and activities, making it an important
+                  asset for many organizations and communities with up to 800
+                  people.
+                </p>
+                <a href="here" className="btn btn-info">
+                  Book Now
+                </a>
+              </div>
+            </div>
+
+            <div className="card">
+              <img className="card-img-top" src={bas} alt="poster" />
+              <div className="card-body">
+                <h5 className="card-title">Basket Ball Ground</h5>
+                <p className="card-text">
+                  Basket Ball Ground is equipped with state-of-the-art equipment
+                  for all your fitness needs.
+                </p>
+                <a href="here" className="btn btn-info">
+                  Book Now
+                </a>
+              </div>
+            </div>
+            <div className="card">
+              <img className="card-img-top" src={bas} alt="poster" />
+              <div className="card-body">
+                <h5 className="card-title">Basket Ball Ground</h5>
+                <p className="card-text">
+                  Basket Ball Ground is equipped with state-of-the-art equipment
+                  for all your fitness needs.
+                </p>
+                <a href="here" className="btn btn-info">
+                  Book Now
+                </a>
+              </div>
+            </div>
+
+            <div className="card">
+              <img className="card-img-top" src={foot} alt="poster" />
+              <div className="card-body">
+                <h5 className="card-title">Football Ground</h5>
+                <p className="card-text">
+                  Football Ground has multiple soccer fields for all your team's
+                  practice and game needs.
+                </p>
+                <a href="here" className="btn btn-info">
+                  Book Now
+                </a>
+              </div>
+            </div>
+
+            <div className="card">
+              <img className="card-img-top" src={volleyball} alt="poster" />
+              <div className="card-body">
+                <h5 className="card-title">Volly Court</h5>
+                <p className="card-text">
+                  Volly Court is perfect for volleyball tournaments and
+                  practices.
+                </p>
+                <a href="here" className="btn btn-info">
+                  Book Now
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
