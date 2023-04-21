@@ -11,12 +11,16 @@ import "./Home.css";
 import volleyball from "../Image/volleyball.png";
 import book from "../Image/book.jpeg";
 import bas from "../Image/bas.jpg";
-import { AuthContext } from "../Context/AuthContex";
+import { Link } from "react-router-dom"; // import Link from react-router-dom
+import Football from "../Image/Football.jpg";
+import Basketball from "../Image/Basketball.jpg";
+import Volleyball from "../Image/Volleyball.jpg";
+import Lawn from "../Image/Lawn.jpg";
+import Badminton from "../Image/Badminton.JPG";
+
 
 function Home() {
-  const { currentUser } = useContext(AuthContext);
-
-  console.log(currentUser.email);
+  
 
   const images = [
     {
@@ -35,7 +39,29 @@ function Home() {
       url: Winner,
       caption: "",
     },
-  ];
+      {
+          url: Basketball ,
+          caption: "",
+        },
+      
+      {
+        url: Football ,
+        caption: "",
+      },
+      {
+          url: Volleyball ,
+          caption: "",
+        },
+        {
+        url: Lawn,
+        caption: "",
+      },
+    
+      {
+          url:  Badminton,
+          caption: "",
+        },
+    ];
   return (
     <>
       <Carousel>
@@ -57,34 +83,51 @@ function Home() {
       <div className="billlu">
         <h1>Explore our facilities</h1>
         <div id="you">
-          <img
-            src={foot}
-            alt="foot.jpg"
-            style={{ borderRadius: "20%", width: "150px", height: "150px" }}
-          />
-          <div className="love">
-            <img
-              src={volleyball}
-              alt="volleyball.jpg"
-              style={{ borderRadius: "20%", width: "150px", height: "150px" }}
-            />
-          </div>
-          <div className="bil">
-            <img
-              src={book}
-              alt="copy.jpg"
-              style={{ borderRadius: "20%", width: "150px", height: "150px" }}
-            />
-          </div>
-          <div className="photo">
-            <img
-              src={bas}
-              alt="bas.jpg"
-              style={{ borderRadius: "20%", width: "150px", height: "150px" }}
-            />
-          </div>
+        <div className="home-card">
+        <div className="card-container d-flex justify-content-center">
+    <div className="card-container text-center">
+      <div className="card-hall">
+        <img className="card-img-top" src={theature} alt="poster" />
+        <div className="card-body">
+          <h5 className="card-title">Halls</h5>
+          <p className="card-text">
+            Facilitate instruction, learning, collaboration, assessment,
+            and safety and comfort for students.
+          </p>
+          <Link to="/HallCard" className="btn btn-info">Learn More</Link>
         </div>
       </div>
+      <div className="card-hall">
+        <img className="card-img-top" src={Basketball} alt="poster" />
+        <div className="card-body">
+          <h5 className="card-title">Sports Complex</h5>
+          <p className="card-text">
+            Facilitate instruction, learning, collaboration, assessment,
+            and safety and comfort for students.
+          </p>
+          <Link to="/Sport" className="btn btn-info">Learn More</Link> 
+
+        </div>
+      </div>
+      <div className="card-hall">
+        <img className="card-img-top" src={book} alt="poster" />
+        <div className="card-body">
+          <h5 className="card-title">Classrooms</h5>
+          <p className="card-text">
+            Facilitate instruction, learning, collaboration, assessment,
+            and safety and comfort for students.
+          </p>
+          <Link to="/Classroom" className="btn btn-info">Learn More</Link>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        </div>
+        </div>
+
     </>
   );
 }
