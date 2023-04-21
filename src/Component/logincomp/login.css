@@ -31,3 +31,7 @@
   background-color: #f1f1f1;
   border-radius: 5px;
 }
+.Login-form {
+  border: 1px solid black;
+  padding: 20px;
+}
