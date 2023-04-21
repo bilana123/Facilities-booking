@@ -21,6 +21,7 @@ import { AuthProvider } from "./Component/Context/AuthContex";
 import HallCard from './Component/Pages/HallCard';
 import Classroom from './Component/Pages/Classroom';
 import Sport from './Component/Pages/Sport';
+import Alpha from './Component/Pages/Alpha';
 //import { FirebaseApp } from "firebase/app";
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/About us" element={<Aboutus />} />
+            <Route path="/Aboutus" element={<Aboutus />} />
             <Route path="/" element={<Home />} />
             <Route path="/Facilities" element={<Facilities />} />
             <Route path="/admin" element={<AdminHome />} />
@@ -42,6 +43,7 @@ function App() {
             <Route path="/HallCard" element={<HallCard/>}/>
             <Route path="/Classroom" element={<Classroom/>}/>
             <Route path="/Sport" element={<Sport/>}/>
+            <Route path="/Alpha" element={<Alpha/>}/>
           </Routes>
           <Footer />
         </BrowserRouter>

@@ -37,6 +37,7 @@ function Home() {
   function handleSearch(event) {
     setSearchQuery(event.target.value);
     // Perform search operation using the searchQuery state value
+
     
   }
   return (
@@ -67,17 +68,13 @@ function Home() {
     <input type="text" className="form-control" placeholder="Search..." id="search-input" />
   </div>
   <div className="col-sm-4">
-    <button className="btn btn-primary" onClick={handleSearch}>Search</button>
-  </div>
+  <button className="btn btn-primary" onClick={handleSearch} style={{ width: '80px', height: '40px' }}>Search</button>
 </div>
 
-
-  
 </div>
-
-
+</div>
   <div className="second"> 
-    <div className="card-container">
+    <div className="card-container text-center">
       <div className="card">
         <img className="card-img-top" src={Mph} alt="poster" />
         <div className="card-body">
@@ -111,6 +108,7 @@ function Home() {
      
     </div>
   </div>
+  
 </div>
 
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import "./Classroom.css";
 import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom"; // import Link from react-router-dom
@@ -10,101 +10,72 @@ import Badminton from "../Image/Badminton.JPG";
 
 
 function Sport() {
-    const images = [
+    const sports = [
         {
-            url: Basketball ,
-            caption: "",
-          },
-        
-        {
-          url: Football ,
-          caption: "",
+            name: "Basketball",
+            image: Basketball,
+            description: "Facilitate instruction, learning, collaboration, assessment, and safety and comfort for students."
         },
         {
-            url: Volleyball ,
-            caption: "",
-          },
-          {
-          url: Lawn,
-          caption: "",
+            name: "Football",
+            image: Football,
+            description: "Facilitate instruction, learning, collaboration, assessment, and safety and comfort for students."
         },
-      
         {
-            url:  Badminton,
-            caption: "",
-          },
-      ];
-  return (
-    <>
-      <div className="sport-list">
-        <div className="card-container">
-          <div className="card-hall">
-            <img className="card-img-top" src={Football} alt="poster" />
-            <div className="card-body">
-              <h5 className="card-title">Football Ground</h5>
-              <p className="card-text">
-                Facilitate instruction, learning, collaboration, assessment,
-                and safety and comfort for students.
-              </p>
-              <Link to="/about" className="btn btn-info">Learn More</Link> {/* use Link component instead of anchor tag */}
+            name: "Volleyball",
+            image: Volleyball,
+            description: "Facilitate instruction, learning, collaboration, assessment, and safety and comfort for students."
+        },
+        {
+            name: "Lawn Tennis",
+            image: Lawn,
+            description: "Facilitate instruction, learning, collaboration, assessment, and safety and comfort for students."
+        },
+        {
+            name: "Badminton",
+            image: Badminton,
+            description: "Facilitate instruction, learning, collaboration, assessment, and safety and comfort for students."
+        }
+    ];
+
+    const [searchQuery, setSearchQuery] = useState('');
+
+    function handleSearch(event) {
+        setSearchQuery(event.target.value);
+    }
+
+    const filteredSports = sports.filter(sport => {
+        return sport.name.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+
+    return (
+        <>
+            <div className="row">
+            <div className="col-sm-4">
+  <input type="text" className="form-control" placeholder="Search..." id="search-input" onChange={handleSearch} style={{ width: '200px' }}></input>
+</div>
+
+                <div className="sport-list">
+                    <div className="card-container text-center">
+                        {filteredSports.map((sport, index) => {
+                            return (
+                                <div className="card-hall" key={index}>
+                                    <img className="card-img-top" src={sport.image} alt="poster" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{sport.name}</h5>
+                                        <p className="card-text">
+                                            {sport.description}
+                                        </p>
+                                        <Link to="/about" className="btn btn-info">Learn More</Link>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
-          </div>
-          <div className="card-hall">
-            <img className="card-img-top" src={Volleyball} alt="poster" />
-            <div className="card-body">
-              <h5 className="card-title">Volleyball Court</h5>
-              <p className="card-text">
-                Facilitate instruction, learning, collaboration, assessment,
-                and safety and comfort for students.
-              </p>
-              <a href="#" className="btn btn-info">
-                Learn More
-              </a>
-            </div>
-          </div>
-          <div className="card-hall">
-            <img className="card-img-top" src={Basketball } alt="poster" />
-            <div className="card-body">
-              <h5 className="card-title">Basketball Court</h5>
-              <p className="card-text">
-                Facilitate instruction, learning, collaboration, assessment,
-                and safety and comfort for students.
-              </p>
-              <a href="#" className="btn btn-info">
-                Learn More
-              </a>
-            </div>
-          </div>
-          <div className="card-hall">
-            <img className="card-img-top" src={Badminton} alt="poster" />
-            <div className="card-body">
-              <h5 className="card-title">Badminton Court</h5>
-              <p className="card-text">
-                Facilitate instruction, learning, collaboration, assessment,
-                and safety and comfort for students.
-              </p>
-              <a href="#" className="btn btn-info">
-                Learn More
-              </a>
-            </div>
-          </div>
-          <div className="card-hall">
-            <img className="card-img-top" src={Lawn} alt="poster" />
-            <div className="card-body">
-              <h5 className="card-title">Lawn Tennis Court</h5>
-              <p className="card-text">
-                Facilitate instruction, learning, collaboration, assessment,
-                and safety and comfort for students.
-              </p>
-              <a href="#" className="btn btn-info">
-                Learn More
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+        </>
+    );
 }
 
 export default Sport;
