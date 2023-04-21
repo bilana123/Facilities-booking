@@ -49,19 +49,18 @@ export default function Navbar() {
               <Link
                 class="nav-link active rounded-5"
                 aria-current="page"
-                to="/Facilities"
+                to="/Login"
               >
-                <b> Facilities </b>
+                <b>Login </b>
               </Link>
             </div>
-
             <div class="nav-item mt-90 text-secondary">
               <Link
                 class="nav-link active rounded-5"
                 aria-current="page"
-                to="/Login"
+                to="/signup"
               >
-                <b>Login </b>
+                <b> signup </b>
               </Link>
             </div>
           </div>

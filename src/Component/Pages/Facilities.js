@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import copy from "../Image/copy.jpg";
+//import copy from "../Image/copy.jpg";
 import { useEffect } from "react";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";

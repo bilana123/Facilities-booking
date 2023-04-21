@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignup } from "../../Hooks/useSignup";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
   const [email, setemail] = useState("");
@@ -24,7 +25,7 @@ export default function Signup() {
   return (
     <div
       style={{
-        backgroundColor: "lightblue",
+        backgroundColor: "white",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -111,6 +112,9 @@ export default function Signup() {
           Sign up
         </button>
         {error && <p>{error}</p>}
+        <p>
+          Already have an account? <Link to="/Login">Log in</Link>
+        </p>
       </form>
     </div>
   );
