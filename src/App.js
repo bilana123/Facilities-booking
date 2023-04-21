@@ -11,14 +11,15 @@ import Navbar from "./Home/Navbar";
 //import { auth, db } from '.Database/Firebase.js';
 import Aboutus from "./Component/Pages/Aboutus";
 import Home from "./Component/Pages/Home";
-
 import Footer from "./Component/Pages/Footer";
 import Facilities from "./Component/Pages/Facilities";
 import AdminHome from "./Component/Admin/AdminHome";
 import Create from "./Component/Admin/Create";
 import Delete from "./Component/Admin/Delete";
 import { AuthProvider } from "./Component/Context/AuthContex";
-
+import Sport from "./Component/Pages/Sport";
+import Classroom from "./Component/Pages/Classroom";
+import HallCard from "./Component/Pages/HallCard";
 //import { FirebaseApp } from "firebase/app";
 
 function App() {
@@ -31,12 +32,15 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/Aboutus" element={<Aboutus />} />
-            <Route path="/" element={<Home />} />
+            <Route path="/About us" element={<Aboutus />} />
+            <Route path="/Home" element={<Home />} />
             <Route path="/Facilities" element={<Facilities />} />
             <Route path="/admin" element={<AdminHome />} />
             <Route path="/admin/create" element={<Create />} />
             <Route path="/admin/delete" element={<Delete />} />
+            <Route path="Sport" element={<Sport />} />
+            <Route path="Classroom" element={<Classroom />} />
+            <Route path="HallCard" element={<HallCard />} />
           </Routes>
           <Footer />
         </BrowserRouter>
