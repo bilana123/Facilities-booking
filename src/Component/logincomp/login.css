@@ -14,20 +14,21 @@
 .Login-form input {
   padding: 4px;
   font-size: 1em;
-  color: #777;
+  color: hwb(0 51% 0%);
   width: 100%;
 }
 .Login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
   background-color: azure;
 }
 
 .Login-form {
-  width: 300px;
+  width: 50px;
   padding: 20px;
   background-color: #f1f1f1;
   border-radius: 5px;
+  border: 1px soli black;
 }

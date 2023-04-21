@@ -17,7 +17,7 @@ const firebaseConfig = {
   storageBucket: "jnec-booking.appspot.com",
   messagingSenderId: "387091398288",
   appId: "1:387091398288:web:237b7c0886367849792215",
-  measurementId: "G-56EPL5QT2E"
+  measurementId: "G-56EPL5QT2E",
 };
 
 // Initialize Firebase
@@ -27,9 +27,4 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-<<<<<<< HEAD
-export { Auth, db, storage};
-=======
-
-export { Auth };
->>>>>>> origin/neten
+export { Auth, db, storage };

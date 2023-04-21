@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLogin } from "../../Hooks/useLogin";
-import './Login.css';
+import "./Login.css";
 
 import { useNavigate } from "react-router-dom";
 
@@ -13,12 +13,12 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     login(email, password);
-    navigate("/home");
+    navigate("/admin");
   };
   return (
     <div className="Login-container">
       <form onSubmit={handleSubmit} className="Login-form mt-5 rounded-5">
-        <h2>Login</h2>
+        <h4>Admin</h4>
         <label>
           <span>email:</span>
           <input

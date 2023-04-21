@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import copy from "../Image/copy.jpg";
 import { useEffect } from "react";
 import { collection, getDocs, addDoc } from "firebase/firestore";
-import {db}  from "../../Database/Firebase-config";
+import { db } from "../../Database/Firebase-config";
 
 function Facilities() {
   const [Username, setUsername] = useState("");
@@ -15,7 +15,6 @@ function Facilities() {
   const [date, setdate] = useState("");
 
   const [Facility, setFacility] = useState([]);
-  
 
   const BOOKED = async () => {
     try {
@@ -54,97 +53,93 @@ function Facilities() {
             <div className="col-md-4 ">
               <img
                 src={copy}
-                className="img-fluid rounded-start w-100 h-100"
+                className="img-fluid rounded-start w-500 h-100"
                 alt="..."
               />
             </div>
-            <div className="col-md-8 ">
-              <div className="card-body">
-                <h5 className="card-title">MPH </h5>
-                <div className="group">
-                  <label htmlFor="username">Username</label>
-                  <input
-                    type="text"
-                    className="form-control rounded-3"
-                    id="username"
-                    placeholder="Enter your username"
-                    onChange={(e) => {
-                      setUsername(e.target.value);
-                    }}
-                  />
-                  <label htmlFor="email">Email</label>
-                  <input
-                    type="text"
-                    className="form-control rounded-3"
-                    id="email"
-                    placeholder="Enter your email"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <label htmlFor="email">location</label>
-                  <input
-                    type="text"
-                    className="form-control rounded-3"
-                    id="location"
-                    placeholder="Enter your email"
-                    onChange={(e) => setlocation(e.target.value)}
-                  />
-                  <label htmlFor="department">Department</label>
-                  <select
-                    className="form-select rounded-3"
-                    aria-label="Default select example"
-                    id="department"
-                    onChange={(e) => {
-                      setDepartment(e.target.value);
-                    }}
+
+            <div className="group">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                className="form-control rounded-3"
+                id="username"
+                placeholder="Enter your username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
+              <label htmlFor="email">Email</label>
+              <input
+                type="text"
+                className="form-control rounded-3"
+                id="email"
+                placeholder="Enter your email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label htmlFor="email">location</label>
+              <input
+                type="text"
+                className="form-control rounded-3"
+                id="location"
+                placeholder="Enter your email"
+                onChange={(e) => setlocation(e.target.value)}
+              />
+              <label htmlFor="department">Department</label>
+              <select
+                className="form-select rounded-3"
+                aria-label="Default select example"
+                id="department"
+                onChange={(e) => {
+                  setDepartment(e.target.value);
+                }}
+              >
+                <option value="">Choose a department</option>
+                <option value="IT">IT</option>
+                <option value="HR">HR</option>
+                <option value="Marketing">Marketing</option>
+              </select>
+              <label htmlFor="start-time">Start-Time</label>
+              <input
+                type="time"
+                className="form-control rounded-3"
+                id="start-time"
+                placeholder="Enter time in HH:MM AM/PM format"
+                onChange={(e) => {
+                  setStart_Time(e.target.value);
+                }}
+              />
+
+              <label htmlFor="end-time">End-Time</label>
+              <input
+                type="time"
+                className="form-control rounded-3"
+                id="End-time"
+                placeholder="Enter time in HH:MM AM/PM format"
+                onChange={(e) => {
+                  setEnd_Time(e.target.value);
+                }}
+              />
+
+              <div className="group">
+                <label htmlFor="date">date</label>
+                <input
+                  type="date"
+                  className="form-control rounded-3"
+                  id="date"
+                  placeholder="Enter time in MM/dd/yyyy format"
+                  onChange={(e) => {
+                    setdate(e.target.value);
+                  }}
+                />
+                <div className="col-md-2 mt-5">
+                  <button
+                    onClick={BOOKED}
+                    className="btn btn-primary booked-btn"
+                    style={{ fontSize: "10px" }}
                   >
-                    <option value="">Choose a department</option>
-                    <option value="IT">IT</option>
-                    <option value="HR">HR</option>
-                    <option value="Marketing">Marketing</option>
-                  </select>
-                  <label htmlFor="start-time">Start-Time</label>
-                  <input
-                    type="time"
-                    className="form-control rounded-3"
-                    id="start-time"
-                    placeholder="Enter time in HH:MM AM/PM format"
-                    onChange={(e) => {
-                      setStart_Time(e.target.value);
-                    }}
-                  />
-
-                  <label htmlFor="end-time">End-Time</label>
-                  <input
-                    type="time"
-                    className="form-control rounded-3"
-                    id="End-time"
-                    placeholder="Enter time in HH:MM AM/PM format"
-                    onChange={(e) => {
-                      setEnd_Time(e.target.value);
-                    }}
-                  />
-
-                  <div className="group">
-                    <label htmlFor="date">date</label>
-                    <input
-                      type="date"
-                      className="form-control rounded-3"
-                      id="date"
-                      placeholder="Enter time in MM/dd/yyyy format"
-                      onChange={(e) => {
-                        setdate(e.target.value);
-                      }}
-                    />
-                    <div className="col-md-2 mt-5">
-                      <button
-                        onClick={BOOKED}
-                        className="btn btn-primary booked-btn"
-                        style={{ fontSize: "10px" }}
-                      >
-                        BOOKED
-                      </button>
-                    </div>
-                  </div>
+                    BOOKED
+                  </button>
                 </div>
               </div>
             </div>

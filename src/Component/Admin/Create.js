@@ -1,28 +1,24 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./Create.css";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 import { storage, db } from "../../Database/Firebase-config";
 
 export default function Create() {
- const [facility, setFacility] = useState("")
- const [image, setImage] = useState(null)
- const [description, setDescription] = useState("")
+  const [facility, setFacility] = useState("");
+  const [image, setImage] = useState(null);
+  const [description, setDescription] = useState("");
 
- const types = ["image/png", "image/jpeg"];
- const ImgHandler = (e) => {
-  
-  let selectedFile = e.target.files[0];
-  console.log(selectedFile)
-  if (selectedFile && types.includes(selectedFile.type)) {
-    setImage(selectedFile);
-
-   
-  } else {
-    setImage(null);
- 
-  }
-};
+  const types = ["image/png", "image/jpeg"];
+  const ImgHandler = (e) => {
+    let selectedFile = e.target.files[0];
+    console.log(selectedFile);
+    if (selectedFile && types.includes(selectedFile.type)) {
+      setImage(selectedFile);
+    } else {
+      setImage(null);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -36,18 +32,21 @@ export default function Create() {
     console.log(`File URL: ${url}`);
     try {
       const docRef = await addDoc(collection(db, "Facility"), {
-       facility_name: facility,
-       Image:url,
-       Description:description
+        facility_name: facility,
+        Image: url,
+        Description: description,
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-  }
+  };
 
   return (
-    <div className="container justify-content-center mt-5" id="id_for_admin_div">
+    <div
+      className="container justify-content-center mt-5"
+      id="id_for_admin_div"
+    >
       <div className="row">
         <div className="col mt-5">
           <h1>Create Facilities</h1>
@@ -58,7 +57,6 @@ export default function Create() {
         className="border border-secondary rounded p-10"
         style={{ height: "400px" }}
       >
-<<<<<<< HEAD
         <div
           className="border border-secondary rounded p-2"
           style={{ height: "100%" }}
@@ -85,7 +83,6 @@ export default function Create() {
                     type="file"
                     name="selectimage"
                     className="form-control rounded-3"
-                  
                     onChange={ImgHandler}
                     id="file"
                     placeholder="insert image"
@@ -99,7 +96,6 @@ export default function Create() {
                     name="description"
                     className="form-control rounded-3"
                     id="description"
-                  
                   ></textarea>
                 </div>
                 <br></br>
@@ -120,40 +116,6 @@ export default function Create() {
                 </div>
               </form>
             </div>
-=======
-        <div className="row ">
-          <div className="col d-flex justify-content-center">
-            <form>
-              <div className="group">
-                <label htmlFor="facilityname">Facility Name</label>
-                <input
-                  type="text"
-                  className="form-control rounded-3"
-                  id="facilityname"
-                  placeholder="Alpha Hall"
-                  style={{ width: "350px" }} // Increase input field width
-                />
-              </div>
-              <div className="group">
-                <label htmlFor="Selectimage">Select Image</label>
-                <input
-                  type="file"
-                  className="form-control rounded-3"
-                  id="Selectimage"
-                  placeholder="insert image"
-                />
-              </div>
-              <div className="group">
-                <label htmlFor="time">Time</label>
-                <input
-                  type="time"
-                  className="form-control rounded-3"
-                  id="time"
-                  placeholder="Enter time in HH:MM AM/PM format"
-                />
-              </div>
-            </form>
->>>>>>> origin/neten
           </div>
         </div>
       </div>
