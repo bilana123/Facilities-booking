@@ -16,35 +16,41 @@ import Facilities from "./Component/Pages/Facilities";
 import AdminHome from "./Component/Admin/AdminHome";
 import Create from "./Component/Admin/Create";
 import Delete from "./Component/Admin/Delete";
-import { AuthProvider } from "./Component/Context/AuthContex";
+import { AuthContext } from "./Component/Context/AuthContex";
 import Sport from "./Component/Pages/Sport";
 import Classroom from "./Component/Pages/Classroom";
 import HallCard from "./Component/Pages/HallCard";
+
+import { useContext } from "react";
+import Protectedroute from "./Routes/Protectedroute";
 //import { FirebaseApp } from "firebase/app";
 
 function App() {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
   return (
     <>
-      <AuthProvider>
-        <BrowserRouter>
-          <Navbar />
+      <BrowserRouter>
+        <Navbar />
 
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/Aboutus" element={<Aboutus />} />
-            <Route path="/Home" element={<Home />} />
-            <Route path="/Facilities" element={<Facilities />} />
+        <Routes>
+          <Route element={<Protectedroute user={currentUser} />}>
             <Route path="/admin" element={<AdminHome />} />
-            <Route path="/admin/create" element={<Create />} />
-            <Route path="/admin/delete" element={<Delete />} />
-            <Route path="Sport" element={<Sport />} />
-            <Route path="Classroom" element={<Classroom />} />
-            <Route path="HallCard" element={<HallCard />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
-      </AuthProvider>
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/Aboutus" element={<Aboutus />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/Facilities" element={<Facilities />} />
+
+          <Route path="/admin/create" element={<Create />} />
+          <Route path="/admin/delete" element={<Delete />} />
+          <Route path="Sport" element={<Sport />} />
+          <Route path="Classroom" element={<Classroom />} />
+          <Route path="HallCard" element={<HallCard />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </>
   );
 }

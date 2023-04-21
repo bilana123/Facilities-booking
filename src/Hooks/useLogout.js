@@ -17,8 +17,8 @@ const useLogout = () => {
 
     try {
       await signOut(Auth);
-      //dispatch login action
-      dispatch({ type: "LOOUT" });
+      //dispatch logout action
+      dispatch({ type: "LOGOUT" });
 
       //update state
       if (!isCancelled) {
@@ -38,3 +38,5 @@ const useLogout = () => {
   }, []);
   return { Logout, error, isPending };
 };
+
+export default useLogout;

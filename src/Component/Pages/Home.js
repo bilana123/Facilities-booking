@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import ball from "../Image/ball.jpg";
 import theature from "../Image/theature.jpg";
 import Mph from "../Image/Mph.jpg";
@@ -15,8 +15,11 @@ import Basketball from "../Image/Basketball.jpg";
 import Volleyball from "../Image/Volleyball.jpg";
 import Lawn from "../Image/Lawn.jpg";
 import Badminton from "../Image/Badminton.JPG";
+import { AuthContext } from "../Context/AuthContex";
 
 function Home() {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
   const images = [
     {
       url: ball,

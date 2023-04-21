@@ -7,6 +7,8 @@ export default function Signup() {
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setusername] = useState("");
+  const [department, setDepartment] = useState("");
+
   const [Confirm_password, setConfirm_password] = useState("");
   const { Signup, isPending, error } = useSignup();
   const navigate = useNavigate();
@@ -15,8 +17,13 @@ export default function Signup() {
     e.preventDefault();
 
     if (Confirm_password === password) {
-      Signup(email, password, username);
-      navigate("/Login");
+      try {
+        Signup(email, password, username, department).then(() => {
+          navigate("/admin");
+        });
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       alert("password should match");
     }
@@ -63,6 +70,19 @@ export default function Signup() {
           />
         </label>
         <label>
+          <span style={{ fontWeight: department ? "bold" : "normal" }}>
+            department:
+          </span>
+          <select
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+          >
+            <option value="">Select department</option>
+            <option value="IT">IT</option>
+            <option value="sports">sports</option>
+          </select>
+        </label>
+        <label>
           <span style={{ fontWeight: password ? "bold" : "normal" }}>
             password:
           </span>
@@ -86,6 +106,19 @@ export default function Signup() {
           >
             Confirm_password :
           </span>
+          <button
+            type="submit"
+            className="btn"
+            style={{
+              backgroundColor: "green",
+              fontSize: "12px",
+              padding: "5px 10px",
+              margin: "0 auto", // center horizontally
+              width: "100px",
+            }}
+          >
+            Sign up
+          </button>
           <input
             type="password"
             onChange={(e) => setConfirm_password(e.target.value)}
@@ -98,19 +131,6 @@ export default function Signup() {
           />
         </label>
 
-        <button
-          type="submit"
-          className="btn"
-          style={{
-            backgroundColor: "green",
-            fontSize: "12px",
-            padding: "5px 10px",
-            margin: "0 auto", // center horizontally
-            width: "100px",
-          }}
-        >
-          Sign up
-        </button>
         {error && <p>{error}</p>}
         <p>
           Already have an account? <Link to="/Login">Log in</Link>

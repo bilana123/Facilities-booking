@@ -1,19 +1,27 @@
 import { useState } from "react";
 import { useLogin } from "../../Hooks/useLogin";
+import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const [email, setemail] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isSubadmin, setIsSubadmin] = useState(false);
   const [password, setPassword] = useState("");
-  const { login, error, ispending } = useLogin();
+  const { login, isPending } = useLogin();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
-    navigate("/home");
+
+    try {
+      await login(email, password).then(() => {
+        navigate("/admin");
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="Login-container">
@@ -23,7 +31,7 @@ export default function Login() {
           <span>email:</span>
           <input
             type="email"
-            onChange={(e) => setemail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
             style={{ border: "2px solid black" }}
           />
@@ -39,16 +47,26 @@ export default function Login() {
             style={{ border: "2px solid black" }}
           />
         </label>
-        <br></br>
+        <br />
 
-        {!ispending && (
-          <Link to="/admin" className="btn btn-info justify-centre">
+        {!isPending && (
+          <button
+            type="submit"
+            className="btn"
+            style={{
+              backgroundColor: "green",
+              fontSize: "12px",
+              padding: "5px 10px",
+              margin: "0 auto", // center horizontally
+              width: "100px",
+            }}
+          >
             Login
-          </Link>
+          </button>
         )}
-        {ispending && (
+        {isPending && (
           <button className="btn" disabled>
-            loading
+            Loading
           </button>
         )}
         {error && <p>{error}</p>}

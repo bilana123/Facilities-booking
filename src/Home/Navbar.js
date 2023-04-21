@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Navbar.css"; // import CSS file for the navbar
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import useLogout from "../Hooks/useLogout";
+import { useNavigate } from "react-router-dom";
 import logo from "../Component/Image/logo.png";
+
+import { AuthContext } from "../Component/Context/AuthContex";
 
 export default function Navbar() {
   <Navbar />;
+  const { currentUser } = useContext(AuthContext);
+  const { Logout, isPending } = useLogout();
+  const navigate = useNavigate();
+
+  const handelLogout = async () => {
+    try {
+      await Logout().then(() => {
+        navigate("/home");
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <nav class="navbar navbar-expand-lg bg-yellow">
@@ -46,22 +63,36 @@ export default function Navbar() {
             </div>
 
             <div class="nav-item mt-90 text-secondary">
-              <Link
-                class="nav-link active rounded-5"
-                aria-current="page"
-                to="/Login"
-              >
-                <b>Login </b>
-              </Link>
-            </div>
-            <div class="nav-item mt-90 text-secondary">
-              <Link
-                class="nav-link active rounded-5"
-                aria-current="page"
-                to="/signup"
-              >
-                <b> signup </b>
-              </Link>
+              {!currentUser ? (
+                <>
+                  <div class="nav-item mt-90 text-secondary">
+                    <Link
+                      class="nav-link active rounded-5"
+                      aria-current="page"
+                      to="/Login"
+                    >
+                      <b>Login </b>
+                    </Link>
+                  </div>
+                  <div class="nav-item mt-90 text-secondary">
+                    <Link
+                      class="nav-link active rounded-5"
+                      aria-current="page"
+                      to="/signup"
+                    >
+                      <b> signup </b>
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <Link
+                  class="nav-link active rounded-5"
+                  aria-current="page"
+                  onClick={handelLogout}
+                >
+                  <b>Logout</b>
+                </Link>
+              )}
             </div>
           </div>
         </div>
