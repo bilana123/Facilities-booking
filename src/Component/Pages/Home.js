@@ -11,6 +11,10 @@ import book from "../Image/book.jpeg";
 import bas from "../Image/bas.jpg";
 
 function Home() {
+  const { currentUser } = useContext(AuthContext);
+
+  console.log(currentUser.email);
+
   const images = [
     {
       url: ball,

@@ -18,15 +18,20 @@ export const useLogin = () => {
       //dispatch login action
       dispatch({ type: "LOGIN", payload: res.user });
       //UPDATE STATE
-
-      setIsPending(false);
-      setError(null);
+      if (!isCancelled) {
+        setIsPending(false);
+        setError(null);
+      }
     } catch (err) {
-      console.log(err.message);
-      setError(err.message);
-      setIsPending(false);
+      if (!isCancelled) {
+        console.log(err.message);
+        setError(err.message);
+        setIsPending(false);
+      }
     }
   };
-
+  useEffect(() => {
+    return () => setIsCancelled(true);
+  }, []);
   return { login, error, isPending };
 };
