@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignup } from "../../Hooks/useSignup";
 import { Link } from "react-router-dom";
+import "./Register.css";
 
 export default function Signup() {
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setusername] = useState("");
   const [department, setDepartment] = useState("");
-
   const [Confirm_password, setConfirm_password] = useState("");
   const { Signup, isPending, error } = useSignup();
   const navigate = useNavigate();
@@ -30,60 +30,55 @@ export default function Signup() {
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
-      <form
-        onSubmit={handleSubmit}
-        className="Login-form mt-5 rounded-2"
-        style={{
-          height: "500px",
-          width: "400px",
-          fontSize: "18px",
-          textAlign: "center",
-          backgroundColor: "white",
-        }}
-      >
-        <h2>Register</h2>
-        <label>
-          <span>username:</span>
+    <div className="container">
+      <form onSubmit={handleSubmit} className="Login-form">
+        <h2 className="form-heading">Register</h2>
+        <label className="form-label">
+          <span className="form-span">username:</span>
           <input
             type="username"
             onChange={(e) => setusername(e.target.value)}
             value={username}
+            className="form-input"
           />
         </label>
-        <label>
-          <span style={{ fontWeight: email ? "bold" : "normal" }}>email:</span>
+        <label className="form-label">
+          <span
+            className={`form-span ${email && "form-span--bold"}`}
+            // add form-span--bold class if email is not empty
+          >
+            email:
+          </span>
           <input
             type="email"
             onChange={(e) => setemail(e.target.value)}
             value={email}
             placeholder="Enter your email"
-            style={{ fontWeight: email ? "normal" : "normal", color: "black" }} // added to make email text black
+            className="form-input"
           />
         </label>
-        <label>
-          <span style={{ fontWeight: department ? "bold" : "normal" }}>
+        <label className="form-label">
+          <span
+            className={`form-span ${department && "form-span--bold"}`}
+            // add form-span--bold class if department is not empty
+          >
             department:
           </span>
           <select
             value={department}
             onChange={(e) => setDepartment(e.target.value)}
+            className="form-input"
           >
             <option value="">Select department</option>
             <option value="IT">IT</option>
             <option value="sports">sports</option>
           </select>
         </label>
-        <label>
-          <span style={{ fontWeight: password ? "bold" : "normal" }}>
+        <label className="form-label">
+          <span
+            className={`form-span ${password && "form-span--bold"}`}
+            // add form-span--bold class if password is not empty
+          >
             password:
           </span>
           <input
@@ -91,49 +86,30 @@ export default function Signup() {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             placeholder="Enter password"
-            style={{
-              fontWeight: password ? "normal" : "normal",
-              color: "black",
-            }} // added to make email text blackbhgh
+            className="form-input"
           />
         </label>
-        <label>
+        <label className="form-label">
           <span
-            style={{
-              fontWeight: Confirm_password ? "bold" : "normal",
-              color: "black",
-            }}
+            className={`form-span ${Confirm_password && "form-span--bold"}`}
+            // add form-span--bold class if Confirm_password is not empty
           >
             Confirm_password :
           </span>
-          <button
-            type="submit"
-            className="btn"
-            style={{
-              backgroundColor: "green",
-              fontSize: "12px",
-              padding: "5px 10px",
-              margin: "0 auto", // center horizontally
-              width: "100px",
-            }}
-          >
-            Sign up
-          </button>
           <input
             type="password"
             onChange={(e) => setConfirm_password(e.target.value)}
             value={Confirm_password}
             placeholder="Confirm password"
-            style={{
-              fontWeight: Confirm_password ? "normal" : "normal",
-              color: "black",
-            }} // added to make email text black
+            className="form-input"
           />
         </label>
-
-        {error && <p>{error}</p>}
-        <p>
-          Already have an account? <Link to="/Login">Log in</Link>
+        <button type="submit" className="form-btn" disabled={isPending}>
+          {isPending ? "Signing up..." : "Sign up"}
+        </button>
+        {error && <p className="error">{error}</p>}
+        <p className="login">
+          Already have an account? <Link to="/login">Log in</Link>
         </p>
       </form>
     </div>

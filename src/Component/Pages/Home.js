@@ -10,7 +10,7 @@ import volleyball from "../Image/volleyball.png";
 import book from "../Image/book.jpeg";
 import bas from "../Image/bas.jpg";
 import { Link } from "react-router-dom";
-import { useContext } from 'react';
+
 
 
 function Home() {

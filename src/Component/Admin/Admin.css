@@ -1,8 +1,47 @@
-.admin-card {
-  width: 300px; /* adjust width value as needed */
-  height: 200px; /* adjust height value as needed */
+.Sidebar {
+  width: 300px;
+  min-width: 300px;
+  background: var(--primary-color);
+  min-height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+  color: #f3edf8;
+  background-color: #376bf8;
 }
-.admin-card {
-  width: 300px; /* adjust width value as needed */
-  height: 200px; /* adjust height value as needed */
+.Sidebar-content {
+  position: fixed;
+  width: inherit;
+}
+.Sidebar.Admin {
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 1px;
+  padding: 40px 30px;
+  border-bottom: 1px solid rgba(red, green, blue, alpha);
+  color: #5695f5;
+}
+.Sidebar .links {
+  margin-top: 80px;
+  margin-left: 20px;
+}
+.Sidebar.links li {
+  margin-top: 10px;
+}
+.Sidebar.links a {
+  display: flex;
+}
+.Sidebar.links img {
+  margin-right: 10px;
+  filter: invert(100%);
+}
+.Sidebar.links a.active {
+  color: #110a0a;
+  background: var(--bg-color);
+  border-radius: 20px 0 0 20px;
+}
+.Sidebar.links .active img {
+  filter: invert(40%);
+}
+.Sidebar.p {
+  text-align: center;
 }

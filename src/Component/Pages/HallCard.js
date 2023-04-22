@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ball from "../Image/ball.jpg";
+import { Link } from "react-router-dom"; // import Link from react-router-dom
 import theature from "../Image/theature.jpg";
 import Mph from "../Image/Mph.jpg";
-import Winner from "../Image/Winner.jpg";
-import foot from "../Image/foot.jpg";
-import { Carousel } from "react-bootstrap";
-import volleyball from "../Image/volleyball.png";
-import book from "../Image/book.jpeg";
-import bas from "../Image/bas.jpg";
 import Alpha from "../Image/Alpha.jpg";
 import Beta from "../Image/Beta.jpg";
 import "./HallCard.css";
@@ -26,19 +20,11 @@ function HallList() {
   console.log(Create);
   const images = [
     {
-      url: ball,
-      caption: "",
-    },
-    {
       url: theature,
       caption: "",
     },
     {
       url: Mph,
-      caption: "",
-    },
-    {
-      url: Winner,
       caption: "",
     },
    
