@@ -21,6 +21,9 @@ import HallCard from './Component/Pages/HallCard';
 import Classroom from './Component/Pages/Classroom';
 import Sport from './Component/Pages/Sport';
 import Alpha from './Component/Pages/Alpha';
+import { AuthContext } from "./Component/Context/AuthContex";
+import Protectedroute from "./Routes/Protectedroute";
+import { useContext } from "react";
 //import { FirebaseApp } from "firebase/app";
 
 function App() {

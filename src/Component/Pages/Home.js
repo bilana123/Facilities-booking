@@ -10,11 +10,11 @@ import volleyball from "../Image/volleyball.png";
 import book from "../Image/book.jpeg";
 import bas from "../Image/bas.jpg";
 import { Link } from "react-router-dom";
+import { useContext } from 'react';
 
 
 function Home() {
-  const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
+ 
   const images = [
     {
       url: ball,
@@ -32,28 +32,7 @@ function Home() {
       url: Winner,
       caption: "",
     },
-    {
-      url: Basketball,
-      caption: "",
-    },
-
-    {
-      url: Football,
-      caption: "",
-    },
-    {
-      url: Volleyball,
-      caption: "",
-    },
-    {
-      url: Lawn,
-      caption: "",
-    },
-
-    {
-      url: Badminton,
-      caption: "",
-    },
+    
   ];
   const [searchQuery, setSearchQuery] = useState('');
  
@@ -102,7 +81,7 @@ function Home() {
                   </div>
                 </div>
                 <div className="card-hall">
-                  <img className="card-img-top" src={Basketball} alt="poster" />
+                  <img className="card-img-top" src={ball} alt="poster" />
                   <div className="card-body">
                     <h5 className="card-title">Sports Complex</h5>
                     <p className="card-text">
@@ -152,8 +131,6 @@ function Home() {
   </Link>
         </div>
       </div>
-     
-
     </>
   );
 }
