@@ -30,7 +30,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-5">
       <form onSubmit={handleSubmit} className="Login-form">
         <h2 className="form-heading">Register</h2>
         <label className="form-label">
