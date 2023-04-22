@@ -35,14 +35,13 @@ export default function Navbar() {
                 <b> Home </b>
               </Link>
             </div>
-
             <div class="nav-item mt-90 text-secondary">
               <Link
                 class="nav-link active rounded-5"
                 aria-current="page"
-                to="/Facilities"
+                to="/aboutus"
               >
-                <b> Facilities </b>
+                <b> Aboutus </b>
               </Link>
             </div>
 
@@ -53,6 +52,15 @@ export default function Navbar() {
                 to="/Login"
               >
                 <b>Login </b>
+              </Link>
+            </div>
+            <div class="nav-item mt-90 text-secondary">
+              <Link
+                class="nav-link active rounded-5"
+                aria-current="page"
+                to="/signup"
+              >
+                <b> signup </b>
               </Link>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLogin } from "../../Hooks/useLogin";
-import "./Login.css";
-
+import "./login.css";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -17,14 +17,15 @@ export default function Login() {
   };
   return (
     <div className="Login-container">
-      <form onSubmit={handleSubmit} className="Login-form mt-5 rounded-5">
-        <h4>Admin</h4>
+      <form onSubmit={handleSubmit} className="Login-form mt-5 rounded-2">
+        <h5>Admin</h5>
         <label>
           <span>email:</span>
           <input
             type="email"
             onChange={(e) => setemail(e.target.value)}
             value={email}
+            style={{ border: "2px solid black" }}
           />
         </label>
 
@@ -32,13 +33,19 @@ export default function Login() {
           <span> password:</span>
           <input
             type="password"
+            required
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            style={{ border: "2px solid black" }}
           />
         </label>
         <br></br>
 
-        {!ispending && <button className="btn">Login</button>}
+        {!ispending && (
+          <Link to="/admin" className="btn btn-info justify-centre">
+            Login
+          </Link>
+        )}
         {ispending && (
           <button className="btn" disabled>
             loading

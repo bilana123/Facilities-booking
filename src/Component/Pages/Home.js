@@ -9,6 +9,12 @@ import "./Home.css";
 import volleyball from "../Image/volleyball.png";
 import book from "../Image/book.jpeg";
 import bas from "../Image/bas.jpg";
+import { Link } from "react-router-dom"; // import Link from react-router-dom
+import Football from "../Image/Football.jpg";
+import Basketball from "../Image/Basketball.jpg";
+import Volleyball from "../Image/Volleyball.jpg";
+import Lawn from "../Image/Lawn.jpg";
+import Badminton from "../Image/Badminton.JPG";
 
 function Home() {
   const images = [
@@ -18,14 +24,36 @@ function Home() {
     },
     {
       url: theature,
-      caption: "",
+      caption: "Lecture Theature",
     },
     {
       url: Mph,
-      caption: "",
+      caption: "MPHall ",
     },
     {
       url: Winner,
+      caption: "",
+    },
+    {
+      url: Basketball,
+      caption: "",
+    },
+
+    {
+      url: Football,
+      caption: "",
+    },
+    {
+      url: Volleyball,
+      caption: "",
+    },
+    {
+      url: Lawn,
+      caption: "",
+    },
+
+    {
+      url: Badminton,
       caption: "",
     },
   ];
@@ -49,77 +77,49 @@ function Home() {
       </Carousel>
       <div className="billlu">
         <h1>Explore our facilities</h1>
-        <div className="second">
-          <div className="card-container">
-            <div className="card">
-              <img className="card-img-top" src={book} alt="poster" />
-              <div className="card-body">
-                <h5 className="card-title">MPH</h5>
-                <p className="card-text">
-                  {" "}
-                  Provide a convenient and adaptable space that can cater to a
-                  wide range of events and activities, making it an important
-                  asset for many organizations and communities with up to 800
-                  people.
-                </p>
-                <a href="here" className="btn btn-info">
-                  Book Now
-                </a>
-              </div>
-            </div>
-
-            <div className="card">
-              <img className="card-img-top" src={bas} alt="poster" />
-              <div className="card-body">
-                <h5 className="card-title">Basket Ball Ground</h5>
-                <p className="card-text">
-                  Basket Ball Ground is equipped with state-of-the-art equipment
-                  for all your fitness needs.
-                </p>
-                <a href="here" className="btn btn-info">
-                  Book Now
-                </a>
-              </div>
-            </div>
-            <div className="card">
-              <img className="card-img-top" src={bas} alt="poster" />
-              <div className="card-body">
-                <h5 className="card-title">Basket Ball Ground</h5>
-                <p className="card-text">
-                  Basket Ball Ground is equipped with state-of-the-art equipment
-                  for all your fitness needs.
-                </p>
-                <a href="here" className="btn btn-info">
-                  Book Now
-                </a>
-              </div>
-            </div>
-
-            <div className="card">
-              <img className="card-img-top" src={foot} alt="poster" />
-              <div className="card-body">
-                <h5 className="card-title">Football Ground</h5>
-                <p className="card-text">
-                  Football Ground has multiple soccer fields for all your team's
-                  practice and game needs.
-                </p>
-                <a href="here" className="btn btn-info">
-                  Book Now
-                </a>
-              </div>
-            </div>
-
-            <div className="card">
-              <img className="card-img-top" src={volleyball} alt="poster" />
-              <div className="card-body">
-                <h5 className="card-title">Volly Court</h5>
-                <p className="card-text">
-                  Volly Court is perfect for volleyball tournaments and
-                  practices.
-                </p>
-                <a href="here" className="btn btn-info">
-                  Book Now
-                </a>
+        <div id="you">
+          <div className="home-card">
+            <div className="card-container d-flex justify-content-center">
+              <div className="card-container text-center">
+                <div className="card-hall">
+                  <img className="card-img-top" src={theature} alt="poster" />
+                  <div className="card-body">
+                    <h5 className="card-title">Halls</h5>
+                    <p className="card-text">
+                      Facilitate instruction, learning, collaboration,
+                      assessment, and safety and comfort for students.
+                    </p>
+                    <Link to="/HallCard" className="btn btn-info">
+                      Learn More
+                    </Link>
+                  </div>
+                </div>
+                <div className="card-hall">
+                  <img className="card-img-top" src={Basketball} alt="poster" />
+                  <div className="card-body">
+                    <h5 className="card-title">Sports Complex</h5>
+                    <p className="card-text">
+                      Facilitate instruction, learning, collaboration,
+                      assessment, and safety and comfort for students.
+                    </p>
+                    <Link to="/Sport" className="btn btn-info">
+                      Learn More
+                    </Link>
+                  </div>
+                </div>
+                <div className="card-hall">
+                  <img className="card-img-top" src={book} alt="poster" />
+                  <div className="card-body">
+                    <h5 className="card-title">Classrooms</h5>
+                    <p className="card-text">
+                      Facilitate instruction, learning, collaboration,
+                      assessment, and safety and comfort for students.
+                    </p>
+                    <Link to="/Classroom" className="btn btn-info">
+                      Learn More
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
