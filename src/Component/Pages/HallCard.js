@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import ball from "../Image/ball.jpg";
 import theature from "../Image/theature.jpg";
 import Mph from "../Image/Mph.jpg";
@@ -9,11 +10,20 @@ import book from "../Image/book.jpeg";
 import bas from "../Image/bas.jpg";
 import Alpha from "../Image/Alpha.jpg";
 import Beta from "../Image/Beta.jpg";
-import React, { useState } from 'react';
-import "./HallCard.css"
-import { Link } from "react-router-dom";
+import "./HallCard.css";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../Database/Firebase-config";
 
 function HallList() {
+  const [Create, setCreate] = useState("");
+  const getCreate = async () => {
+    const data = await getDocs(collection(db, "Facility"));
+    setCreate(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+  useEffect(() => {
+    getCreate();
+  }, []);
+  console.log(Create);
   const images = [
     {
       url: ball,

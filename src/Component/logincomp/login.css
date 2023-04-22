@@ -22,7 +22,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: azure;
+  background-color: rgb(252, 253, 253);
 }
 
 .Login-form {
@@ -30,4 +30,8 @@
   padding: 20px;
   background-color: #f1f1f1;
   border-radius: 5px;
+}
+.Login-form {
+  border: 1px solid black;
+  padding: 20px;
 }

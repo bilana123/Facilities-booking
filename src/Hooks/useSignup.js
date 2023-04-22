@@ -1,45 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Auth } from "../Database/Firebase-config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useAuthContext } from "./useAuthContex";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-export const useSignup = () => {
-  const [isCancelled, setIsCancelled] = useState(false)
+export const useSignup = (dispatch) => {
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
-  const Signup = async (email, password, username) => {
-    const { dispatch } = useAuthContext;
+
+  const Signup = async (email, password, username, department) => {
     setError(null);
     setIsPending(true);
 
     try {
+      console.log(department);
       //signup user methodg
-      const res = await createUserWithEmailAndPassword(Auth, email, password);
-
-      if (!res) {
-        throw new Error("could not complete signup");
-      }
-      //add username to user
-      await res.user.updateProfile({ username });
-
+      const { user } = await createUserWithEmailAndPassword(
+        Auth,
+        email,
+        password
+      );
+      console.log(user);
+      await updateProfile(user, { displayName: username });
+      user.department = department;
       //DISPATCH LOGIN ACTION
-      dispatch({ type: "LOGIN", payload: res.user });
-      //update state
-      if (!isCancelled) {
-        setIsPending(false);
-        setError(null);
-      }
+      dispatch({ type: "LOGIN", payload: user });
+
+      setIsPending(false);
+      setError(null);
     } catch (err) {
-      if (!isCancelled) {
-        console.log(err.message);
-        setError(err.message);
-        setIsPending(false);
-      }
+      console.log(err.message);
+      setError(err.message);
+      setIsPending(false);
     }
   };
-  useEffect(() => {
-    return () => setIsCancelled(true);
-  }, []);
 
   return { error, isPending, Signup };
 };

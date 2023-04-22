@@ -1,18 +1,16 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./Navbar.css"; // import CSS file for the navbar
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import useLogout from "../Hooks/useLogout";
+import { useNavigate } from "react-router-dom";
 import logo from "../Component/Image/logo.png";
 
-// add the style to the CSS file or inside the component
-const navbarStyle = {
-  backgroundColor: " #e3ef5e",
-};
+import { AuthContext } from "../Component/Context/AuthContex";
 
-export default function Navbar(props) {
-  const navbarStyle = {
-    backgroundColor: "#f1e378"
-  };
-
+export default function Navbar() {
+  <Navbar />;
   return (
     <>
       <nav className="navbar navbar-expand-lg" style={navbarStyle}>
@@ -43,19 +41,19 @@ export default function Navbar(props) {
               </Link>
             </div>
 
-            <div className="nav-item mt-90 text-secondary">
+            <div class="nav-item mt-90 text-secondary">
               <Link
                 className="nav-link active rounded-5 px-4"
                 aria-current="page"
-                to="/Facilities"
+                to="/aboutus"
               >
-                <b> Facilities </b>
+                <b> Aboutus </b>
               </Link>
             </div>
 
-            <div className="nav-item mt-90 text-secondary">
+            <div class="nav-item mt-90 text-secondary">
               <Link
-                className="nav-link active rounded-5 px-4"
+                class="nav-link active rounded-5"
                 aria-current="page"
                 to="/Login"
               >
@@ -63,19 +61,15 @@ export default function Navbar(props) {
               </Link>
             </div>
 
-            {props.isAuthenticated ? (
-              <></>
-            ) : (
-              <div className=" text-secondary">
-                <Link
-                  className="nav-link active rounded-5 px-4"
-                  aria-current="page"
-                  to="/Signup"
-                >
-                  <b>Sign Up</b>
-                </Link>
-              </div>
-            )}
+            <div class=" text-secondary">
+              <Link
+                class="nav-link active rounded-5"
+                aria-current="page"
+                to="/Signup"
+              >
+                <b>Sign Up</b>
+              </Link>
+            </div>
           </div>
         </div>
       </nav>

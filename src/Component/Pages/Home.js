@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 
 
 function Home() {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
   const images = [
     {
       url: ball,
@@ -20,14 +22,36 @@ function Home() {
     },
     {
       url: theature,
-      caption: "",
+      caption: "Lecture Theature",
     },
     {
       url: Mph,
-      caption: "",
+      caption: "MPHall ",
     },
     {
       url: Winner,
+      caption: "",
+    },
+    {
+      url: Basketball,
+      caption: "",
+    },
+
+    {
+      url: Football,
+      caption: "",
+    },
+    {
+      url: Volleyball,
+      caption: "",
+    },
+    {
+      url: Lawn,
+      caption: "",
+    },
+
+    {
+      url: Badminton,
       caption: "",
     },
   ];
@@ -59,30 +83,53 @@ function Home() {
         ))}
       </Carousel>
       <div className="billlu">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-  <div className="header-container">
-    <h1>Explore our facilities</h1>
-  </div>
-  <div className="row">
-  <div className="col-sm-8">
-    <input type="text" className="form-control" placeholder="Search..." id="search-input" />
-  </div>
-  <div className="col-sm-4">
-  <button className="btn btn-primary" onClick={handleSearch} style={{ width: '80px', height: '40px' }}>Search</button>
-</div>
-
-</div>
-</div>
-  <div className="second"> 
-    <div className="card-container text-center">
-      <div className="card">
-        <img className="card-img-top" src={Mph} alt="poster" />
-        <div className="card-body">
-          <h5 className="card-title">Halls</h5>
-          <p className="card-text"> For gatherings, events, or performances, and can serve a variety of purposes, including entertainment, sports, conferences.</p>
-          <Link to="/HallCard" className="btn btn-info">
-                  View More
-                </Link>
+        <h1>Explore our facilities</h1>
+        <div id="you">
+          <div className="home-card">
+            <div className="card-container d-flex justify-content-center">
+              <div className="card-container text-center">
+                <div className="card-hall">
+                  <img className="card-img-top" src={theature} alt="poster" />
+                  <div className="card-body">
+                    <h5 className="card-title">Halls</h5>
+                    <p className="card-text">
+                      Facilitate instruction, learning, collaboration,
+                      assessment, and safety and comfort for students.
+                    </p>
+                    <Link to="/HallCard" className="btn btn-info">
+                      Learn More
+                    </Link>
+                  </div>
+                </div>
+                <div className="card-hall">
+                  <img className="card-img-top" src={Basketball} alt="poster" />
+                  <div className="card-body">
+                    <h5 className="card-title">Sports Complex</h5>
+                    <p className="card-text">
+                      Facilitate instruction, learning, collaboration,
+                      assessment, and safety and comfort for students.
+                    </p>
+                    <Link to="/Sport" className="btn btn-info">
+                      Learn More
+                    </Link>
+                  </div>
+                </div>
+                <div className="card-hall">
+                  <img className="card-img-top" src={book} alt="poster" />
+                  <div className="card-body">
+                    <h5 className="card-title">Classrooms</h5>
+                    <p className="card-text">
+                      Facilitate instruction, learning, collaboration,
+                      assessment, and safety and comfort for students.
+                    </p>
+                    <Link to="/Classroom" className="btn btn-info">
+                      Learn More
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="card">
@@ -106,11 +153,6 @@ function Home() {
         </div>
       </div>
      
-    </div>
-  </div>
-  
-</div>
-
 
     </>
   );

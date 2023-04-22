@@ -11,18 +11,19 @@
     text-align:left;
 
 }
-#you{
-    align-items: left;
-    border-image-width: 600px;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    gap: 150px;
-    border-radius: 25px;
-    
-    
+.billu,
+h1 {
+  text-align: center;
 }
-
+#you {
+  align-items: left;
+  border-image-width: 600px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 150px;
+  border-radius: 25px;
+}
 .card-container {
   display: flex;
   justify-content: center;
