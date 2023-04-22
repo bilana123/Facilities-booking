@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ball from "../Image/ball.jpg";
+
 import theature from "../Image/theature.jpg";
-import Mph from "../Image/Mph.jpg";
-import Winner from "../Image/Winner.jpg";
-import foot from "../Image/foot.jpg";
-import { Carousel } from "react-bootstrap";
-import volleyball from "../Image/volleyball.png";
-import book from "../Image/book.jpeg";
-import bas from "../Image/bas.jpg";
+
 import Alpha from "../Image/Alpha.jpg";
 import Beta from "../Image/Beta.jpg";
 import "./HallCard.css";
@@ -24,45 +18,24 @@ function HallList() {
     getCreate();
   }, []);
   console.log(Create);
-  const images = [
-    {
-      url: ball,
-      caption: "",
-    },
-    {
-      url: theature,
-      caption: "",
-    },
-    {
-      url: Mph,
-      caption: "",
-    },
-    {
-      url: Winner,
-      caption: "",
-    },
 
-    {
-      url: Beta,
-      caption: "",
-    },
-  ];
   return (
     <div>
-      {Create.map((create) => {
-        return (
-          <div className="card-hall">
-            <img className="card-img-top" src={create.Image} alt="poster" />
-            <div className="card-body">
-              <h5 className="card-title">{create.facility_name}</h5>
-              <p className="card-text">{create.description} </p>
-              <a href="./Facilities" className="btn btn-info">
-                Learn More
-              </a>
-            </div>
-          </div>
-        );
-      })}
+      {Array.isArray(Create) &&
+        Create.map((Create) => {
+          return <div key={Create.id}>{Create.name}</div>;
+        })}
+      <div className="card-hall">
+        <img className="card-img-top" src={Create.Image} alt="poster" />
+        <div className="card-body">
+          <h5 className="card-title">{Create.facility_name}</h5>
+          <p className="card-text">{Create.description} </p>
+          <a href="./Facilities" className="btn btn-info">
+            Learn More
+          </a>
+        </div>
+      </div>
+
       <div className="third">
         <div className="card-container">
           <div className="card-hall">

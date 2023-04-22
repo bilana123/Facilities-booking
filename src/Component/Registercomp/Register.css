@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f7f7f7;
+}
+
+.Login-form {
+  background-color: #fff;
+  width: 400px;
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
