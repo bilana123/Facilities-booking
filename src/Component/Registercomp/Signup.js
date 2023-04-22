@@ -72,6 +72,7 @@ export default function Signup() {
             <option value="">Select department</option>
             <option value="IT">IT</option>
             <option value="sports">sports</option>
+            <option value="HR ">HR</option>
           </select>
         </label>
         <label className="form-label">
