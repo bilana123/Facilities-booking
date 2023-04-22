@@ -4,6 +4,7 @@
   align-items: center;
   height: 100vh;
   background-color: #f7f7f7;
+  padding: 2rem;
 }
 
 .Login-form {
@@ -11,4 +12,13 @@
   width: 400px;
   padding: 2rem;
   border-radius: 0.5rem;
+  /* adjust padding to decrease space between text fields */
+  margin-bottom: 10px;
+}
+.form-label {
+  display: block;
+  margin-bottom: 10px;
+  padding: 0rem;
+
+  /* add this line to create a 10px margin between form labels */
 }
