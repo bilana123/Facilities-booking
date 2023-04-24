@@ -18,6 +18,18 @@ function Facilities() {
 
   const BOOKED = async () => {
     try {
+      // Query the database for existing bookings on the selected date and time slot
+      const querySnapshot = await getDocs(
+        collection(db, "Users").where("date", "==", date).where("Start_Time", "==", Start_Time)
+      );
+      
+      if (!querySnapshot.empty) {
+        // The selected time slot is already booked
+        console.log("Sorry, this time slot is already booked.");
+        return;
+      }
+      
+      // The selected time slot is available, so add the new booking to the database
       const docRef = await addDoc(collection(db, "Users"), {
         Username: Username,
         Location: Location,
@@ -27,12 +39,13 @@ function Facilities() {
         End_Time: End_Time,
         date: date,
       });
+      
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    // add code to update the database with the booking details
   };
+  
 
   useEffect(() => {
     const getFacility = async () => {
