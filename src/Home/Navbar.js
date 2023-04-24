@@ -8,8 +8,8 @@ export default function Navbar() {
   <Navbar />;
   return (
     <>
-      <nav className="navbar navbar-expand-lg" >
-        <div className="container-fluid">
+      <nav className="navbar navbar-expand-lg bg-yellow">
+        <div class="container-fluid">
           <img src={logo} alt="logo" />
           <button
             className="navbar-toggler"
@@ -42,28 +42,41 @@ export default function Navbar() {
                 aria-current="page"
                 to="/aboutus"
               >
-                <b> Aboutus </b>
+                <b> AboutUs </b>
               </Link>
             </div>
 
-            <div className="nav-item mt-90 text-secondary">
-              <Link
-                className="nav-link active rounded-5"
-                aria-current="page"
-                to="/Login"
-              >
-                <b>Login </b>
-              </Link>
-            </div>
-
-            <div className=" text-secondary">
-              <Link
-                className="nav-link active rounded-5"
-                aria-current="page"
-                to="/Signup"
-              >
-                <b>Sign Up</b>
-              </Link>
+            <div class="nav-item mt-90 text-secondary">
+              {!currentUser ? (
+                <>
+                  <div class="nav-item mt-90 text-secondary">
+                    <Link
+                      class="nav-link active rounded-5"
+                      aria-current="page"
+                      to="/Login"
+                    >
+                      <b>Login </b>
+                    </Link>
+                  </div>
+                  <div class="nav-item mt-90 text-secondary">
+                    <Link
+                      class="nav-link active rounded-5"
+                      aria-current="page"
+                      to="/signup"
+                    >
+                      <b> SignUp </b>
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <Link
+                  class="nav-link active rounded-5"
+                  aria-current="page"
+                  onClick={handelLogout}
+                >
+                  <b>Logout</b>
+                </Link>
+              )}
             </div>
           </div>
         </div>

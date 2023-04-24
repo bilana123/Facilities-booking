@@ -19,8 +19,8 @@ export const useSignup = (dispatch) => {
         password
       );
       console.log(user);
-      await updateProfile(user, { displayName: username });
-      user.department = department;
+      await updateProfile(user, { displayName: department });
+
       //DISPATCH LOGIN ACTION
       dispatch({ type: "LOGIN", payload: user });
 

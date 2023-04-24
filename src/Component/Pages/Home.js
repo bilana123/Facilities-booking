@@ -83,7 +83,7 @@ function Home() {
                 <div className="card-hall">
                   <img className="card-img-top" src={ball} alt="poster" />
                   <div className="card-body">
-                    <h5 className="card-title">Sports Complex</h5>
+                    <h5 className="card-title">Sports </h5>
                     <p className="card-text">
                       Facilitate instruction, learning, collaboration,
                       assessment, and safety and comfort for students.

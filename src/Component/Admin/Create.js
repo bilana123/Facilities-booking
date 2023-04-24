@@ -7,6 +7,8 @@ import { storage, db } from "../../Database/Firebase-config";
 export default function Create() {
   const [facility, setFacility] = useState("");
   const [image, setImage] = useState(null);
+  const [department, setdepartment] = useState("");
+  const [Facilities, setfacilities] = useState("");
   const [description, setDescription] = useState("");
 
   const types = ["image/png", "image/jpeg"];
@@ -14,7 +16,9 @@ export default function Create() {
     let selectedFile = e.target.files[0];
     console.log(selectedFile);
     if (selectedFile && types.includes(selectedFile.type)) {
-      setImage(selectedFile);
+      // Generate a unique filename with a timestamp
+      const filename = `${selectedFile.name}_${Date.now()}`;
+      setImage({ file: selectedFile, name: filename });
     } else {
       setImage(null);
     }
@@ -23,17 +27,20 @@ export default function Create() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const uploadTask = ref(storage, `images/${image}`);
-    await uploadBytes(uploadTask, image);
+    const uploadTask = ref(storage, `images/${image.name}`);
+    await uploadBytes(uploadTask, image.file);
     console.log("file uploaded");
 
     // Get the download URL for the file
     const url = await getDownloadURL(uploadTask);
+    console.log(url);
     console.log(`File URL: ${url}`);
     try {
       const docRef = await addDoc(collection(db, "Facility"), {
         facility_name: facility,
         Image: url,
+        Department: department,
+        Facilities: Facilities,
         Description: description,
       });
       console.log("Document written with ID: ", docRef.id);
@@ -88,6 +95,44 @@ export default function Create() {
                     placeholder="insert image"
                   />
                 </div>
+                <label className="form-label">
+                  <span
+                    className={`form-span ${department && "form-span--bold"}`}
+                    // add form-span--bold class if department is not empty
+                  >
+                    <br></br>
+                    Department:
+                  </span>
+                  <select
+                    value={department}
+                    onChange={(e) => setdepartment(e.target.value)}
+                    className="form-input"
+                  >
+                    <option value="">Select department</option>
+                    <option value="IT">IT</option>
+                    <option value="sports">sport</option>
+                    <option value="HR ">HR</option>
+                  </select>
+                </label>
+                <label className="form-label">
+                  <span
+                    className={`form-span ${Facilities && "form-span--bold"}`}
+                    // add form-span--bold class if department is not empty
+                  >
+                    <br></br>
+                    Facilities:
+                  </span>
+                  <select
+                    value={Facilities}
+                    onChange={(e) => setfacilities(e.target.value)}
+                    className="form-input"
+                  >
+                    <option value="">Select Facilities</option>
+                    <option value="Halls">Halls</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Classrooms">Classrooms</option>
+                  </select>
+                </label>
                 <div className="group">
                   <label htmlFor="time">Description</label>
                   <textarea

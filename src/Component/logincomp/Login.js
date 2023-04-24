@@ -6,8 +6,6 @@ import "./login.css";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isSubadmin, setIsSubadmin] = useState(false);
   const [password, setPassword] = useState("");
   const { login, isPending } = useLogin();
   const navigate = useNavigate();
@@ -26,7 +24,7 @@ export default function Login() {
   return (
     <div className="Login-container">
       <form onSubmit={handleSubmit} className="Login-form mt-5 rounded-2">
-        <h5>Admin</h5>
+        <h5 className="Form">Admin</h5>
         <label>
           <span>email:</span>
           <input
