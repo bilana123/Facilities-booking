@@ -30,11 +30,11 @@ export default function Signup() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container ">
       <form onSubmit={handleSubmit} className="Login-form">
-        <h2 className="form-heading">Register</h2>
+        <h5 className="form-heading">Admin_Register</h5>
         <label className="form-label">
-          <span className="form-span">username:</span>
+          <span className="form-span">Username:</span>
           <input
             type="username"
             onChange={(e) => setusername(e.target.value)}
@@ -47,7 +47,7 @@ export default function Signup() {
             className={`form-span ${email && "form-span--bold"}`}
             // add form-span--bold class if email is not empty
           >
-            email:
+            Email:
           </span>
           <input
             type="email"
@@ -62,7 +62,7 @@ export default function Signup() {
             className={`form-span ${department && "form-span--bold"}`}
             // add form-span--bold class if department is not empty
           >
-            department:
+            Department:
           </span>
           <select
             value={department}
@@ -80,7 +80,7 @@ export default function Signup() {
             className={`form-span ${password && "form-span--bold"}`}
             // add form-span--bold class if password is not empty
           >
-            password:
+            Password:
           </span>
           <input
             type="password"
@@ -98,7 +98,7 @@ export default function Signup() {
             Confirm_password :
           </span>
           <input
-            type="password"
+            type="Password"
             onChange={(e) => setConfirm_password(e.target.value)}
             value={Confirm_password}
             placeholder="Confirm password"

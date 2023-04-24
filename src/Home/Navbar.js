@@ -25,7 +25,7 @@ export default function Navbar() {
   };
   return (
     <>
-      <nav class="navbar navbar-expand-lg bg-yellow">
+      <nav className="navbar navbar-expand-lg bg-yellow">
         <div class="container-fluid">
           <img src={logo} alt="logo" />
           <button
@@ -58,7 +58,7 @@ export default function Navbar() {
                 aria-current="page"
                 to="/aboutus"
               >
-                <b> Aboutus </b>
+                <b> AboutUs </b>
               </Link>
             </div>
 
@@ -80,7 +80,7 @@ export default function Navbar() {
                       aria-current="page"
                       to="/signup"
                     >
-                      <b> signup </b>
+                      <b> SignUp </b>
                     </Link>
                   </div>
                 </>

@@ -8,7 +8,7 @@ import { db } from "../../Database/Firebase-config";
 function Facilities() {
   const [Username, setUsername] = useState("");
   const [Email, setEmail] = useState("");
-  const [location, setlocation] = useState("");
+  const [Location, setLocation] = useState("");
   const [Department, setDepartment] = useState("");
   const [Start_Time, setStart_Time] = useState("");
   const [End_Time, setEnd_Time] = useState("");
@@ -20,7 +20,7 @@ function Facilities() {
     try {
       const docRef = await addDoc(collection(db, "Users"), {
         Username: Username,
-        Location: location,
+        Location: Location,
         Department: Department,
         Start_Time: Start_Time,
         Email: Email,
@@ -72,13 +72,13 @@ function Facilities() {
                   placeholder="Enter your email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <label htmlFor="email">location</label>
+                <label htmlFor="email">Location</label>
                 <input
                   type="text"
                   className="form rounded-3"
-                  id="location"
+                  id="Location"
                   placeholder="Enter your email"
-                  onChange={(e) => setlocation(e.target.value)}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
                 <label htmlFor="department">Department</label>
                 <select
@@ -127,11 +127,11 @@ function Facilities() {
                       setdate(e.target.value);
                     }}
                   />
-                  <div className="col-md-2 mt-5">
+                  <div className="col-md-5 mt-2 w-5 ">
                     <button
                       onClick={BOOKED}
-                      className="btn btn-primary booked-btn"
-                      style={{ fontSize: "10px" }}
+                      className="btn btn-primary booked-btn "
+                      style={{ fontSize: "15px" }}
                     >
                       BOOKED
                     </button>
