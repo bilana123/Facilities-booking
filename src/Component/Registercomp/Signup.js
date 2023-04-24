@@ -19,7 +19,7 @@ export default function Signup() {
     if (Confirm_password === password) {
       try {
         Signup(email, password, username, department).then(() => {
-          navigate("/admin");
+          navigate("/Login");
         });
       } catch (err) {
         console.log(err);

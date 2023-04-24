@@ -16,7 +16,7 @@ function Facilities() {
 
   const [Facility, setFacility] = useState([]);
 
-  const BOOKED = async () => {
+  const BOOK = async () => {
     try {
       const docRef = await addDoc(collection(db, "Users"), {
         Username: Username,
@@ -129,11 +129,11 @@ function Facilities() {
                   />
                   <div className="col-md-5 mt-2 w-5 ">
                     <button
-                      onClick={BOOKED}
+                      onClick={BOOK}
                       className="btn btn-primary booked-btn "
                       style={{ fontSize: "15px" }}
                     >
-                      BOOKED
+                      BOOK
                     </button>
                   </div>
                 </div>
