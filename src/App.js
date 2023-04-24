@@ -39,16 +39,17 @@ function App() {
           <Route element={<Protectedroute user={currentUser} />}>
             <Route path="/admin" element={<AdminHome />} />
           </Route>
+          <Route path="/" element={<Home />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/Aboutus" element={<Aboutus />} />
-          <Route path="/Home" element={<Home />} />
           <Route path="/Facilities" element={<Facilities />} />
 
           <Route path="/admin/create" element={<Create />} />
           <Route path="/admin/delete" element={<Delete />} />
           <Route path="Sport" element={<Sport />} />
-          <Route path="booking" element={<Booking_Detail />} />
+        
           <Route path="Classroom" element={<Classroom />} />
           <Route path="HallCard" element={<HallCard />} />
         </Routes>

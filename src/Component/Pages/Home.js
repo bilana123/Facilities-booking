@@ -111,26 +111,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="card">
-        <img className="card-img-top" src={ball} alt="poster" />
-        <div className="card-body">
-          <h5 className="card-title">Sports Complex</h5>
-          <p className="card-text">Offer facilities such as fields,courts,organized sports leagues or individual training and fitness activities,serve as community centers for social gatherings and events.</p>
-          <Link to="/Sport" className="btn btn-info">
-                  View More
-                </Link>
-        </div>
-      </div>
-      <div className="card">
-        <img className="card-img-top" src={book} alt="poster" />
-        <div className="card-body">
-          <h5 className="card-title">Classrooms</h5>
-          <p className="card-text">Facilitate instruction, learning, collaboration, assessment, and safety and comfort for students. </p>
-          <Link to="/HallCard" className="btn btn-info">
-    View More
-  </Link>
-        </div>
-      </div>
+      
     </>
   );
 }

@@ -1,19 +1,14 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./Navbar.css"; // import CSS file for the navbar
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import useLogout from "../Hooks/useLogout";
-import { useNavigate } from "react-router-dom";
 import logo from "../Component/Image/logo.png";
-
-import { AuthContext } from "../Component/Context/AuthContex";
 
 export default function Navbar() {
   <Navbar />;
   return (
     <>
-      <nav className="navbar navbar-expand-lg" style={navbarStyle}>
+      <nav className="navbar navbar-expand-lg" >
         <div className="container-fluid">
           <img src={logo} alt="logo" />
           <button
@@ -35,13 +30,13 @@ export default function Navbar() {
               <Link
                 className="nav-link active rounded-5 px-4"
                 aria-current="page"
-                to="/Home"
+                to="/"
               >
                 <b> Home </b>
               </Link>
             </div>
 
-            <div class="nav-item mt-90 text-secondary">
+            <div className="nav-item mt-90 text-secondary">
               <Link
                 className="nav-link active rounded-5 px-4"
                 aria-current="page"
@@ -51,9 +46,9 @@ export default function Navbar() {
               </Link>
             </div>
 
-            <div class="nav-item mt-90 text-secondary">
+            <div className="nav-item mt-90 text-secondary">
               <Link
-                class="nav-link active rounded-5"
+                className="nav-link active rounded-5"
                 aria-current="page"
                 to="/Login"
               >
@@ -61,9 +56,9 @@ export default function Navbar() {
               </Link>
             </div>
 
-            <div class=" text-secondary">
+            <div className=" text-secondary">
               <Link
-                class="nav-link active rounded-5"
+                className="nav-link active rounded-5"
                 aria-current="page"
                 to="/Signup"
               >
