@@ -18,9 +18,12 @@ export const useSignup = (dispatch) => {
         email,
         password
       );
-      console.log(user);
-      await updateProfile(user, { displayName: department });
 
+      await updateProfile(user, {
+        displayName: department,
+      });
+
+      console.log(user);
       //DISPATCH LOGIN ACTION
       dispatch({ type: "LOGIN", payload: user });
 

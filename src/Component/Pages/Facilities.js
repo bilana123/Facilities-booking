@@ -28,6 +28,10 @@ function Facilities() {
         date: date,
       });
       console.log("Document written with ID: ", docRef.id);
+      const button = document.getElementById("book-button");
+      if (button) {
+        button.innerHTML = "BOOKED";
+      }
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -97,11 +101,11 @@ function Facilities() {
                 <label htmlFor="start-time">Start-Time</label>
                 <input
                   type="time"
-                  className="form-control rounded-3"
-                  id="start-time"
+                  className="form rounded-3"
+                  id="end-time"
                   placeholder="Enter time in HH:MM AM/PM format"
                   onChange={(e) => {
-                    setStart_Time(e.target.value);
+                    setEnd_Time(e.target.value);
                   }}
                 />
 
@@ -132,6 +136,7 @@ function Facilities() {
                       onClick={BOOK}
                       className="btn btn-primary booked-btn "
                       style={{ fontSize: "15px" }}
+                      id="book-button"
                     >
                       BOOK
                     </button>
