@@ -16,7 +16,7 @@ function Facilities() {
 
   const [Facility, setFacility] = useState([]);
 
-  const BOOKED = async () => {
+  const BOOK = async () => {
     try {
       // Query the database for existing bookings on the selected date and time slot
       const querySnapshot = await getDocs(
@@ -142,11 +142,11 @@ function Facilities() {
                   />
                   <div className="col-md-5 mt-2 w-5 ">
                     <button
-                      onClick={BOOKED}
+                      onClick={BOOK}
                       className="btn btn-primary booked-btn "
                       style={{ fontSize: "15px" }}
                     >
-                      BOOKED
+                      BOOK
                     </button>
                   </div>
                 </div>
