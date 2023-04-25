@@ -43,6 +43,7 @@ export default function Booking_Detail() {
                 <td>{user.Start_Time}</td>
                 <td>{user.End_Time}</td>
                 <td>{user.date}</td>
+                <td></td>
               </tr>
             );
           })}

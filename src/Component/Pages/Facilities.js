@@ -105,7 +105,7 @@ function Facilities() {
                   id="end-time"
                   placeholder="Enter time in HH:MM AM/PM format"
                   onChange={(e) => {
-                    setEnd_Time(e.target.value);
+                    setStart_Time(e.target.value);
                   }}
                 />
 

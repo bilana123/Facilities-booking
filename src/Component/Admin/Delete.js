@@ -2,60 +2,67 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../Database/Firebase-config";
 import { getDocs, collection, doc, deleteDoc } from "firebase/firestore";
 
-
 export default function Delete() {
-  const [facility, setFacility] = useState([])
+  const [Facility, setFacility] = useState([]);
 
   const get_facility_data = async () => {
-     
-  const facilitySnapshot = await getDocs(collection(db, "Facility"));
-  const facilityList = facilitySnapshot.docs.map((doc) => doc.data());
-  setFacility(facilityList)
-  }
+    const facilitySnapshot = await getDocs(collection(db, "Facility"));
+    const facilityList = facilitySnapshot.docs.map((doc) => doc.data());
+    setFacility(facilityList);
+    console.log(facilityList); // add this line to check if the state is being updated
+  };
 
   const onDelete = async (e, facility_name) => {
     e.preventDefault();
-    console.log(facility_name)
+    console.log(facility_name);
 
-    await deleteDoc(doc(db, "Facility", facility_name)).then((result) => {
-      console.log(result)
-    });
-
-  }
+    try {
+      await deleteDoc(doc(db, "Facility", facility_name));
+      console.log(`Facility '${facility_name}' deleted successfully.`);
+      // fetch the updated data and update the state
+      get_facility_data();
+    } catch (error) {
+      console.error(`Error deleting facility '${facility_name}':`, error);
+    }
+  };
 
   useEffect(() => {
     get_facility_data();
-  }, [])
+  }, []);
+
   return (
-    <div className="container">
-      <div className="row justify-content-center mt-5">
-        {facility.map((item, index) => {
+    <table className="booking-table mt-5">
+      <thead>
+        <tr>
+          <th>facility_name</th>
+          <th>Image</th>
+          <th>Facilities</th>
+          <th>Description</th>
+          <th>Department</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Facility.map((Facility) => {
           return (
-            <div
-            className="row border border-dark rounded-4 mt-4"
-            id="row_for_delete_card"
-            key={index}
-          >
-            <div className="col p-3">
-              <p>{item.facility_name}</p>
-              <img
-                src={item.Image}
-                alt="image"
-              />
-            </div>
-            <div className="col-md-5 mt-5">
-              <button className="btn btn-primary" onClick={(e) => {onDelete(e, item.facility_name)}}>Delete</button>
-            </div>
-          </div>
-
-          )
-          
-
+            <tr>
+              <td>{Facility.facility_name}</td>
+              <td>{Facility.Image}</td>
+              <td>{Facility.Facilities}</td>
+              <td>{Facility.Description}</td>
+              <td>{Facility.Department}</td>
+              <button
+                className="btn btn-primary"
+                onClick={(e) => {
+                  onDelete(e, Facility.facility_name);
+                }}
+              >
+                Delete
+              </button>
+              <td></td>
+            </tr>
+          );
         })}
-      
-      </div>
-     
-   
-    </div>
+      </tbody>
+    </table>
   );
 }

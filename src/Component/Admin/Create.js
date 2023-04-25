@@ -56,7 +56,7 @@ export default function Create() {
     >
       <div className="row">
         <div className="col mt-5">
-          <h1>Create Facilities</h1>
+          <h1 className="Create">Create Facilities</h1>
         </div>
       </div>
       <br />
