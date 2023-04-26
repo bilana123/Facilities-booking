@@ -1,29 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../Database/Firebase-config";
-import { getDocs, collection, doc, deleteDoc } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 export default function Delete() {
-  const [Facility, setFacility] = useState([]);
+  const [facilityList, setFacilityList] = useState([]);
 
   const get_facility_data = async () => {
     const facilitySnapshot = await getDocs(collection(db, "Facility"));
-    const facilityList = facilitySnapshot.docs.map((doc) => doc.data());
-    setFacility(facilityList);
-    console.log(facilityList); // add this line to check if the state is being updated
+    const facilities = facilitySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setFacilityList(facilities);
+    console.log(facilities); // add this line to check if the state is being updated
   };
 
-  const onDelete = async (e, facility_name) => {
-    e.preventDefault();
-    console.log(facility_name);
-
+  const onDelete = async (facilityId) => {
     try {
-      await deleteDoc(doc(db, "Facility", facility_name));
-      console.log(`Facility '${facility_name}' deleted successfully.`);
+      await deleteDoc(doc(db, "Facility", facilityId));
+      console.log(`Facility '${facilityId}' deleted successfully.`);
       // fetch the updated data and update the state
       get_facility_data();
     } catch (error) {
-      console.error(`Error deleting facility '${facility_name}':`, error);
+      console.error(`Error deleting facility '${facilityId}':`, error);
     }
+  };
+
+  const updateFacility = async (
+    id,
+    facility_name,
+    Department,
+    Description,
+    Select_Image,
+    Facilities
+  ) => {
+    const FacilityDoc = doc(db, "Facility", id);
+    const newFields = { Facilities: Facilities + 1 };
+    await updateDoc(FacilityDoc, newFields);
   };
 
   useEffect(() => {
@@ -39,26 +58,39 @@ export default function Delete() {
           <th>Facilities</th>
           <th>Description</th>
           <th>Department</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        {Facility.map((Facility) => {
+        {facilityList.map((facility) => {
           return (
-            <tr>
-              <td>{Facility.facility_name}</td>
-              <td>{Facility.Image}</td>
-              <td>{Facility.Facilities}</td>
-              <td>{Facility.Description}</td>
-              <td>{Facility.Department}</td>
-              <button
-                className="btn btn-primary"
-                onClick={(e) => {
-                  onDelete(e, Facility.facility_name);
-                }}
-              >
-                Delete
-              </button>
-              <td></td>
+            <tr key={facility.id}>
+              <td>{facility.facility_name}</td>
+              <td>{facility.Image}</td>
+              <td>{facility.Facilities}</td>
+              <td>{facility.Description}</td>
+              <td>{facility.Department}</td>
+              <td>
+                <button className="btn" onClick={() => onDelete(facility.id)}>
+                  Delete
+                </button>
+                <br></br>
+                <button
+                  className="btn"
+                  onClick={() =>
+                    updateFacility(
+                      facility.id,
+                      facility.facility_name,
+                      facility.Department,
+                      facility.Description,
+                      facility.Select_Image,
+                      facility.Facilities
+                    )
+                  }
+                >
+                  Update
+                </button>
+              </td>
             </tr>
           );
         })}

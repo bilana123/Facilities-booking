@@ -37,6 +37,7 @@ export default function Signup() {
           <span className="form-span">Username:</span>
           <input
             type="username"
+            required
             onChange={(e) => setusername(e.target.value)}
             value={username}
             className="form-input"
@@ -54,6 +55,7 @@ export default function Signup() {
             onChange={(e) => setemail(e.target.value)}
             value={email}
             placeholder="Enter your email"
+            required
             className="form-input"
           />
         </label>
@@ -68,6 +70,7 @@ export default function Signup() {
             value={department}
             onChange={(e) => setDepartment(e.target.value)}
             className="form-input"
+            required
           >
             <option value="">Select department</option>
             <option value="IT">IT</option>
@@ -87,6 +90,7 @@ export default function Signup() {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             placeholder="Enter password"
+            required
             className="form-input"
           />
         </label>
@@ -102,6 +106,7 @@ export default function Signup() {
             onChange={(e) => setConfirm_password(e.target.value)}
             value={Confirm_password}
             placeholder="Confirm password"
+            required
             className="form-input"
           />
         </label>
