@@ -54,23 +54,22 @@ export default function Create() {
       className="container justify-content-center mt-5"
       id="id_for_admin_div"
     >
+      <h5 className="Create m-5">Create Facilities</h5>
       <div className="row">
-        <div className="col mt-5">
-          <h1 className="Create">Create Facilities</h1>
-        </div>
+        <div className="col mt-5"></div>
       </div>
       <br />
       <div
-        className="border border-secondary rounded p-10"
-        style={{ height: "400px" }}
+        className="border border-secondary rounded p-10  "
+        style={{ height: "500px" }}
       >
         <div
-          className="border border-secondary rounded p-2"
+          className="border border-secondary rounded p-5"
           style={{ height: "100%" }}
         >
           <div className="row ">
             <div className="col d-flex justify-content-center">
-              <form onSubmit={handleSubmit} style={{ padding: "0" }}>
+              <form onSubmit={handleSubmit} style={{ padding: "5" }}>
                 <div className="group ">
                   <label htmlFor="facilityname">Facility Name</label>
                   <input
@@ -153,7 +152,7 @@ export default function Create() {
                       backgroundColor: "green",
                       fontSize: "12px",
                       padding: "5px 10px",
-                      width: "100px",
+                      width: "110px",
                     }}
                   >
                     Create

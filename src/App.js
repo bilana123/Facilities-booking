@@ -20,7 +20,7 @@ import { AuthContext } from "./Component/Context/AuthContex";
 import Sport from "./Component/Pages/Sport";
 import Classroom from "./Component/Pages/Classroom";
 import HallCard from "./Component/Pages/HallCard";
-
+import Edit from "./Component/Admin/Edit";
 import { useContext } from "react";
 import Protectedroute from "./Routes/Protectedroute";
 import Booking_Detail from "./Component/Admin/Booking_Detail";
@@ -44,7 +44,7 @@ function App() {
           <Route path="/Aboutus" element={<Aboutus />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Facilities" element={<Facilities />} />
-
+          <Route path="/admin/edit" element={<Edit />} />
           <Route path="/admin/create" element={<Create />} />
           <Route path="/admin/delete" element={<Delete />} />
           <Route path="Sport" element={<Sport />} />

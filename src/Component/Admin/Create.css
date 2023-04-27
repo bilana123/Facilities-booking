@@ -2,5 +2,15 @@
   padding: 10px; /* adjust the padding value as needed */
 }
 .Create {
-  margin-top: 20px;
+  margin-top: 500px;
+  margin-bottom: 5000px;
+  padding-bottom: 560px;
+  padding-left: 200px;
+  text-align: center;
+}
+.group {
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  margin-left: 3px;
 }

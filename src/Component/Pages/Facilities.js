@@ -26,6 +26,7 @@ function Facilities() {
         Email: Email,
         End_Time: End_Time,
         date: date,
+        status: "pending",
       });
       console.log("Document written with ID: ", docRef.id);
       const button = document.getElementById("book-button");

@@ -61,6 +61,7 @@
 }
 .container-fluid {
   margin-top: -0.25rem !important;
+  width: 2px;
 }
 .text-secondary {
   margin: left 30px;
