@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../Database/Firebase-config";
-import {
-  getDocs,
-  collection,
-  doc,
-  deleteDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { getDocs, collection, doc, deleteDoc } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 export default function Delete() {
   const [facilityList, setFacilityList] = useState([]);
@@ -30,19 +25,6 @@ export default function Delete() {
     } catch (error) {
       console.error(`Error deleting facility '${facilityId}':`, error);
     }
-  };
-
-  const updateFacility = async (
-    id,
-    facility_name,
-    Department,
-    Description,
-    Select_Image,
-    Facilities
-  ) => {
-    const FacilityDoc = doc(db, "Facility", id);
-    const newFields = { Facilities: Facilities + 1 };
-    await updateDoc(FacilityDoc, newFields);
   };
 
   useEffect(() => {
@@ -71,24 +53,11 @@ export default function Delete() {
               <td>{facility.Description}</td>
               <td>{facility.Department}</td>
               <td>
+                <Link to={"/Edit"} className="btn btn-success">
+                  Edit
+                </Link>
                 <button className="btn" onClick={() => onDelete(facility.id)}>
                   Delete
-                </button>
-                <br></br>
-                <button
-                  className="btn"
-                  onClick={() =>
-                    updateFacility(
-                      facility.id,
-                      facility.facility_name,
-                      facility.Department,
-                      facility.Description,
-                      facility.Select_Image,
-                      facility.Facilities
-                    )
-                  }
-                >
-                  Update
                 </button>
               </td>
             </tr>
