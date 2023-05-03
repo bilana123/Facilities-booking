@@ -17,6 +17,11 @@ const Signup = () => {
 
   const { Signup, isPending, error } = useSignup();
   const navigate = useNavigate();
+  const USER_TYPES = {
+    ADMIN_USER: "Admin User",
+    SUB_ADMIN: "Sub_Admin",
+  };
+  const CURRENT_USER_TYPE = USER_TYPES.ADMIN_USER;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

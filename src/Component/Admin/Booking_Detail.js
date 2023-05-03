@@ -20,7 +20,7 @@ export default function Booking_Detail() {
 
   return (
     <div>
-      <table className="booking-table mt-5">
+      <table className="booking-table mt-5" align="center">
         <thead>
           <tr>
             <th>Username</th>
@@ -43,7 +43,6 @@ export default function Booking_Detail() {
                 <td>{user.Start_Time}</td>
                 <td>{user.End_Time}</td>
                 <td>{user.date}</td>
-                <td></td>
               </tr>
             );
           })}
