@@ -40,11 +40,11 @@ function App() {
             <Route path="/admin" element={<AdminHome />} />
           </Route>
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/admin/add_subadmin" element={<Signup />} />
           <Route path="/Aboutus" element={<Aboutus />} />
-          <Route path="/Home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/Facilities" element={<Facilities />} />
-          <Route path="/admin/edit" element={<Edit />} />
+          <Route path="/admin/Edit" element={<Edit />} />
           <Route path="/admin/create" element={<Create />} />
           <Route path="/admin/delete" element={<Delete />} />
           <Route path="Sport" element={<Sport />} />

@@ -3,8 +3,7 @@ import { db } from "../../Database/Firebase-config";
 import { FaHome, FaPlus, FaEdit, FaTrash, FaBook } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import "./Admin.css";
-import { Link } from "react-router-dom";
-import Alpha from "../Image/Alpha.jpg";
+
 import { getDocs, collection, doc, deleteDoc } from "firebase/firestore";
 import { AuthContext } from "../Context/AuthContex";
 
@@ -25,7 +24,7 @@ function AdminHome() {
 
   console.log(facility);
   return (
-    <div className="Sidebar">
+    <div className="Sidebar ">
       <div className="Sidebar-content">
         <div className="Admin">
           <p>Admin Home</p>
@@ -35,7 +34,7 @@ function AdminHome() {
             <li>
               <NavLink exact to="/">
                 <FaHome style={{ marginRight: "10px" }} />
-                <span>Dashboard</span>
+                <span>User Management</span>
               </NavLink>
             </li>
             <li>
@@ -44,22 +43,23 @@ function AdminHome() {
                 <span>Add Facility</span>
               </NavLink>
             </li>
+
             <li>
-              <NavLink to="/edit">
-                <FaEdit style={{ marginRight: "10px" }} />
-                <span>Edit Facility</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/delete">
+              <NavLink to="/admin/delete">
                 <FaTrash style={{ marginRight: "10px" }} />
-                <span>Delete Facility</span>
+                <span>Manage Facility</span>
               </NavLink>
             </li>
             <li>
               <NavLink to="/admin/booking">
                 <FaBook style={{ marginRight: "10px" }} />
                 <span>Booking_Detail</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin/add_subadmin">
+                <FaBook style={{ marginRight: "10px" }} />
+                <span>Add Subadmin</span>
               </NavLink>
             </li>
           </ul>

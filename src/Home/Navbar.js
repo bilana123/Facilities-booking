@@ -17,7 +17,7 @@ export default function Navbar() {
   const handelLogout = async () => {
     try {
       await Logout().then(() => {
-        navigate("/home");
+        navigate("/");
       });
     } catch (err) {
       console.log(err);
@@ -47,7 +47,7 @@ export default function Navbar() {
               <Link
                 class="nav-link active rounded-5"
                 aria-current="page"
-                to="/Home"
+                to="/"
               >
                 <b> Home </b>
               </Link>
@@ -72,15 +72,6 @@ export default function Navbar() {
                       to="/Login"
                     >
                       <b>Login </b>
-                    </Link>
-                  </div>
-                  <div class="nav-item mt-90 text-secondary">
-                    <Link
-                      class="nav-link active rounded-5"
-                      aria-current="page"
-                      to="/signup"
-                    >
-                      <b> SignUp </b>
                     </Link>
                   </div>
                 </>

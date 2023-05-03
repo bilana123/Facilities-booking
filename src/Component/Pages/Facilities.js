@@ -15,6 +15,19 @@ function Facilities() {
   const [date, setdate] = useState("");
 
   const [Facility, setFacility] = useState([]);
+  const [Users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const UsersSnapshot = await getDocs(collection(db, "Users"));
+      const UsersList = UsersSnapshot.docs.map((doc) => doc.data());
+      setUsers(UsersList);
+    };
+
+    getUsers();
+  }, []);
+
+  console.log(Users);
 
   const BOOK = async () => {
     try {
