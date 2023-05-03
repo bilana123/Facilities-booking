@@ -3,13 +3,14 @@
 }
 .footer {
   background-color: #2d2d32;
+  position:static;
 }
 .sb_footer {
   display: flex;
   flex-direction: column;
 }
 .sb_footer-links {
-  display: flex;
+  display:flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-direction: row;

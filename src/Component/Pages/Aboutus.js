@@ -4,9 +4,9 @@ import "./Aboutus.css";
 function AboutUs() {
   return (
     <div className="about-container">
-      <div className="container">
+     
         <div className="about-heading-container ">
-          <h2>About Us</h2>
+   
         </div>
         <div className="about-paragraph-container">
           <div className="paragraph-container">
@@ -29,7 +29,7 @@ function AboutUs() {
             </p>
           </div>
         </div>
-      </div>
+    
       <div className="team-container"></div>
     </div>
   );

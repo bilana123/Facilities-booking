@@ -17,11 +17,7 @@ const Signup = () => {
 
   const { Signup, isPending, error } = useSignup();
   const navigate = useNavigate();
-  const USER_TYPES = {
-    ADMIN_USER: "Admin User",
-    SUB_ADMIN: "Sub_Admin",
-  };
-  const CURRENT_USER_TYPE = USER_TYPES.ADMIN_USER;
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,7 +39,7 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
-    <div className="d-flex justify-content-center align-items-center ">
+    <div className="d-flex justify-content-center align-items-center m-5 ">
       <div className="bg-white shadow-lg p-5">
         <div className="col-lg-12 col-md-5">
           <form onSubmit={handleSubmit} class="from-login">
