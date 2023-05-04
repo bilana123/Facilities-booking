@@ -16,6 +16,7 @@ function Facilities() {
 
   const [Facility, setFacility] = useState([]);
   const [Users, setUsers] = useState([]);
+  const [isBooked, setIsBooked] = useState(false);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -56,9 +57,19 @@ function Facilities() {
     const getFacility = async () => {
       const data = await getDocs(collection(db, "Users"));
       setFacility(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  
+      // Check if current user has already booked the facility
+      const currentUser = Users.find((user) => user.Email === Email);
+      if (currentUser) {
+        const button = document.getElementById("book-button");
+        if (button) {
+          button.disabled = true;
+          button.innerHTML = "BOOKED";
+        }
+      }
     };
     getFacility();
-  }, []);
+  }, [Users, Email]);
 
   return (
     <div>
@@ -146,14 +157,15 @@ function Facilities() {
                     }}
                   />
                   <div className="col-md-5 mt-2 w-5 ">
-                    <button
-                      onClick={BOOK}
-                      className="btn btn-primary booked-btn "
-                      style={{ fontSize: "15px" }}
-                      id="book-button"
-                    >
-                      BOOK
-                    </button>
+                  <button
+  onClick={BOOK}
+  className="btn btn-primary booked-btn "
+  style={{ fontSize: "15px" }}
+  id="book-button"
+  disabled={isBooked} // disable the button if isBooked is true
+>
+  {isBooked ? "BOOKED" : "BOOK"} {/* change the button label to "BOOKED" if isBooked is true */}
+</button>
                   </div>
                 </div>
               </div>
