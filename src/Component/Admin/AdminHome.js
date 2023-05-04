@@ -4,13 +4,19 @@ import { FaHome, FaPlus, FaEdit, FaTrash, FaBook } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import "./Admin.css";
 
-import { getDocs, collection, doc, deleteDoc } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  getDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { AuthContext } from "../Context/AuthContex";
 
 function AdminHome() {
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
   const [facility, setFacility] = useState([]);
+  const [role, setRole] = useState("");
 
   const get_facility_data = async () => {
     const facilitySnapshot = await getDocs(collection(db, "Facility"));
@@ -18,11 +24,18 @@ function AdminHome() {
     setFacility(facilityList);
   };
 
+  const handelrole = async () => {
+    const roleDocRef = doc(db, "roles", currentUser.uid);
+    const roleDocSnap = await getDoc(roleDocRef);
+    const roleData = roleDocSnap.data();
+    setRole(roleData.role);
+  };
+
   useEffect(() => {
     get_facility_data();
+    handelrole();
   }, []);
-
-  console.log(facility);
+  console.log(role);
   return (
     <div className="Sidebar ">
       <div className="Sidebar-content">
@@ -56,12 +69,14 @@ function AdminHome() {
                 <span>Booking_Detail</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/admin/add_subadmin">
-                <FaBook style={{ marginRight: "10px" }} />
-                <span>Add Subadmin</span>
-              </NavLink>
-            </li>
+            {role !== "subadmin" ? (
+              <li>
+                <NavLink to="/admin/add_subadmin">
+                  <FaBook style={{ marginRight: "10px" }} />
+                  <span>Add Subadmin</span>
+                </NavLink>
+              </li>
+            ) : null}
           </ul>
         </nav>
       </div>
