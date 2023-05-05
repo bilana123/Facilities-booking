@@ -5,11 +5,7 @@ import { getAuth } from "firebase/auth";
 //import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAkI3rlSd3XKW70cRiHdr7m1d_mMmtjCo4",
   authDomain: "jnec-booking.firebaseapp.com",
@@ -20,7 +16,6 @@ const firebaseConfig = {
   measurementId: "G-56EPL5QT2E",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const Auth = getAuth(app);
 const analytics = getAnalytics(app);

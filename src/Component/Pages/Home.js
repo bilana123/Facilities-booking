@@ -50,7 +50,7 @@ function Home() {
           <Carousel.Item key={index}>
             <img
               className="d-block img-fluid w-100"
-              height="40"
+              height="100"
               src={image.url}
               alt={`Slide ${index}`}
               style={{ objectFit: "cover", height: "510px" }}
@@ -76,7 +76,7 @@ function Home() {
                       assessment, and safety and comfort for students.
                     </p>
                     <Link to="/HallCard" className="btn btn-info">
-                      Learn More
+                      View All
                     </Link>
                   </div>
                 </div>
@@ -89,7 +89,7 @@ function Home() {
                       assessment, and safety and comfort for students.
                     </p>
                     <Link to="/Sport" className="btn btn-info">
-                      Learn More
+                      View All
                     </Link>
                   </div>
                 </div>
@@ -102,7 +102,7 @@ function Home() {
                       assessment, and safety and comfort for students.
                     </p>
                     <Link to="/Classroom" className="btn btn-info">
-                      Learn More
+                      View All
                     </Link>
                   </div>
                 </div>

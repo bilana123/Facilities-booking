@@ -2,11 +2,12 @@
   width: 300px;
   min-width: 300px;
   background: var(--primary-color);
-  min-height: 100vh;
+  min-height: 200vh;
   box-sizing: border-box;
   position: relative;
   color: #f3edf8;
   background-color: #376bf8;
+  position: fixed;
 }
 .Sidebar-content {
   position: fixed;
@@ -86,4 +87,14 @@
 
 .btn:hover {
   background-color: #0069d9;
+}
+.Sidebar {
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.Sidebar-content {
+  height: 100%;
+  overflow-y: auto;
 }

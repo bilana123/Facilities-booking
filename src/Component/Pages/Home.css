@@ -1,15 +1,11 @@
-.billuu{
-    height: 700%;
-    width: 700%;
-    margin: center;
-    padding: center;
-    background-size: cover;
-    position: relative;
-    vertical-align: baseline;
-}  
-.billu, h1{
-    text-align:left;
-
+.billu {
+  height: 700%;
+  width: 700px;
+  margin: center;
+  padding: center;
+  background-size: cover;
+  position: relative;
+  vertical-align: baseline;
 }
 .billu,
 h1 {

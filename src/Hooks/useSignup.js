@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Auth } from "../Database/Firebase-config";
+import { Auth, db } from "../Database/Firebase-config";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 export const useSignup = (dispatch) => {
   const [error, setError] = useState(null);
@@ -11,17 +12,26 @@ export const useSignup = (dispatch) => {
     setIsPending(true);
 
     try {
-      console.log(department);
-      //signup user methodg
-      const { user } = await createUserWithEmailAndPassword(
-        Auth,
-        email,
-        password
-      );
-      console.log(user);
-      await updateProfile(user, { displayName: department });
+      // signup user method
+      const { user } = await createUserWithEmailAndPassword(Auth, email, password);
 
-      //DISPATCH LOGIN ACTION
+      // update user's display name
+      await updateProfile(user, { displayName: username });
+
+      // create user document
+      const userDocRef = doc(db, "users", user.uid);
+      await setDoc(userDocRef, {
+        displayName: username,
+        email: email,
+        department: department,
+        createdAt: new Date(),
+      });
+
+      // create role document
+      const roleDocRef = doc(db, "roles", user.uid);
+      await setDoc(roleDocRef, { role: "subadmin" });
+
+      // dispatch login action
       dispatch({ type: "LOGIN", payload: user });
 
       setIsPending(false);

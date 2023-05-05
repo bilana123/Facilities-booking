@@ -3,15 +3,20 @@ import { db } from "../../Database/Firebase-config";
 import { FaHome, FaPlus, FaEdit, FaTrash, FaBook } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import "./Admin.css";
-import { Link } from "react-router-dom";
-import Alpha from "../Image/Alpha.jpg";
-import { getDocs, collection, doc, deleteDoc } from "firebase/firestore";
+
+import {
+  getDocs,
+  collection,
+  getDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { AuthContext } from "../Context/AuthContex";
 
 function AdminHome() {
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
   const [facility, setFacility] = useState([]);
+  const [role, setRole] = useState("");
 
   const get_facility_data = async () => {
     const facilitySnapshot = await getDocs(collection(db, "Facility"));
@@ -19,13 +24,20 @@ function AdminHome() {
     setFacility(facilityList);
   };
 
+  const handelrole = async () => {
+    const roleDocRef = doc(db, "roles", currentUser.uid);
+    const roleDocSnap = await getDoc(roleDocRef);
+    const roleData = roleDocSnap.data();
+    setRole(roleData.role);
+  };
+
   useEffect(() => {
     get_facility_data();
+    handelrole();
   }, []);
-
-  console.log(facility);
+  console.log(role);
   return (
-    <div className="Sidebar">
+    <div className="Sidebar ">
       <div className="Sidebar-content">
         <div className="Admin">
           <p>Admin Home</p>
@@ -35,7 +47,7 @@ function AdminHome() {
             <li>
               <NavLink exact to="/">
                 <FaHome style={{ marginRight: "10px" }} />
-                <span>Dashboard</span>
+                <span>User Management</span>
               </NavLink>
             </li>
             <li>
@@ -44,16 +56,11 @@ function AdminHome() {
                 <span>Add Facility</span>
               </NavLink>
             </li>
+
             <li>
-              <NavLink to="/edit">
-                <FaEdit style={{ marginRight: "10px" }} />
-                <span>Edit Facility</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/delete">
+              <NavLink to="/admin/delete">
                 <FaTrash style={{ marginRight: "10px" }} />
-                <span>Delete Facility</span>
+                <span>Manage Facility</span>
               </NavLink>
             </li>
             <li>
@@ -62,6 +69,14 @@ function AdminHome() {
                 <span>Booking_Detail</span>
               </NavLink>
             </li>
+            {role !== "subadmin" ? (
+              <li>
+                <NavLink to="/admin/add_subadmin">
+                  <FaBook style={{ marginRight: "10px" }} />
+                  <span>Add Subadmin</span>
+                </NavLink>
+              </li>
+            ) : null}
           </ul>
         </nav>
       </div>

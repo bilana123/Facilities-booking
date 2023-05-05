@@ -1,61 +1,127 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../Database/Firebase-config";
 import { getDocs, collection, doc, deleteDoc } from "firebase/firestore";
+import { Link } from "react-router-dom";
+import Modal from "@mui/material/Modal";
+import Create from "./Create";
 
+import { Button, Box, Typography } from "@mui/material";
+//import { Create } from "@mui/icons-material";
+//import { Edit } from "@mui/icons-material";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function Delete() {
-  const [facility, setFacility] = useState([])
+  const [facilityList, setFacilityList] = useState([]);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const get_facility_data = async () => {
-     
-  const facilitySnapshot = await getDocs(collection(db, "Facility"));
-  const facilityList = facilitySnapshot.docs.map((doc) => doc.data());
-  setFacility(facilityList)
-  }
+    const facilitySnapshot = await getDocs(collection(db, "Facility"));
+    const facilities = facilitySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setFacilityList(facilities);
+    console.log(facilities); // add this line to check if the state is being updated
+  };
 
-  const onDelete = async (e, facility_name) => {
-    e.preventDefault();
-    console.log(facility_name)
-
-    await deleteDoc(doc(db, "Facility", facility_name)).then((result) => {
-      console.log(result)
-    });
-
-  }
+  const onDelete = async (facilityId) => {
+    try {
+      await deleteDoc(doc(db, "Facility", facilityId));
+      console.log(`Facility '${facilityId}' deleted successfully.`);
+      // fetch the updated data and update the state
+      get_facility_data();
+    } catch (error) {
+      console.error(`Error deleting facility '${facilityId}':`, error);
+    }
+  };
 
   useEffect(() => {
     get_facility_data();
-  }, [])
+  }, []);
+
   return (
-    <div className="container">
-      <div className="row justify-content-center mt-5">
-        {facility.map((item, index) => {
-          return (
-            <div
-            className="row border border-dark rounded-4 mt-4"
-            id="row_for_delete_card"
-            key={index}
-          >
-            <div className="col p-3">
-              <p>{item.facility_name}</p>
-              <img
-                src={item.Image}
-                alt="image"
-              />
-            </div>
-            <div className="col-md-5 mt-5">
-              <button className="btn btn-primary" onClick={(e) => {onDelete(e, item.facility_name)}}>Delete</button>
-            </div>
-          </div>
-
-          )
-          
-
-        })}
-      
-      </div>
-     
-   
+    <div>
+      <Button onClick={handleOpen}>Create</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+            minWidth: "300px",
+          }}
+        >
+          <Create CloseEvent={handleClose} />
+        </Box>
+      </Modal>
+      <table className="booking-table mt-5 mb-5" align="center">
+        <thead>
+          <tr>
+            <th>facility_name</th>
+            <th>Image</th>
+            <th>Facilities</th>
+            <th>Description</th>
+            <th>Department</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {facilityList.map((facility) => {
+            return (
+              <tr key={facility.id}>
+                <td>{facility.facility_name}</td>
+                <td>
+                  <img src={facility.Image} width="50" />
+                </td>
+                <td>{facility.Facilities}</td>
+                <td>{facility.Description}</td>
+                <td>{facility.Department}</td>
+                <td>
+                  <span>
+                    <Link
+                      to="/admin/Edit"
+                      state={facility}
+                      className="btn btn-success"
+                    >
+                      Edit
+                    </Link>
+                  </span>
+                  <span>
+                    <button
+                      className="btn mt-5"
+                      onClick={() => onDelete(facility.id)}
+                    >
+                      Delete
+                    </button>
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }

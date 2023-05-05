@@ -4,73 +4,43 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
-import emailjs from "emailjs-com";
 
 function Facilities() {
   const [Username, setUsername] = useState("");
   const [Email, setEmail] = useState("");
-  const [location, setlocation] = useState("");
+  const [Location, setLocation] = useState("");
   const [Department, setDepartment] = useState("");
   const [Start_Time, setStart_Time] = useState("");
   const [End_Time, setEnd_Time] = useState("");
   const [date, setdate] = useState("");
+
   const [Facility, setFacility] = useState([]);
-  const [Users, setUsers] = useState([]);
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const UsersSnapshot = await getDocs(collection(db, "Users"));
-      const UsersList = UsersSnapshot.docs.map((doc) => doc.data());
-      setUsers(UsersList);
-    };
-
-    getUsers();
-  }, []);
-
-  const sendEmail = (user) => {
-    const serviceId = "service_nemfbwq";
-    const templateId = "template_ntrguog";
-    const userId = "QtDooSGgQqtG3MMXT";
-
-    console.log(user.Email);
-    emailjs.send(serviceId, templateId, user, userId).then(
-      (result) => {
-        console.log(result.text);
-      },
-      (error) => {
-        console.log(error.text);
-      }
-    );
-  };
-
-  const BOOKED = async () => {
+  const BOOK = async () => {
     try {
-      const docRef = await addDoc(collection(db, "Users"), {
+      const docRef = await addDoc(collection(db, "BookingRequest"), {
         Username: Username,
-        Location: location,
+        Location: Location,
         Department: Department,
         Start_Time: Start_Time,
         Email: Email,
         End_Time: End_Time,
         date: date,
-        status: "pending",
       });
       console.log("Document written with ID: ", docRef.id);
       const button = document.getElementById("book-button");
       if (button) {
         button.innerHTML = "BOOKED";
       }
-      Users.forEach((user) => {
-        sendEmail(user);
-      });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+    // add code to update the database with the booking details
   };
 
   useEffect(() => {
     const getFacility = async () => {
-      const data = await getDocs(collection(db, "Users"));
+      const data = await getDocs(collection(db, "BookingRequest"));
       setFacility(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getFacility();
@@ -106,13 +76,13 @@ function Facilities() {
                   placeholder="Enter your email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <label htmlFor="email">location</label>
+                <label htmlFor="email">Location</label>
                 <input
                   type="text"
                   className="form rounded-3"
-                  id="location"
+                  id="Location"
                   placeholder="Enter your email"
-                  onChange={(e) => setlocation(e.target.value)}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
                 <label htmlFor="department">Department</label>
                 <select
@@ -161,14 +131,14 @@ function Facilities() {
                       setdate(e.target.value);
                     }}
                   />
-                  <div className="col-md-2 mt-5">
+                  <div className="col-md-5 mt-2 w-5 ">
                     <button
                       onClick={BOOK}
                       className="btn btn-primary booked-btn "
                       style={{ fontSize: "15px" }}
                       id="book-button"
                     >
-                      BOOKED
+                      BOOK
                     </button>
                   </div>
                 </div>

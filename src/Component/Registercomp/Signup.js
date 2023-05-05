@@ -12,6 +12,11 @@ export default function Signup() {
   const [Confirm_password, setConfirm_password] = useState("");
   const { Signup, isPending, error } = useSignup();
   const navigate = useNavigate();
+  const USER_TYPES = {
+    ADMIN_USER: "Admin User",
+    SUB_ADMIN: "Sub_Admin",
+  };
+  const CURRENT_USER_TYPE = USER_TYPES.ADMIN_USER;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +42,7 @@ export default function Signup() {
           <span className="form-span">Username:</span>
           <input
             type="username"
+            required
             onChange={(e) => setusername(e.target.value)}
             value={username}
             className="form-input"
@@ -54,6 +60,7 @@ export default function Signup() {
             onChange={(e) => setemail(e.target.value)}
             value={email}
             placeholder="Enter your email"
+            required
             className="form-input"
           />
         </label>
@@ -68,6 +75,7 @@ export default function Signup() {
             value={department}
             onChange={(e) => setDepartment(e.target.value)}
             className="form-input"
+            required
           >
             <option value="">Select department</option>
             <option value="IT">IT</option>
@@ -87,6 +95,7 @@ export default function Signup() {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             placeholder="Enter password"
+            required
             className="form-input"
           />
         </label>
@@ -102,6 +111,7 @@ export default function Signup() {
             onChange={(e) => setConfirm_password(e.target.value)}
             value={Confirm_password}
             placeholder="Confirm password"
+            required
             className="form-input"
           />
         </label>

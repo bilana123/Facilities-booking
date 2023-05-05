@@ -22,11 +22,17 @@ import Classroom from './Component/Pages/Classroom';
 import Sport from './Component/Pages/Sport';
 import Alpha from './Component/Pages/Alpha';
 import { AuthContext } from "./Component/Context/AuthContex";
+import Sport from "./Component/Pages/Sport";
+import Classroom from "./Component/Pages/Classroom";
+import HallCard from "./Component/Pages/HallCard";
+
+import { useContext } from "react";
 import Protectedroute from "./Routes/Protectedroute";
 import { useContext } from "react";
 import Booking_Detail from "./Component/Admin/Booking_Detail";
 import Search from "./Component/Pages/Search";
 //import { FirebaseApp } from "firebase/app";
+import BookingReq from "./Component/Admin/BookingReq";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -43,17 +49,17 @@ function App() {
           <Route path="/" element={<Home />} />
 
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/admin/add_subadmin" element={<Signup />} />
           <Route path="/Aboutus" element={<Aboutus />} />
+          <Route path="/Home" element={<Home />} />
           <Route path="/Facilities" element={<Facilities />} />
-
+          <Route path="/admin/Edit" element={<Edit />} />
           <Route path="/admin/create" element={<Create />} />
           <Route path="/admin/delete" element={<Delete />} />
           <Route path="Sport" element={<Sport />} />
           <Route path="/admin/booking" element={<Booking_Detail />} />
           <Route path="Classroom" element={<Classroom />} />
           <Route path="HallCard" element={<HallCard />} />
-          <Route path="/facility_name" element={<Search />} />
         </Routes>
         <Footer />
       </BrowserRouter>
