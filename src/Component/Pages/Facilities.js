@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
+import emailjs from "emailjs-com";
 
 function Facilities() {
   const [Username, setUsername] = useState("");
@@ -13,7 +14,6 @@ function Facilities() {
   const [Start_Time, setStart_Time] = useState("");
   const [End_Time, setEnd_Time] = useState("");
   const [date, setdate] = useState("");
-
   const [Facility, setFacility] = useState([]);
   const [Users, setUsers] = useState([]);
   const [isBooked, setIsBooked] = useState(false);
@@ -28,7 +28,21 @@ function Facilities() {
     getUsers();
   }, []);
 
-  console.log(Users);
+  const sendEmail = (user) => {
+    const serviceId = "service_nemfbwq";
+    const templateId = "template_ntrguog";
+    const userId = "QtDooSGgQqtG3MMXT";
+
+    console.log(user.Email);
+    emailjs.send(serviceId, templateId, user, userId).then(
+      (result) => {
+        console.log(result.text);
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
+  };
 
   const BOOK = async () => {
     try {
@@ -47,10 +61,12 @@ function Facilities() {
       if (button) {
         button.innerHTML = "BOOKED";
       }
+      Users.forEach((user) => {
+        sendEmail(user);
+      });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    // add code to update the database with the booking details
   };
 
   useEffect(() => {
