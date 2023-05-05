@@ -8,7 +8,7 @@ import { db } from "../../Database/Firebase-config";
 function Facilities() {
   const [Username, setUsername] = useState("");
   const [Email, setEmail] = useState("");
-  const [Location, setLocation] = useState("");
+  const [location, setlocation] = useState("");
   const [Department, setDepartment] = useState("");
   const [Start_Time, setStart_Time] = useState("");
   const [End_Time, setEnd_Time] = useState("");
@@ -16,36 +16,23 @@ function Facilities() {
 
   const [Facility, setFacility] = useState([]);
 
-  const BOOK = async () => {
+  const BOOKED = async () => {
     try {
-      // Query the database for existing bookings on the selected date and time slot
-      const querySnapshot = await getDocs(
-        collection(db, "Users").where("date", "==", date).where("Start_Time", "==", Start_Time)
-      );
-      
-      if (!querySnapshot.empty) {
-        // The selected time slot is already booked
-        console.log("Sorry, this time slot is already booked.");
-        return;
-      }
-      
-      // The selected time slot is available, so add the new booking to the database
       const docRef = await addDoc(collection(db, "Users"), {
         Username: Username,
-        Location: Location,
+        Location: location,
         Department: Department,
         Start_Time: Start_Time,
         Email: Email,
         End_Time: End_Time,
         date: date,
       });
-      
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+    // add code to update the database with the booking details
   };
-  
 
   useEffect(() => {
     const getFacility = async () => {
@@ -85,13 +72,13 @@ function Facilities() {
                   placeholder="Enter your email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <label htmlFor="email">Location</label>
+                <label htmlFor="email">location</label>
                 <input
                   type="text"
                   className="form rounded-3"
-                  id="Location"
+                  id="location"
                   placeholder="Enter your email"
-                  onChange={(e) => setLocation(e.target.value)}
+                  onChange={(e) => setlocation(e.target.value)}
                 />
                 <label htmlFor="department">Department</label>
                 <select
@@ -140,13 +127,13 @@ function Facilities() {
                       setdate(e.target.value);
                     }}
                   />
-                  <div className="col-md-5 mt-2 w-5 ">
+                  <div className="col-md-2 mt-5">
                     <button
-                      onClick={BOOK}
-                      className="btn btn-primary booked-btn "
-                      style={{ fontSize: "15px" }}
+                      onClick={BOOKED}
+                      className="btn btn-primary booked-btn"
+                      style={{ fontSize: "10px" }}
                     >
-                      BOOK
+                      BOOKED
                     </button>
                   </div>
                 </div>

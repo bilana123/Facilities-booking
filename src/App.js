@@ -25,6 +25,7 @@ import { AuthContext } from "./Component/Context/AuthContex";
 import Protectedroute from "./Routes/Protectedroute";
 import { useContext } from "react";
 import Booking_Detail from "./Component/Admin/Booking_Detail";
+import Search from "./Component/Pages/Search";
 //import { FirebaseApp } from "firebase/app";
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
           <Route path="/admin/booking" element={<Booking_Detail />} />
           <Route path="Classroom" element={<Classroom />} />
           <Route path="HallCard" element={<HallCard />} />
+          <Route path="/facility_name" element={<Search />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -16,7 +16,13 @@ export default function Booking_Detail() {
     getUsers();
   }, []);
 
-  console.log(Users);
+  const handleApprove = (user) => {
+    // Handle approve action for the given user
+  };
+
+  const handleCancel = (user) => {
+    // Handle cancel action for the given user
+  };
 
   return (
     <div>
@@ -30,12 +36,13 @@ export default function Booking_Detail() {
             <th>Start_Time</th>
             <th>End_Time</th>
             <th>date</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {Users.map((user) => {
             return (
-              <tr>
+              <tr key={user.id}>
                 <td>{user.Username}</td>
                 <td>{user.Email}</td>
                 <td>{user.Location}</td>
@@ -43,6 +50,10 @@ export default function Booking_Detail() {
                 <td>{user.Start_Time}</td>
                 <td>{user.End_Time}</td>
                 <td>{user.date}</td>
+                <td>
+  <button onClick={() => handleApprove(user)} style={{backgroundColor: 'green', color: 'white'}}>Approve</button>
+  <button onClick={() => handleCancel(user)} style={{backgroundColor: 'red', color: 'white'}}>Cancel</button>
+</td>
               </tr>
             );
           })}

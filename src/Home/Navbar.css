@@ -1,4 +1,4 @@
-.Navbar{
+.navbar {
   position: fixed;
   top: 0;
   left: 0;
@@ -61,7 +61,6 @@
 }
 .container-fluid {
   margin-top: -0.25rem !important;
-
 }
 .text-secondary {
   margin: left 30px;
@@ -80,4 +79,3 @@
 .nav-link {
   padding: 10px 5px;
 }
-

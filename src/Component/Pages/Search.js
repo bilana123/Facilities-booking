@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import "./HallCard.css";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
+import { Link } from "react-router-dom";
 
-function HallList({ currentUser }) {
-  const [facility, setFacility] = useState([]);
+function Search() {
+  const { facility_name } = useParams();
+  const [facilityList, setFacilityList] = useState([]);
   const [filteredFacility, setFilteredFacility] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -13,31 +14,21 @@ function HallList({ currentUser }) {
     const getFacilityData = async () => {
       const facilitySnapshot = await getDocs(collection(db, "Facility"));
       const facilityList = facilitySnapshot.docs.map((doc) => doc.data());
-      setFacility(facilityList);
-      setFilteredFacility(facilityList);
+      setFacilityList(facilityList);
     };
     getFacilityData();
   }, []);
 
-  const handleSearchChange = (event) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-    setFilteredFacility(
-      facility.filter(
-        (item) =>
-          item.Facilities === "Halls" &&
-          item.name.toLowerCase().includes(query.toLowerCase())
-      )
+  useEffect(() => {
+    const filteredList = facilityList.filter((facility) =>
+      facility.facility_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    setFilteredFacility(filteredList);
+  }, [facilityList, searchQuery]);
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
   };
-
-  if (facility.length === 0) {
-    return <div>Loading...</div>;
-  }
-
-  if (filteredFacility.length === 0) {
-    return <div>No halls found.</div>;
-  }
 
   return (
     <div>
@@ -64,4 +55,4 @@ function HallList({ currentUser }) {
   );
 }
 
-export default HallList;
+export default Search;

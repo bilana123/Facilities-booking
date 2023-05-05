@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Classroom.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
-
+import { Link } from "react-router-dom";
 
 function Sport() {
   const [facility, setFacility] = useState([]);
@@ -28,8 +28,11 @@ function Sport() {
               <div className="card-hall">
                 <img className="card-img-top" src={item.Image} alt="poster" />
                 <div className="card-body">
-                  <h5 className="card-title">{item.name}</h5>
+                  <h5 className="card-title">{item.facility_name}</h5>
                   <p className="card-text">{item.Description}</p>
+                  <Link to="/facilities" className="btn btn-info">
+                    Learn More
+                  </Link>
                 </div>
               </div>
             </div>
