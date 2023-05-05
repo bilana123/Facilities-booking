@@ -4,7 +4,7 @@
     height: auto;
   }
   .form-group {
-    max-width: 500px; /* set a larger max-width value */
+    max-width: 100px; /* set a larger max-width value */
     margin-bottom: 1rem;
   }
 }

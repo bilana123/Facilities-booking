@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./Navbar.css"; // import CSS file for the navbar
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import useLogout from "../Hooks/useLogout";
+import useLogOut from "../Hooks/useLogout";
 import { useNavigate } from "react-router-dom";
 import logo from "../Component/Image/logo.png";
 
@@ -11,12 +11,12 @@ import { AuthContext } from "../Component/Context/AuthContex";
 export default function Navbar() {
   <Navbar />;
   const { currentUser } = useContext(AuthContext);
-  const { Logout, isPending } = useLogout();
+  const { LogOut, isPending } = useLogOut();
   const navigate = useNavigate();
 
-  const handelLogout = async () => {
+  const handelLogOut = async () => {
     try {
-      await Logout().then(() => {
+      await LogOut().then(() => {
         navigate("/");
       });
     } catch (err) {
@@ -58,7 +58,7 @@ export default function Navbar() {
                 aria-current="page"
                 to="/aboutus"
               >
-                <b> AboutUs </b>
+                <b> About Us </b>
               </Link>
             </div>
 
@@ -79,9 +79,9 @@ export default function Navbar() {
                 <Link
                   class="nav-link active rounded-5"
                   aria-current="page"
-                  onClick={handelLogout}
+                  onClick={handelLogOut}
                 >
-                  <b>Logout</b>
+                  <b>LogOut</b>
                 </Link>
               )}
             </div>

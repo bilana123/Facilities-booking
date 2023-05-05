@@ -21,54 +21,53 @@ export default function Login() {
       console.log(err);
     }
   };
+
   return (
-    <div className="Login-container">
-      <form onSubmit={handleSubmit} className="Login-form mt-5 rounded-2">
-        <h5 className="Form">Admin</h5>
-        <label>
-          <span>email:</span>
-          <input
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            style={{ border: "2px solid black" }}
-          />
-        </label>
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
+      <div className="bg-white shadow-lg p-5">
+        <form onSubmit={handleSubmit} className="from-login">
+          <h5 className="Form">Admin</h5>
 
-        <label>
-          <span> password:</span>
-          <input
-            type="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            style={{ border: "2px solid black" }}
-          />
-        </label>
-        <br />
+          <div className="form-group">
+            <label htmlFor="username">Email:</label>
+            <input
+              type="email"
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+              className="form-control"
+              placeholder="Enter email"
+            />
+          </div>
 
-        {!isPending && (
-          <button
-            type="submit"
-            className="btn"
-            style={{
-              backgroundColor: "green",
-              fontSize: "12px",
-              padding: "5px 10px",
-              margin: "0 auto", // center horizontally
-              width: "100px",
-            }}
-          >
-            Login
-          </button>
-        )}
-        {isPending && (
-          <button className="btn" disabled>
-            Loading
-          </button>
-        )}
-        {error && <p>{error}</p>}
-      </form>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              name="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
+              className="form-control"
+              placeholder="Enter password"
+            />
+          </div>
+          <br></br>
+
+          {!isPending && (
+            <button type="submit" className="btn btn-primary btn-block">
+              Login
+            </button>
+          )}
+          {isPending && (
+            <button className="btn" disabled>
+              Loading
+            </button>
+          )}
+          {error && <p>{error}</p>}
+        </form>
+      </div>
     </div>
   );
 }
