@@ -6,40 +6,43 @@ export default function UserManagement() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const getusers = async () => {
+    const getUsers = async () => {
       const usersSnapshot = await getDocs(collection(db, "users"));
       const usersList = usersSnapshot.docs.map((doc) => doc.data());
       setUsers(usersList);
     };
 
-    getusers();
+    getUsers();
   }, []);
 
   console.log(users);
 
   return (
-    <table className="booking-table mt-5" align="center">
-      <thead>
-        <tr>
-          <th>email</th>
-          <th>displayName</th>
-          <th>department</th>
-          <th>createdAt</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map((user) => {
-          return (
-            <tr>
+    <div>
+      <table
+        className="booking-table mt-5 "
+        align="center"
+        style={{ width: "80%", height: "auto" }}
+      >
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Display Name</th>
+            <th>Department</th>
+            <th>CreatedAt</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
               <td>{user.email}</td>
               <td>{user.displayName}</td>
               <td>{user.department}</td>
               <td>{user.createdAt}</td>
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
