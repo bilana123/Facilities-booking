@@ -136,70 +136,8 @@ export default function Create() {
               </form>
             </div>
           </div>
-          <div class="form-group">
-            <label htmlFor="Selectimage">Select Image</label>
-            <input
-              type="file"
-              name="selectimage"
-              class="form-control rounded-3"
-              onChange={ImgHandler}
-              id="file"
-              placeholder="insert image"
-            />
-          </div>
-          <div class="form-group">
-            <label for="department">Department:</label>
-            <select
-              class="form-control"
-              id="department"
-              value={department}
-              onChange={(e) => setdepartment(e.target.value)}
-            >
-              <option value="">Select department</option>
-              <option value="IT">IT</option>
-              <option value="sports">sport</option>
-              <option value="HR ">HR</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="Facilities">Facilities:</label>
-            <select
-              class="form-control"
-              id="Facilities"
-              value={Facilities}
-              onChange={(e) => setfacilities(e.target.value)}
-            >
-              <option value="">Select Facilities</option>
-              <option value="Halls">Halls</option>
-              <option value="Sports">Sports</option>
-              <option value="Classrooms">Classrooms</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label htmlFor="description">Description</label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              name="description"
-              class="form-control rounded-3"
-              id="description"
-            ></textarea>
-          </div>
-          <br />
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <button
-              type="submit"
-              class="btn btn-success"
-              onClick={handleSubmit}
-            >
-              Create
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
-  </div>
-  </div>
-  )
+  );
 }
