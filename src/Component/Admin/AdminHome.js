@@ -47,8 +47,7 @@ function AdminHome() {
             <li>
               <NavLink exact to="/">
                 <FaHome style={{ marginRight: "10px" }} />
-                
-                <span>User Management</span>
+                <span>User_Management</span>
               </NavLink>
             </li>
             <li>

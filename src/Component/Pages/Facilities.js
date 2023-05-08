@@ -10,7 +10,7 @@ function Facilities() {
   const [Username, setUsername] = useState("");
   const [Email, setEmail] = useState("");
   const [Location, setLocation] = useState("");
-  const [Department, setDepartment] = useState("");
+  const [Programme, setProgramme] = useState("");
   const [Start_Time, setStart_Time] = useState("");
   const [End_Time, setEnd_Time] = useState("");
   const [date, setdate] = useState("");
@@ -49,7 +49,7 @@ function Facilities() {
       const docRef = await addDoc(collection(db, "Users"), {
         Username: Username,
         Location: Location,
-        Department: Department,
+        Programme: Programme,
         Start_Time: Start_Time,
         Email: Email,
         End_Time: End_Time,
@@ -97,9 +97,8 @@ function Facilities() {
           <div className="row g-2"></div>
           <div className="col-md-6 offset-md-2">
             <div className="Facility-body">
-              <h5 className="Facility-title">MPH </h5>
               <div className="group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="Name">Name</label>
                 <input
                   type="text"
                   className="form-control rounded-3"
@@ -125,19 +124,40 @@ function Facilities() {
                   placeholder="Enter your email"
                   onChange={(e) => setLocation(e.target.value)}
                 />
-                <label htmlFor="department">Department</label>
+                <label htmlFor="Programme">Programme</label>
                 <select
                   className="form-select rounded-3"
                   aria-label="Default select example"
-                  id="department"
+                  id="Programme"
                   onChange={(e) => {
-                    setDepartment(e.target.value);
+                    setProgramme(e.target.value);
                   }}
                 >
-                  <option value="">Choose a department</option>
-                  <option value="IT">IT</option>
-                  <option value="HR">HR</option>
-                  <option value="Marketing">Marketing</option>
+                  <option value="">Choose a Programme</option>
+                  <option value="Computer System And Networking">
+                    Computer System And Networking
+                  </option>
+                  <option value="Civil Engineering">Civil Engineering </option>
+                  <option value="Materials And Procurement Management">
+                    Materials And Procurement Management
+                  </option>
+                  <option value="Machnical Engneering">
+                    Machnical Engneering
+                  </option>
+                  <option value="Electrical Enginnering">
+                    Electrical Enginnering
+                  </option>
+                  <option value="Electronic And Communication">
+                    Electronic And Communication
+                  </option>
+                  <option value="Surveying">Surveying</option>
+                  <option value="B.E in Power Engineering">Marketing</option>
+                  <option value="B.E in Mechanical Engineering">
+                    B.E in Mechanical Engineering
+                  </option>
+                  <option value="B.E in Surveying and Geoinformatics">
+                    B.E in Surveying and Geoinformatics
+                  </option>
                 </select>
                 <label htmlFor="start-time">Start-Time</label>
                 <input
@@ -162,7 +182,7 @@ function Facilities() {
                 />
 
                 <div className="control">
-                  <label htmlFor="date">date</label>
+                  <label htmlFor="date">Start date</label>
                   <input
                     type="date"
                     className="form-control rounded-3"
@@ -172,16 +192,27 @@ function Facilities() {
                       setdate(e.target.value);
                     }}
                   />
-                  <div className="col-md-5 mt-2 w-5 ">
-                  <button
-  onClick={BOOK}
-  className="btn btn-primary booked-btn "
-  style={{ fontSize: "15px" }}
-  id="book-button"
-  disabled={isBooked} // disable the button if isBooked is true
->
-  {isBooked ? "BOOKED" : "BOOK"} {/* change the button label to "BOOKED" if isBooked is true */}
-</button>
+                  <div className="control">
+                    <label htmlFor="date">End date</label>
+                    <input
+                      type="date"
+                      className="form-control rounded-3"
+                      id="date"
+                      placeholder="Enter time in MM/dd/yyyy format"
+                      onChange={(e) => {
+                        setdate(e.target.value);
+                      }}
+                    />
+                    <div className="col-md-5 mt-2 w-5 ">
+                      <button
+                        onClick={BOOK}
+                        className="btn btn-primary booked-btn "
+                        style={{ fontSize: "15px" }}
+                        id="book-button"
+                      >
+                        BOOK
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

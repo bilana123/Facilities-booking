@@ -17,7 +17,6 @@ const Signup = () => {
 
   const { Signup, isPending, error } = useSignup();
   const navigate = useNavigate();
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,10 +76,10 @@ const Signup = () => {
                 required
                 className="form-control"
               >
-                <option value="">Select department</option>
-                <option value="IT">IT</option>
+                <option value="Select subadmin">Select subadmin</option>
+                <option value="Classroom">Classroom</option>
                 <option value="Sports">Sports</option>
-                <option value="HR">HR</option>
+                <option value="Hall">Hall</option>
               </select>
             </div>
             <div className="form-group">
@@ -106,7 +105,8 @@ const Signup = () => {
                 className="form-control"
                 placeholder="Confirm password"
               />
-            </div><br></br>
+            </div>
+            <br></br>
             <button
               type="submit"
               className="btn btn-primary btn-block"

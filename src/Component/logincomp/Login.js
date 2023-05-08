@@ -52,7 +52,8 @@ export default function Login() {
               className="form-control"
               placeholder="Enter password"
             />
-          </div><br></br>
+          </div>
+          <br></br>
 
           {!isPending && (
             <button type="submit" className="btn btn-primary btn-block">
