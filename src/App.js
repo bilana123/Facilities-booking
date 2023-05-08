@@ -1,5 +1,3 @@
-//import 'bootstrap/dist/css/bootstrap.min.css';
-//import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./Component/logincomp/Login";
@@ -16,21 +14,14 @@ import Facilities from "./Component/Pages/Facilities";
 import AdminHome from "./Component/Admin/AdminHome";
 import Create from "./Component/Admin/Create";
 import Delete from "./Component/Admin/Delete";
-import { AuthProvider } from "./Component/Context/AuthContex";
-import HallCard from './Component/Pages/HallCard';
-import Classroom from './Component/Pages/Classroom';
-import Sport from './Component/Pages/Sport';
-import Alpha from './Component/Pages/Alpha';
 import { AuthContext } from "./Component/Context/AuthContex";
 import Sport from "./Component/Pages/Sport";
 import Classroom from "./Component/Pages/Classroom";
 import HallCard from "./Component/Pages/HallCard";
-
+import Edit from "./Component/Admin/Edit";
 import { useContext } from "react";
 import Protectedroute from "./Routes/Protectedroute";
-import { useContext } from "react";
 import Booking_Detail from "./Component/Admin/Booking_Detail";
-import Search from "./Component/Pages/Search";
 //import { FirebaseApp } from "firebase/app";
 import BookingReq from "./Component/Admin/BookingReq";
 
@@ -46,12 +37,10 @@ function App() {
           <Route element={<Protectedroute user={currentUser} />}>
             <Route path="/admin" element={<AdminHome />} />
           </Route>
-          <Route path="/" element={<Home />} />
-
           <Route path="/login" element={<Login />} />
           <Route path="/admin/add_subadmin" element={<Signup />} />
           <Route path="/Aboutus" element={<Aboutus />} />
-          <Route path="/Home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/Facilities" element={<Facilities />} />
           <Route path="/admin/Edit" element={<Edit />} />
           <Route path="/admin/create" element={<Create />} />
@@ -60,6 +49,7 @@ function App() {
           <Route path="/admin/booking" element={<Booking_Detail />} />
           <Route path="Classroom" element={<Classroom />} />
           <Route path="HallCard" element={<HallCard />} />
+          <Route path="/Booking" element={<BookingReq />} />
         </Routes>
         <Footer />
       </BrowserRouter>

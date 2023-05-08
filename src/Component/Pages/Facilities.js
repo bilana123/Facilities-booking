@@ -9,13 +9,14 @@ import emailjs from "emailjs-com";
 function Facilities() {
   const [Username, setUsername] = useState("");
   const [Email, setEmail] = useState("");
-  const [location, setlocation] = useState("");
+  const [Location, setLocation] = useState("");
   const [Department, setDepartment] = useState("");
   const [Start_Time, setStart_Time] = useState("");
   const [End_Time, setEnd_Time] = useState("");
   const [date, setdate] = useState("");
   const [Facility, setFacility] = useState([]);
   const [Users, setUsers] = useState([]);
+  const [isBooked, setIsBooked] = useState(false);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -43,11 +44,11 @@ function Facilities() {
     );
   };
 
-  const BOOKED = async () => {
+  const BOOK = async () => {
     try {
       const docRef = await addDoc(collection(db, "Users"), {
         Username: Username,
-        Location: location,
+        Location: Location,
         Department: Department,
         Start_Time: Start_Time,
         Email: Email,
@@ -72,9 +73,19 @@ function Facilities() {
     const getFacility = async () => {
       const data = await getDocs(collection(db, "Users"));
       setFacility(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  
+      // Check if current user has already booked the facility
+      const currentUser = Users.find((user) => user.Email === Email);
+      if (currentUser) {
+        const button = document.getElementById("book-button");
+        if (button) {
+          button.disabled = true;
+          button.innerHTML = "BOOKED";
+        }
+      }
     };
     getFacility();
-  }, []);
+  }, [Users, Email]);
 
   return (
     <div>
@@ -106,13 +117,13 @@ function Facilities() {
                   placeholder="Enter your email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <label htmlFor="email">location</label>
+                <label htmlFor="email">Location</label>
                 <input
                   type="text"
                   className="form rounded-3"
-                  id="location"
+                  id="Location"
                   placeholder="Enter your email"
-                  onChange={(e) => setlocation(e.target.value)}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
                 <label htmlFor="department">Department</label>
                 <select
@@ -161,15 +172,16 @@ function Facilities() {
                       setdate(e.target.value);
                     }}
                   />
-                  <div className="col-md-2 mt-5">
-                    <button
-                      onClick={BOOK}
-                      className="btn btn-primary booked-btn "
-                      style={{ fontSize: "15px" }}
-                      id="book-button"
-                    >
-                      BOOKED
-                    </button>
+                  <div className="col-md-5 mt-2 w-5 ">
+                  <button
+  onClick={BOOK}
+  className="btn btn-primary booked-btn "
+  style={{ fontSize: "15px" }}
+  id="book-button"
+  disabled={isBooked} // disable the button if isBooked is true
+>
+  {isBooked ? "BOOKED" : "BOOK"} {/* change the button label to "BOOKED" if isBooked is true */}
+</button>
                   </div>
                 </div>
               </div>
