@@ -60,7 +60,7 @@ function AdminHome() {
             <li>
               <NavLink to="/admin/booking">
                 <FaBook style={{ marginRight: "10px" }} />
-                <span>Booking_Detail</span>
+                <span>UserBooking_Detail</span>
               </NavLink>
             </li>
             {role !== "subadmin" ? (

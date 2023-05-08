@@ -23,7 +23,7 @@ import HallCard from "./Component/Pages/HallCard";
 import Edit from "./Component/Admin/Edit";
 import { useContext } from "react";
 import Protectedroute from "./Routes/Protectedroute";
-import Booking_Detail from "./Component/Admin/Booking_Detail";
+import UserBooking_Detail from "./Component/Admin/UserBooking_Detail";
 //import { FirebaseApp } from "firebase/app";
 import BookingReq from "./Component/Admin/BookingReq";
 import UserManagement from "./Component/Admin/UserManagement";
@@ -50,7 +50,7 @@ function App() {
           <Route path="/admin/create" element={<Create />} />
           <Route path="/admin/delete" element={<Delete />} />
           <Route path="Sport" element={<Sport />} />
-          <Route path="/admin/booking" element={<Booking_Detail />} />
+          <Route path="/admin/booking" element={<UserBooking_Detail />} />
           <Route path="Classroom" element={<Classroom />} />
           <Route path="HallCard" element={<HallCard />} />
           <Route path="/Booking" element={<BookingReq />} />

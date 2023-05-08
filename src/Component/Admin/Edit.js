@@ -39,7 +39,7 @@ const Edit = () => {
     };
     console.log(data.id);
     console.log(data.name);
-    const collectionRef = doc(db, "Facility", "uoZAwySRyS9DzdZNsn7V");
+    const collectionRef = doc(db, "Facility", data.id);
     await updateDoc(collectionRef, { facility_name: data.name }).catch(
       (err) => {
         console.log(err);

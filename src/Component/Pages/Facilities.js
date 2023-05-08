@@ -1,48 +1,28 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
 
 function Facilities() {
-  const [Facility_Name, setFacility_Name] = useState("");
+  const [facility_Name, setfacility_Name] = useState("");
   const [email, setEmail] = useState("");
   const [contactNo, setContactNo] = useState("");
-  const [location, setLocation] = useState("");
+  const [name, setName] = useState("");
   const [programme, setProgramme] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const [users, setUsers] = useState([]);
+  const [Users, setUsers] = useState([]);
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const usersSnapshot = await getDocs(collection(db, "Users"));
-      const usersList = usersSnapshot.docs.map((doc) => doc.data());
-      setUsers(usersList);
-    };
-
-    getUsers();
-  }, []);
-
-  const handleBook = async () => {
-    const startDateStr = document.getElementById("start-date-time").value;
-    const endDateStr = document.getElementById("end-date-time").value;
-
-    const startDate = new Date(startDateStr);
-    const endDate = new Date(endDateStr);
-
-    if (endDate < startDate) {
-      alert("End date and time cannot be before start date and time.");
-      document.getElementById("end-date-time").value = "";
-      return;
-    }
+  const BOOK = async (e) => {
+    e.preventDefault();
 
     try {
       const docRef = await addDoc(collection(db, "Users"), {
-        Facility_Name: Facility_Name,
-        location: location,
+        facility_Name: facility_Name,
+        name: name,
         contactNo: contactNo,
         programme: programme,
         startTime: startTime,
@@ -61,39 +41,6 @@ function Facilities() {
       console.error("Error adding document: ", e);
     }
   };
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(collection(db, "Users"));
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getUsers();
-  }, []);
-
-  const BOOK = async () => {
-    try {
-      const docRef = await addDoc(collection(db, "Users"), {
-        Facility_Name: Facility_Name,
-        location: location,
-        contactNo: contactNo,
-        programme: programme,
-        startTime: startTime,
-        email: email,
-        endTime: endTime,
-        startDate: startDate,
-        endDate: endDate,
-        status: "pending",
-      });
-      console.log("Document written with ID: ", docRef.id);
-      const button = document.getElementById("book-button");
-      if (button) {
-        button.innerHTML = "BOOKED";
-      }
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  };
-
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(collection(db, "Users"));
@@ -104,39 +51,39 @@ function Facilities() {
 
   return (
     <div>
-      {users.map((user) => {
-        return <div key={user.id}>{user.name}</div>;
+      {Users.map((users) => {
+        return <div key={users.id}>{Users.facility_Name}</div>;
       })}
-      <div className="bg-white shadow-lg-3  ">
+      <div className="bg-white shadow-lg-3">
         <div className="row g-0"></div>
         <div className="col-md-6 offset-md-2">
-          <div className="bg-white shadow-lg-5 m-5 ">
-            <form>
+          <div className="bg-white shadow-lg-5 m-5">
+            <form onSubmit={BOOK}>
               <div className="mb-1">
-                <label for="Name" className="form-label">
-                  Facility_Name
+                <label htmlFor="facility_Name" className="form-label">
+                  Facility Name
                 </label>
                 <input
                   type="text"
-                  value={Facility_Name}
-                  required
+                  value={facility_Name}
                   className="form-control rounded-3"
                   id="facility_Name"
-                  placeholder="Enter your username"
+                  placeholder="Enter the facility name"
                   onChange={(e) => {
-                    setFacility_Name(e.target.value);
+                    setfacility_Name(e.target.value);
                   }}
+                  required
                 />
               </div>
               <div className="mb-1">
-                <label for="email" className="form-label">
+                <label htmlFor="email" className="form-label">
                   Email
                 </label>
                 <input
                   type="text"
                   value={email}
                   required
-                  class="form-control rounded-3"
+                  className="form-control rounded-3"
                   id="email"
                   placeholder="Enter your email"
                   onChange={(e) => {
@@ -145,34 +92,34 @@ function Facilities() {
                 />
               </div>
               <div className="mb-1">
-                <label for=" Contact_No" className="form-label">
-                  Contact_No
+                <label htmlFor="contactNo" className="form-label">
+                  Contact Number
                 </label>
                 <input
                   type="text"
                   value={contactNo}
                   required
                   className="form-control rounded-3"
-                  id=" Contact_No"
-                  placeholder="Enter your location"
+                  id="contactNo"
+                  placeholder="Enter your contact number"
                   onChange={(e) => {
                     setContactNo(e.target.value);
                   }}
                 />
               </div>
               <div className="mb-1">
-                <label for="Location" className="form-label">
-                  Location
+                <label for="Name" className="form-label">
+                  Name
                 </label>
                 <input
                   type="text"
-                  value={location}
+                  value={name}
                   required
                   className="form-control rounded-3"
-                  id="location"
-                  placeholder="Enter your location"
+                  id="name"
+                  placeholder="Enter your name"
                   onChange={(e) => {
-                    setLocation(e.target.value);
+                    setName(e.target.value);
                   }}
                 />
               </div>
@@ -285,9 +232,9 @@ function Facilities() {
               </div>
               <div className="col-md-5 mt-2 w-5">
                 <button
-                  onClick={BOOK}
                   className="btn btn-primary booked-btn"
                   style={{ fontSize: "15px" }}
+                  type="submit"
                   id="book-button"
                 >
                   BOOK

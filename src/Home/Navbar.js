@@ -84,6 +84,15 @@ export default function Navbar() {
                   <b>Logout</b>
                 </Link>
               )}
+              <div class="nav-item mt-90 text-secondary">
+                <Link
+                  class="nav-link active rounded-5"
+                  aria-current="page"
+                  to="/admin/add_subadmin"
+                >
+                  <b>SignUp </b>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
