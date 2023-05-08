@@ -6,38 +6,18 @@ import { db } from "../../Database/Firebase-config";
 
 function HallList({ currentUser }) {
   const [facility, setFacility] = useState([]);
-  const [filteredFacility, setFilteredFacility] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+
+  const getFacilityData = async () => {
+    const facilitySnapshot = await getDocs(collection(db, "Facility"));
+    const facilityList = facilitySnapshot.docs.map((doc) => doc.data());
+    setFacility(facilityList);
+  };
 
   useEffect(() => {
-    const getFacilityData = async () => {
-      const facilitySnapshot = await getDocs(collection(db, "Facility"));
-      const facilityList = facilitySnapshot.docs.map((doc) => doc.data());
-      setFacility(facilityList);
-      setFilteredFacility(facilityList);
-    };
     getFacilityData();
   }, []);
 
-  const handleSearchChange = (event) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-    setFilteredFacility(
-      facility.filter(
-        (item) =>
-          item.Facilities === "Halls" &&
-          item.name.toLowerCase().includes(query.toLowerCase())
-      )
-    );
-  };
-
-  if (facility.length === 0) {
-    return <div>Loading...</div>;
-  }
-
-  if (filteredFacility.length === 0) {
-    return <div>No halls found.</div>;
-  }
+  console.log(facility);
 
   return (
     <div>
@@ -55,8 +35,7 @@ function HallList({ currentUser }) {
               </Link>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 }
