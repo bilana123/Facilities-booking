@@ -1,8 +1,10 @@
 .section_padding {
   padding: 1rem 4rem;
+  position: relative;
 }
 .footer {
   background-color: #2d2d32;
+  position: initial;
 }
 .sb_footer {
   display: flex;
@@ -36,7 +38,7 @@ a {
   align-items: center;
   text-align: center;
   margin-bottom: 50px;
-  flex-direction: row;
+
   /* change row to column */
 }
 
@@ -44,8 +46,8 @@ a {
   margin-top: 1rem;
   font-size: 7.9rem;
   color: #fff;
-  margin-left: 1000px;
-  flex-direction: row;
+  margin-left: 1200px;
+  flex-direction: column;
 }
 
 .socialmedia img {
@@ -98,4 +100,7 @@ hr {
     font-size: 44px;
     line-height: 50px;
   }
+}
+.socialmedia h4 {
+  flex-direction: row;
 }

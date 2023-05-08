@@ -27,7 +27,7 @@ export default function Booking_Detail() {
       >
         <thead>
           <tr>
-            <th>Username</th>
+            <th>Facility_Name</th>
             <th>Email</th>
             <th>Contact_No</th>
             <th>Location</th>
@@ -42,7 +42,7 @@ export default function Booking_Detail() {
           {Users.map((user) => {
             return (
               <tr>
-                <td>{user.Username}</td>
+                <td>{user.Facility_Name}</td>
                 <td>{user.Email}</td>
                 <td>{user.Contact_No}</td>
                 <td>{user.Location}</td>

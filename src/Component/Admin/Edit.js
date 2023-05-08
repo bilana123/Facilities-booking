@@ -7,8 +7,8 @@ import { db } from "../../Database/Firebase-config";
 const Edit = () => {
   const [facility, setFacility] = useState("");
   const [image, setImage] = useState(null);
-  const [department, setdepartment] = useState("");
-  const [Facilities, setfacilities] = useState("");
+
+  const [Category, setCategory] = useState("");
   const [description, setDescription] = useState("");
 
   const locate = useLocation();
@@ -33,19 +33,18 @@ const Edit = () => {
       id: facilitys.id,
       name: facility,
       image: image,
-      department: department,
-      facilities: Facilities,
+
+      Category: Category,
       description: description,
     };
     console.log(data.id);
     console.log(data.name);
-    const collectionRef = doc(db, "Facility", "23eyIQdsCC1MhpoO26jy");
-    console.log(collectionRef);
-    await updateDoc(collectionRef, {
-      facility_name: data.name,
-    }).catch((err) => {
-      console.log(err);
-    });
+    const collectionRef = doc(db, "Facility", "uoZAwySRyS9DzdZNsn7V");
+    await updateDoc(collectionRef, { facility_name: data.name }).catch(
+      (err) => {
+        console.log(err);
+      }
+    );
   };
 
   return (
@@ -64,33 +63,22 @@ const Edit = () => {
           <Form.Label>Image</Form.Label>
           <Form.Control type="file" onChange={ImgHandler} />
         </Form.Group>
+
         <Form.Group>
-          <Form.Label>Department</Form.Label>
+          <Form.Label>Category</Form.Label>
           <Form.Select
-            defaultValue={facilitys.Department}
-            value={department}
-            onChange={(e) => setdepartment(e.target.value)}
-            required
-          >
-            <option value="">Select department</option>
-            <option value="Department A">Department A</option>
-            <option value="Department B">Department B</option>
-            <option value="Department C">Department C</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Facilities</Form.Label>
-          <Form.Select
-            defaultValue={facilitys.Facilities}
+            defaultValue={facilitys.Category}
             rows="3"
-            value={Facilities}
-            onChange={(e) => setfacilities(e.target.value)}
+            value={Category}
+            onChange={(e) => setCategory(e.target.value)}
             required
           >
-            <option value="">Select facilities</option>
-            <option value="Facility A">Facility A</option>
-            <option value="Facility B">Facility B</option>
-            <option value="Facility C">Facility C</option>
+            <option value="Choose Type" style={{ fontWeight: "bold" }}>
+              Select Type
+            </option>
+            <option value="Halls">Halls</option>
+            <option value="Sports">Sports</option>
+            <option value="Classrooms">Classrooms</option>
           </Form.Select>
         </Form.Group>
         <Form.Group>

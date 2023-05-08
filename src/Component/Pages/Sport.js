@@ -21,7 +21,7 @@ function Sport() {
   return (
     <div>
       {facility
-        .filter((item) => item.Facilities === "Sports")
+        .filter((item) => item.Category === "Sports")
         .map((item, index) => (
           <div className="sport-list" key={index}>
             <div className="card-container">
