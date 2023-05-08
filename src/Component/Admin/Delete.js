@@ -47,9 +47,9 @@ export default function Delete() {
           <tr>
             <th>facility_name</th>
             <th>Image</th>
-            <th>Facilities</th>
+            <th>Category</th>
             <th>Description</th>
-            <th>Department</th>
+
             <th>Action</th>
           </tr>
         </thead>
@@ -61,9 +61,9 @@ export default function Delete() {
                 <td>
                   <img src={facility.Image} width="50" />
                 </td>
-                <td>{facility.Facilities}</td>
+                <td>{facility.Category}</td>
                 <td>{facility.Description}</td>
-                <td>{facility.Department}</td>
+
                 <td>
                   <span>
                     <Link
