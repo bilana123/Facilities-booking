@@ -44,7 +44,7 @@ const Edit = () => {
     await updateDoc(collectionRef, {
       facility_name: data.name,
     }).catch((err) => {
-      console.log(err);
+        console.log(err);
     });
   };
 
