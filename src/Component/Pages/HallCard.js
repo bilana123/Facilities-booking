@@ -22,17 +22,19 @@ function HallList({ currentUser }) {
   return (
     <div>
       {facility
-        .filter((item) => item.Facilities === "Halls")
+        .filter((item) => item.Category === "Halls")
         .map((item, index) => (
-          <div className="card-hall" key={index}>
-            <img className="card-img-top" src={item.Image} alt="poster" />
-            <div className="card-body">
-              {item.Facilities}
-              <h5 className="card-title">{item.name}</h5>
-              <p className="card-text">{item.Description}</p>
-              <Link to="/facilities" className="btn btn-info">
-                Learn More
-              </Link>
+          <div className="container">
+            <div className="card-hall" key={index}>
+              <img className="card-img-top" src={item.Image} alt="poster" />
+              <div className="card-body">
+                {item.facility_Name}
+                <h5 className="card-title">{item.facility_name}</h5>
+                <p className="card-text">{item.Description}</p>
+                <Link to="/facilities" className="btn btn-info">
+                  Book Now
+                </Link>
+              </div>
             </div>
           </div>
         ))}

@@ -13,7 +13,11 @@ export const useSignup = (dispatch) => {
 
     try {
       // signup user method
-      const { user } = await createUserWithEmailAndPassword(Auth, email, password);
+      const { user } = await createUserWithEmailAndPassword(
+        Auth,
+        email,
+        password
+      );
 
       // update user's display name
       await updateProfile(user, { displayName: username });

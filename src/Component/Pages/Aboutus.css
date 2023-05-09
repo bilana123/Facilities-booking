@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30em;
 }
 
 .about-paragraph-container {
@@ -10,7 +9,6 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 2em;
 }
 
 .paragraph-container {

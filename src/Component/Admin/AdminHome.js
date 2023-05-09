@@ -45,12 +45,6 @@ function AdminHome() {
         <nav className="links">
           <ul>
             <li>
-              <NavLink exact to="/">
-                <FaHome style={{ marginRight: "10px" }} />
-                <span>User Management</span>
-              </NavLink>
-            </li>
-            <li>
               <NavLink to="/admin/create">
                 <FaPlus style={{ marginRight: "10px" }} />
                 <span>Add Facility</span>
@@ -71,9 +65,9 @@ function AdminHome() {
             </li>
             {role !== "subadmin" ? (
               <li>
-                <NavLink to="/admin/add_subadmin">
+                <NavLink to="/manage">
                   <FaBook style={{ marginRight: "10px" }} />
-                  <span>Add Subadmin</span>
+                  <span>Managesub_Admin</span>
                 </NavLink>
               </li>
             ) : null}

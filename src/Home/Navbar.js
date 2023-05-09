@@ -58,7 +58,7 @@ export default function Navbar() {
                 aria-current="page"
                 to="/aboutus"
               >
-                <b> AboutUs </b>
+                <b> About Us </b>
               </Link>
             </div>
 

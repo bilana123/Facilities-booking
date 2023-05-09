@@ -24,6 +24,8 @@ import Protectedroute from "./Routes/Protectedroute";
 import Booking_Detail from "./Component/Admin/Booking_Detail";
 //import { FirebaseApp } from "firebase/app";
 import BookingReq from "./Component/Admin/BookingReq";
+import UserManagement from "./Component/Admin/UserManagement";
+import Editsubadmin from "./Component/Admin/Editsubadmin";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -50,6 +52,8 @@ function App() {
           <Route path="Classroom" element={<Classroom />} />
           <Route path="HallCard" element={<HallCard />} />
           <Route path="/Booking" element={<BookingReq />} />
+          <Route path="/manage" element={<UserManagement />} />
+          <Route path="/admin/edit-subadmin" element={<Editsubadmin />} />
         </Routes>
         <Footer />
       </BrowserRouter>

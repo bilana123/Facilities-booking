@@ -26,34 +26,37 @@ export default function Booking_Detail() {
 
   return (
     <div>
-      <table className="booking-table mt-5" align="center">
+      <table
+        className="booking-table mt-5 "
+        align="center"
+        style={{ width: "80%", height: "auto" }}
+      >
         <thead>
           <tr>
-            <th>Username</th>
+            <th>Facility_Name</th>
             <th>Email</th>
+            <th>Contact_No</th>
             <th>Location</th>
             <th>Department</th>
             <th>Start_Time</th>
             <th>End_Time</th>
-            <th>date</th>
-            <th>Action</th>
+            <th>Start_date</th>
+            <th>End_date</th>
           </tr>
         </thead>
         <tbody>
           {Users.map((user) => {
             return (
-              <tr key={user.id}>
-                <td>{user.Username}</td>
+              <tr>
+                <td>{user.Facility_Name}</td>
                 <td>{user.Email}</td>
+                <td>{user.Contact_No}</td>
                 <td>{user.Location}</td>
                 <td>{user.Department}</td>
                 <td>{user.Start_Time}</td>
                 <td>{user.End_Time}</td>
-                <td>{user.date}</td>
-                <td>
-  <button onClick={() => handleApprove(user)} style={{backgroundColor: 'green', color: 'white'}}>Approve</button>
-  <button onClick={() => handleCancel(user)} style={{backgroundColor: 'red', color: 'white'}}>Cancel</button>
-</td>
+                <td>{user.Start_date}</td>
+                <td>{user.End_date}</td>
               </tr>
             );
           })}
