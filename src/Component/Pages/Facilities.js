@@ -4,15 +4,18 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
 
 function Facilities() {
-  const [Username, setUsername] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Location, setLocation] = useState("");
-  const [Department, setDepartment] = useState("");
-  const [Start_Time, setStart_Time] = useState("");
-  const [End_Time, setEnd_Time] = useState("");
-  const [date, setdate] = useState("");
-  const [Facility, setFacility] = useState([]);
-  const [Users, setUsers] = useState([]);
+  const [Facility_Name, setFacility_Name] = useState("");
+  const [email, setEmail] = useState("");
+  const [contactNo, setContactNo] = useState("");
+  const [location, setLocation] = useState("");
+  const [programme, setProgramme] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const [users, setUsers] = useState([]);
+  const [programmeList, setProgrammeList] = useState([]);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -24,7 +27,17 @@ function Facilities() {
     getUsers();
   }, []);
 
-  const handleBook = async () => {
+  useEffect(() => {
+    const getProgrammeList = async () => {
+      const programmeSnapshot = await getDocs(collection(db, "Programme"));
+      const programmeList = programmeSnapshot.docs.map((doc) => doc.data());
+      setProgrammeList(programmeList);
+    };
+
+    getProgrammeList();
+  }, []);
+
+  const BOOK = async () => {
     const startDateStr = document.getElementById("start-date-time").value;
     const endDateStr = document.getElementById("end-date-time").value;
 
@@ -60,46 +73,6 @@ function Facilities() {
     }
   };
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(collection(db, "Users"));
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getUsers();
-  }, []);
-
-  const BOOK = async () => {
-    try {
-      const docRef = await addDoc(collection(db, "Users"), {
-        Facility_Name: Facility_Name,
-        location: location,
-        contactNo: contactNo,
-        programme: programme,
-        startTime: startTime,
-        email: email,
-        endTime: endTime,
-        startDate: startDate,
-        endDate: endDate,
-        status: "pending",
-      });
-      console.log("Document written with ID: ", docRef.id);
-      const button = document.getElementById("book-button");
-      if (button) {
-        button.innerHTML = "BOOKED";
-      }
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  };
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(collection(db, "Users"));
-      setFacility(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getFacility();
-  }, []);
-
   return (
     <div>
       {users.map((user) => {
@@ -130,6 +103,7 @@ function Facilities() {
                 <label for="email" className="form-label">
                   Email
                 </label>
+
                 <input
                   type="text"
                   value={email}
@@ -264,31 +238,34 @@ function Facilities() {
                     setStartDate(e.target.value);
                   }}
                 />
-
-                <div className="control">
-                  <label htmlFor="date">date</label>
-                  <input
-                    type="date"
-                    className="form-control rounded-3"
-                    id="date"
-                    placeholder="Enter time in MM/dd/yyyy format"
-                    onChange={(e) => {
-                      setdate(e.target.value);
-                    }}
-                  />
-                  <div className="col-md-5 mt-2 w-5 ">
-                    <button
-                      onClick={BOOK}
-                      className="btn btn-primary booked-btn "
-                      style={{ fontSize: "15px" }}
-                      id="book-button"
-                    >
-                      BOOK
-                    </button>
-                  </div>
-                </div>
               </div>
-            </div>
+              <div className="mb-1">
+                <label for="End_date" className="form-label">
+                  End Date
+                </label>
+                <input
+                  type="date"
+                  value={endDate}
+                  required
+                  className="form-control rounded-3"
+                  id="End_date"
+                  placeholder="Enter time in MM/dd/yyyy format"
+                  onChange={(e) => {
+                    setEndDate(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="col-md-5 mt-2 w-5">
+                <button
+                  onClick={BOOK}
+                  className="btn btn-primary booked-btn"
+                  style={{ fontSize: "15px" }}
+                  id="book-button"
+                >
+                  BOOK
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
