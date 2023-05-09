@@ -41,6 +41,7 @@ function App() {
           <Route element={<Protectedroute user={currentUser} />}>
             <Route path="/admin" element={<AdminHome />} />
           </Route>
+
           <Route path="/login" element={<Login />} />
           <Route path="/admin/add_subadmin" element={<Signup />} />
           <Route path="/Aboutus" element={<Aboutus />} />

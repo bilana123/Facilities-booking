@@ -95,9 +95,9 @@ export default function Create() {
                   <option value="Choose Type" style={{ fontWeight: "bold" }}>
                     Select Type
                   </option>
-                  <option value="Halls">Halls</option>
+                  <option value="Hall">Hall</option>
                   <option value="Sports">Sports</option>
-                  <option value="Classrooms">Classrooms</option>
+                  <option value="Classroom">Classrooms</option>
                 </select>
               </div>
               <div class="form-group">

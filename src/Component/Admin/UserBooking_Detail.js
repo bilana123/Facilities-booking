@@ -1,25 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
 import emailjs from "emailjs-com";
 import "./Booking.css";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContex";
 
 export default function UserBooking_Detail() {
+  const { currentUser } = useContext(AuthContext);
   const [Users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const usersSnapshot = await getDocs(collection(db, "Users"));
-      const usersList = usersSnapshot.docs.map((doc) => ({
-        uid: doc.id,
-        ...doc.data(),
-      }));
-      setUsers(usersList);
-    };
-
-    getUsers();
-  }, []);
+  const [category, setCategory] = useState("");
 
   const sendApprovalEmail = (user) => {
     const templateParams = {
@@ -104,6 +100,28 @@ export default function UserBooking_Detail() {
     const user = Users.find((user) => user.uid === id);
     sendRejectionEmail(user);
   };
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const usersSnapshot = await getDocs(collection(db, "Users"));
+      const usersList = usersSnapshot.docs.map((doc) => ({
+        uid: doc.id,
+        ...doc.data(),
+      }));
+      setUsers(usersList);
+    };
+
+    const handleCategory = async () => {
+      const roleDocRef = doc(db, "users", currentUser.uid);
+      const roleDocSnap = await getDoc(roleDocRef);
+      const roleData = roleDocSnap.data();
+      console.log(roleData);
+      setCategory(roleData.department);
+    };
+
+    getUsers();
+    handleCategory();
+  }, []);
   return (
     <div>
       <table
@@ -126,7 +144,7 @@ export default function UserBooking_Detail() {
           </tr>
         </thead>
         <tbody>
-          {Users.map((user) => {
+          {Users.filter((item) => category === item.category).map((user) => {
             return (
               <tr>
                 <td>{user.facility_Name}</td>

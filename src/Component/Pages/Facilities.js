@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
+import { useLocation } from "react-router-dom";
 
 function Facilities() {
-  const [facility_Name, setfacility_Name] = useState("");
   const [email, setEmail] = useState("");
   const [contactNo, setContactNo] = useState("");
   const [name, setName] = useState("");
@@ -13,15 +13,17 @@ function Facilities() {
   const [endTime, setEndTime] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const locate = useLocation();
+  const facility = locate.state;
+  console.log(facility);
 
   const [Users, setUsers] = useState([]);
-
   const BOOK = async (e) => {
     e.preventDefault();
 
     try {
       const docRef = await addDoc(collection(db, "Users"), {
-        facility_Name: facility_Name,
+        facility_Name: facility.facility_name,
         name: name,
         contactNo: contactNo,
         programme: programme,
@@ -30,6 +32,7 @@ function Facilities() {
         endTime: endTime,
         startDate: startDate,
         endDate: endDate,
+        category: facility.Category,
         status: "pending",
       });
       console.log("Document written with ID: ", docRef.id);
@@ -37,6 +40,7 @@ function Facilities() {
       if (button) {
         button.innerHTML = "BOOKED";
       }
+      alert("Your request is pending. We will confirm through Email");
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -59,22 +63,6 @@ function Facilities() {
         <div className="col-md-6 offset-md-2">
           <div className="bg-white shadow-lg-5 m-5">
             <form onSubmit={BOOK}>
-              <div className="mb-1">
-                <label htmlFor="facility_Name" className="form-label">
-                  Facility Name
-                </label>
-                <input
-                  type="text"
-                  value={facility_Name}
-                  className="form-control rounded-3"
-                  id="facility_Name"
-                  placeholder="Enter the facility name"
-                  onChange={(e) => {
-                    setfacility_Name(e.target.value);
-                  }}
-                  required
-                />
-              </div>
               <div className="mb-1">
                 <label htmlFor="email" className="form-label">
                   Email

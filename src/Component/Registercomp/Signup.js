@@ -9,11 +9,11 @@ const Signup = () => {
     email: "",
     password: "",
     username: "",
-    department: "",
+    category: "",
     confirm_password: "",
   });
 
-  const { email, password, username, department, confirm_password } = formData;
+  const { email, password, username, category, confirm_password } = formData;
 
   const { Signup, isPending, error } = useSignup();
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Signup = () => {
     }
 
     try {
-      await Signup(email, password, username, department);
+      await Signup(email, password, username, category);
       navigate("/login");
     } catch (err) {
       console.log(err);
@@ -68,10 +68,10 @@ const Signup = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="department">Department</label>
+              <label htmlFor="category">Category</label>
               <select
-                name="department"
-                value={department}
+                name="category"
+                value={category}
                 onChange={handleChange}
                 required
                 className="form-control"

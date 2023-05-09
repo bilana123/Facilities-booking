@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Classroom.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
-
+import { Link } from "react-router-dom";
 function Classroom() {
   const [facility, setFacility] = useState([]);
 
@@ -21,7 +21,7 @@ function Classroom() {
   return (
     <>
       {facility
-        .filter((item) => item.Facilities === "Classrooms")
+        .filter((item) => item.Category === "Classroom")
         .map((item, index) => (
           <div className="classroom-list" key={index}>
             <div className="card-container">
@@ -33,9 +33,9 @@ function Classroom() {
                 />
                 <h5 className="card-title">{item.facility_name}</h5>
                 <p className="card-text">{item.Description}</p>
-                <a href="#" className="btn btn-info">
-                  Learn More
-                </a>
+                <Link to="/facilities" state={item} className="btn btn-info">
+                  Book Now
+                </Link>
               </div>
             </div>
           </div>
