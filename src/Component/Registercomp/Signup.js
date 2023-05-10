@@ -28,7 +28,7 @@ const Signup = () => {
 
     try {
       await Signup(email, password, username, category);
-      navigate("/login");
+      navigate("/admin");
     } catch (err) {
       console.log(err);
     }
@@ -116,7 +116,7 @@ const Signup = () => {
             </button>
             {error && <div className="text-danger mt-3">{error}</div>}
             <p className="text-center mt-3">
-              Already have an account? <Link to="/login">Log in</Link>
+              Already have an account? <Link to="/admin">Log in</Link>
             </p>
           </form>
         </div>

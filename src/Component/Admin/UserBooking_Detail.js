@@ -182,6 +182,7 @@ export default function UserBooking_Detail() {
             );
           })}
         </tbody>
+        ///
       </table>
     </div>
   );
