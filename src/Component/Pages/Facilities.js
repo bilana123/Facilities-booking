@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
 
 function Facilities() {
@@ -10,38 +10,39 @@ function Facilities() {
   const [contactNo, setContactNo] = useState("");
   const [name, setName] = useState("");
   const [programme, setProgramme] = useState("");
-  const [other, setOther] = useState("");
+  const navigate = useNavigate();
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [departments, setDepartments] = useState([]);
   const locate = useLocation();
   const facility = locate.state;
-  const [bookingConflict, setBookingConflict] = useState({});
 
   const [Users, setUsers] = useState([]);
   const BOOK = async (e) => {
     e.preventDefault();
-    console.log("Users:", Users); // Log the Users array to check if it has the data you expect
-    Users.filter(
+    console.log("Users:", Users);
+
+    const conflict = Users.find(
       (item) =>
         item.facility_Name === facility.facility_name &&
         item.startTime === startTime &&
         item.endTime === endTime &&
         item.startDate === startDate
-    ).map((item) => {
-      console.log("Conflict item:", item); // Log the item that conflicts with the booking
-      setBookingConflict(item);
-    });
-    console.log(Object.keys(bookingConflict).length);
-    if (Object.keys(bookingConflict).length === 0) {
+    );
+
+    if (conflict) {
+      console.log("Conflict item:", conflict); // Log the item that conflicts with the booking
+      alert("It is already booked");
+    } else {
       try {
         const docRef = await addDoc(collection(db, "Users"), {
           facility_Name: facility.facility_name,
           name: name,
           contactNo: contactNo,
           programme: programme,
-          other: other,
+
           startTime: startTime,
           email: email,
           endTime: endTime,
@@ -79,26 +80,42 @@ function Facilities() {
         //       console.log(error.text);
         //     }
         //   );
+        navigate("/");
       } catch (e) {
         console.error("Error adding document: ", e);
       }
-    } else {
-      alert("It is already booked");
     }
   };
+
   useEffect(() => {
     const getUsers = async () => {
-      const data = await getDocs(collection(db, "Users"));
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const usersSnapshot = await getDocs(collection(db, "Users"));
+      const usersList = usersSnapshot.docs.map((doc) => ({
+        uid: doc.id,
+        ...doc.data(),
+      }));
+
+      setUsers(usersList);
     };
+
+    const fetchDepartments = async () => {
+      const departmentsCollection = collection(db, "departments");
+      const departmentsSnapshot = await getDocs(departmentsCollection);
+      const departmentsList = departmentsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setDepartments(departmentsList);
+    };
+    fetchDepartments();
+
     getUsers();
+    console.log(Users);
   }, []);
 
   return (
     <div>
-      {Users.map((users) => {
-        return <div key={users.id}>{Users.facility_Name}</div>;
-      })}
       <div className="bg-white shadow-lg-3">
         <div className="row g-0"></div>
         <div className="col-md-6 offset-md-2">
@@ -166,53 +183,15 @@ function Facilities() {
                     setProgramme(e.target.value);
                   }}
                 >
-                  <option value="">Choose a Programme---</option>
-                  <option value="Computer System And Networking">
-                    Computer System And Networking
-                  </option>
-                  <option value="Civil Engineering">Civil Engineering</option>
-                  <option value="Materials And Procurement Management">
-                    Materials And Procurement Management
-                  </option>
-                  <option value="Machnical Engneering">
-                    Machnical Engneering
-                  </option>
-                  <option value="Electrical Enginnering">
-                    Electrical Enginnering
-                  </option>
-                  <option value="Electronic And Communication">
-                    Electronic And Communication
-                  </option>
-                  <option value="Surveying">Surveying</option>
-                  <option value="B.E in Power Engineering">
-                    B.E in Power Engineering
-                  </option>
-                  <option value="B.E in Mechanical Engineering">
-                    B.E in Mechanical Engineering
-                  </option>
-                  <option value="B.E in Surveying and Geoinformatics">
-                    B.E in Surveying and Geoinformatics
-                  </option>
+                  <option value="">Choose a Programme or other user---</option>
+                  {departments.map((item) => (
+                    <option key={item.name} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
                 </select>
               </div>
-              <div className="mb-1">
-                <label for="Programme" className="form-label">
-                  Other
-                </label>
-                <select
-                  className="form-select rounded-3"
-                  value={other}
-                  required
-                  aria-label="Default select example"
-                  id="other"
-                  onChange={(e) => {
-                    setOther(e.target.value);
-                  }}
-                >
-                  <option value="">select---</option>
-                  <option value="Staffs">Staffs</option>
-                </select>
-              </div>
+
               <div className="mb-1">
                 <label for="start-time" className="form-label">
                   Start-Time

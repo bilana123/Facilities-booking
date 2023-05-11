@@ -28,6 +28,7 @@ import UserBooking_Detail from "./Component/Admin/UserBooking_Detail";
 
 import UserManagement from "./Component/Admin/UserManagement";
 import Editsubadmin from "./Component/Admin/Editsubadmin";
+import AddDapartment from "./Component/Admin/AddDapartment";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -40,6 +41,7 @@ function App() {
         <Routes>
           <Route element={<Protectedroute user={currentUser} />}>
             <Route path="/admin" element={<AdminHome />} />
+            <Route path="/admin/add_department" element={<AddDapartment />} />
           </Route>
 
           <Route path="/login" element={<Login />} />
