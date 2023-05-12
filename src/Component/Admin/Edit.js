@@ -8,8 +8,8 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 const Edit = () => {
   const [facility, setFacility] = useState("");
   const [image, setImage] = useState(null);
-
-  const [Category, setCategory] = useState("");
+  const [department, setdepartment] = useState("");
+  const [Facilities, setfacilities] = useState("");
   const [description, setDescription] = useState("");
 
   const locate = useLocation();
@@ -44,6 +44,9 @@ const Edit = () => {
       name: facility,
       image: url,
       Category: Category,
+      image: image,
+      department: department,
+      facilities: Facilities,
       description: description,
     };
     console.log(data.id);
@@ -74,22 +77,33 @@ const Edit = () => {
           <Form.Label>Image</Form.Label>
           <Form.Control type="file" onChange={ImgHandler} />
         </Form.Group>
-
         <Form.Group>
-          <Form.Label>Category</Form.Label>
+          <Form.Label>Department</Form.Label>
           <Form.Select
-            defaultValue={facilitys.Category}
-            rows="3"
-            value={Category}
-            onChange={(e) => setCategory(e.target.value)}
+            defaultValue={facilitys.Department}
+            value={department}
+            onChange={(e) => setdepartment(e.target.value)}
             required
           >
-            <option value="Choose Type" style={{ fontWeight: "bold" }}>
-              Select Type
-            </option>
-            <option value="Halls">Halls</option>
-            <option value="Sports">Sports</option>
-            <option value="Classrooms">Classrooms</option>
+            <option value="">Select department</option>
+            <option value="Department A">Department A</option>
+            <option value="Department B">Department B</option>
+            <option value="Department C">Department C</option>
+          </Form.Select>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Facilities</Form.Label>
+          <Form.Select
+            defaultValue={facilitys.Facilities}
+            rows="3"
+            value={Facilities}
+            onChange={(e) => setfacilities(e.target.value)}
+            required
+          >
+            <option value="">Select facilities</option>
+            <option value="Facility A">Facility A</option>
+            <option value="Facility B">Facility B</option>
+            <option value="Facility C">Facility C</option>
           </Form.Select>
         </Form.Group>
         <Form.Group>

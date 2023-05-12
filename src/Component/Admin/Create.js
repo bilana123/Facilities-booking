@@ -60,6 +60,7 @@ export default function Create({ userRole }) {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+    alert("You have successfully created");
   };
 
   useEffect(() => {

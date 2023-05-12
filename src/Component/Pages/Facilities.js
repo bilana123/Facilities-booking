@@ -40,7 +40,9 @@ function Facilities() {
 
     if (conflict) {
       console.log("Conflict item:", conflict); // Log the item that conflicts with the booking
-      alert("It is already booked");
+      alert(
+        "It is already booked by other, you can book on another time or date"
+      );
     } else {
       try {
         const docRef = await addDoc(collection(db, "Users"), {
@@ -64,28 +66,28 @@ function Facilities() {
         }
         alert("Your request is pending. We will confirm through Email");
 
-        // const emailParams = {
-        //   to_email: "05210220.jnec@rub.edu.bt",
-        //   from_name: "Dechen",
-        //   from_email: "05210220.jnec@rub.edu.bt",
-        //   subject: "Facility Booked",
-        //   message: `${name} has booked the ${facility.facility_name} facility.`,
-        // };
-        // emailjs
-        //   .send(
-        //     "service_11c12c7",
-        //     "template_xzb7e69",
-        //     emailParams,
-        //     "KMZOReDKneLwcfgTZ"
-        //   )
-        //   .then(
-        //     (result) => {
-        //       console.log(result.text);
-        //     },
-        //     (error) => {
-        //       console.log(error.text);
-        //     }
-        //   );
+        const emailParams = {
+          to_email: "05210220.jnec@rub.edu.bt",
+          from_name: "Dechen",
+          from_email: "05210220.jnec@rub.edu.bt",
+          subject: "Facility Booked",
+          message: `${name} has booked the ${facility.facility_name} facility.`,
+        };
+        emailjs
+          .send(
+            "service_11c12c7",
+            "template_xzb7e69",
+            emailParams,
+            "KMZOReDKneLwcfgTZ"
+          )
+          .then(
+            (result) => {
+              console.log(result.text);
+            },
+            (error) => {
+              console.log(error.text);
+            }
+          );
         navigate("/");
       } catch (e) {
         console.error("Error adding document: ", e);
@@ -112,7 +114,64 @@ function Facilities() {
         ...doc.data(),
       }));
 
+<<<<<<< HEAD
       setDepartments(departmentsList);
+=======
+  const handleBook = async () => {
+    const startDateStr = document.getElementById("start-date-time").value;
+    const endDateStr = document.getElementById("end-date-time").value;
+
+    const startDate = new Date(startDateStr);
+    const endDate = new Date(endDateStr);
+
+    if (endDate < startDate) {
+      alert("End date and time cannot be before start date and time.");
+      document.getElementById("end-date-time").value = "";
+      return;
+    }
+
+    try {
+      const docRef = await addDoc(collection(db, "Users"), {
+        Facility_Name: Facility_Name,
+        location: location,
+        contactNo: contactNo,
+        programme: programme,
+        startTime: startTime,
+        email: email,
+        endTime: endTime,
+        startDate: startDate,
+        endDate: endDate,
+        status: "pending",
+      });
+      console.log("Document written with ID: ", docRef.id);
+      const button = document.getElementById("book-button");
+      if (button) {
+        button.innerHTML = "BOOKED";
+      }
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(collection(db, "Users"));
+
+
+      <<<<<<<
+ HEAD
+      setFacility(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  
+      // Check if current user has already booked the facility
+      const currentUser = Users.find((user) => user.Email === Email);
+      if (currentUser) {
+        const button = document.getElementById("book-button");
+        if (button) {
+          button.disabled = true;
+          button.innerHTML = "BOOKED";
+        }
+      }
+>>>>>>> 749a948f66fd019af703b29a2f9d58bb5ca6ee6f
     };
     fetchDepartments();
 
@@ -208,7 +267,7 @@ function Facilities() {
                   required
                   className="form-control rounded-3"
                   id="start-time"
-                  placeholder="Enter time in HH:MM AM/PM format"
+                  placeholder="Enter time in MM:HH AM/PM format"
                   onChange={(e) => {
                     setStartTime(e.target.value);
                   }}
@@ -224,7 +283,7 @@ function Facilities() {
                   required
                   className="form-control rounded-3"
                   id="end-time"
-                  placeholder="Enter time in HH:MM AM/PM format"
+                  placeholder="Enter time in MM:HH AM/PM format"
                   onChange={(e) => {
                     setEndTime(e.target.value);
                   }}
@@ -240,7 +299,7 @@ function Facilities() {
                   required
                   className="form-control rounded-3"
                   id="Start_date"
-                  placeholder="Enter time in MM/dd/yyyy format"
+                  placeholder="Enter date in DD-MM-YYYY format"
                   onChange={(e) => {
                     setStartDate(e.target.value);
                   }}
@@ -256,7 +315,7 @@ function Facilities() {
                   required
                   className="form-control rounded-3"
                   id="End_date"
-                  placeholder="Enter time in MM/dd/yyyy format"
+                  placeholder="Enter date in DD-MM-YYYY format"
                   onChange={(e) => {
                     setEndDate(e.target.value);
                   }}

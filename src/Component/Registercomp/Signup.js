@@ -30,10 +30,10 @@ const Signup = () => {
     try {
       await Signup(email, password, username, category);
       const templateParams = {
-        to_email: user.email,
+        to_email: email,
         from_email: "05210220.jnec@rub.edu.bt",
         subject: "Your booking request has been rejected",
-        message: `Hi ${username}, Your new password is: ${password}`,
+        message: `Hi ${username}, You have been added as SubAdmin for the category: ${category}, Your new password is: ${password}`,
       };
       emailjs
         .send(
@@ -62,7 +62,7 @@ const Signup = () => {
       <div className="bg-white shadow-lg p-5">
         <div className="col-lg-12 col-md-5">
           <form onSubmit={handleSubmit} class="from-login">
-            <h2 className="text-center mb-4">Register</h2>
+            <h2 className="text-center mb-4">Add Sub Admin</h2>
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
@@ -132,12 +132,9 @@ const Signup = () => {
               className="btn btn-primary btn-block"
               disabled={isPending}
             >
-              {isPending ? "Signing up..." : "Sign up"}
+              {isPending ? "Signing up..." : "Add"}
             </button>
             {error && <div className="text-danger mt-3">{error}</div>}
-            <p className="text-center mt-3">
-              Already have an account? <Link to="/admin">Log in</Link>
-            </p>
           </form>
         </div>
       </div>
