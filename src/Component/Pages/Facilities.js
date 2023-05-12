@@ -108,7 +108,64 @@ function Facilities() {
         ...doc.data(),
       }));
 
+<<<<<<< HEAD
       setDepartments(departmentsList);
+=======
+  const handleBook = async () => {
+    const startDateStr = document.getElementById("start-date-time").value;
+    const endDateStr = document.getElementById("end-date-time").value;
+
+    const startDate = new Date(startDateStr);
+    const endDate = new Date(endDateStr);
+
+    if (endDate < startDate) {
+      alert("End date and time cannot be before start date and time.");
+      document.getElementById("end-date-time").value = "";
+      return;
+    }
+
+    try {
+      const docRef = await addDoc(collection(db, "Users"), {
+        Facility_Name: Facility_Name,
+        location: location,
+        contactNo: contactNo,
+        programme: programme,
+        startTime: startTime,
+        email: email,
+        endTime: endTime,
+        startDate: startDate,
+        endDate: endDate,
+        status: "pending",
+      });
+      console.log("Document written with ID: ", docRef.id);
+      const button = document.getElementById("book-button");
+      if (button) {
+        button.innerHTML = "BOOKED";
+      }
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(collection(db, "Users"));
+
+
+      <<<<<<<
+ HEAD
+      setFacility(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  
+      // Check if current user has already booked the facility
+      const currentUser = Users.find((user) => user.Email === Email);
+      if (currentUser) {
+        const button = document.getElementById("book-button");
+        if (button) {
+          button.disabled = true;
+          button.innerHTML = "BOOKED";
+        }
+      }
+>>>>>>> 749a948f66fd019af703b29a2f9d58bb5ca6ee6f
     };
     fetchDepartments();
 
