@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./Create.css";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  getDoc,
+  addDoc,
+} from "firebase/firestore";
 import { storage, db } from "../../Database/Firebase-config";
+import { AuthContext } from "../Context/AuthContex";
 
-export default function Create() {
+export default function Create({ userRole }) {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
+  const [Users, setUsers] = useState([]);
+  const [category, setcategory] = useState("");
+
   const [facility, setFacility] = useState("");
   const [image, setImage] = useState(null);
 
@@ -26,7 +39,6 @@ export default function Create() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const uploadTask = ref(storage, `images/${image.name}`);
     await uploadBytes(uploadTask, image.file);
     console.log("file uploaded");
@@ -40,14 +52,37 @@ export default function Create() {
         facility_name: facility,
         Image: url,
 
-        Category: Category,
+        Category: category,
         Description: description,
       });
+
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   };
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const usersSnapshot = await getDocs(collection(db, "Users"));
+      const usersList = usersSnapshot.docs.map((doc) => ({
+        uid: doc.id,
+        ...doc.data(),
+      }));
+      setUsers(usersList);
+    };
+
+    const handleCategory = async () => {
+      const roleDocRef = doc(db, "users", currentUser.uid);
+      const roleDocSnap = await getDoc(roleDocRef);
+      const roleData = roleDocSnap.data();
+      console.log(roleData);
+      setcategory(roleData.department);
+    };
+
+    getUsers();
+    handleCategory();
+  }, []);
 
   return (
     <div class="container justify-content-center" id="id_for_admin_div">
@@ -84,22 +119,6 @@ export default function Create() {
                 />
               </div>
 
-              <div class="form-group">
-                <label for="Category">Category:</label>
-                <select
-                  class="form-control"
-                  id="Category"
-                  value={Category}
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option value="Choose Type" style={{ fontWeight: "bold" }}>
-                    Select Type
-                  </option>
-                  <option value="Halls">Halls</option>
-                  <option value="Sports">Sports</option>
-                  <option value="Classrooms">Classrooms</option>
-                </select>
-              </div>
               <div class="form-group">
                 <label htmlFor="description">Description</label>
                 <textarea

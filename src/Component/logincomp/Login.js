@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLogin } from "../../Hooks/useLogin";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./login.css";
 
 export default function Login() {

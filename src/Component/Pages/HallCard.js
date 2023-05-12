@@ -18,10 +18,11 @@ function HallCard({ currentUser }) {
   }, []);
 
   return (
-    <div className="card-container">
-      <div className="row">
+    <div className="card-storage">
+      {/* <div className="first"> */}
+      <div className="card-storage">
         {facility
-          .filter((item) => item.Category === "Halls")
+          .filter((item) => item.Category === "Hall")
           .map((item, index) => (
             <div className="col-sm-4" key={index}>
               <div className="card-hall">
@@ -30,7 +31,7 @@ function HallCard({ currentUser }) {
                   {item.facility_Name}
                   <h5 className="card-title">{item.facility_name}</h5>
                   <p className="card-text">{item.Description}</p>
-                  <Link to="/facilities" className="btn btn-info">
+                  <Link to="/facilities" state={item} className="btn btn-info">
                     Book Now
                   </Link>
                 </div>
@@ -38,6 +39,7 @@ function HallCard({ currentUser }) {
             </div>
           ))}
       </div>
+      {/* </div> */}
     </div>
   );
 }

@@ -4,27 +4,25 @@ import { FaHome, FaPlus, FaEdit, FaTrash, FaBook } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import "./Admin.css";
 
-import {
-  getDocs,
-  collection,
-  getDoc,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
+import { getDocs, collection, getDoc, doc } from "firebase/firestore";
 import { AuthContext } from "../Context/AuthContex";
 
 function AdminHome() {
   const { currentUser } = useContext(AuthContext);
   const [facility, setFacility] = useState([]);
   const [role, setRole] = useState("");
+  const [currentSport, setCurrentSport] = useState("");
 
-  const get_facility_data = async () => {
+  const getFacilityData = async () => {
     const facilitySnapshot = await getDocs(collection(db, "Facility"));
-    const facilityList = facilitySnapshot.docs.map((doc) => doc.data());
+    const facilityList = facilitySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
     setFacility(facilityList);
   };
 
-  const handelrole = async () => {
+  const handleRole = async () => {
     const roleDocRef = doc(db, "roles", currentUser.uid);
     const roleDocSnap = await getDoc(roleDocRef);
     const roleData = roleDocSnap.data();
@@ -32,10 +30,11 @@ function AdminHome() {
   };
 
   useEffect(() => {
-    get_facility_data();
-    handelrole();
+    getFacilityData();
+
+    handleRole();
   }, []);
-  console.log(role);
+
   return (
     <div className="Sidebar ">
       <div className="Sidebar-content">
@@ -50,7 +49,6 @@ function AdminHome() {
                 <span>Add Facility</span>
               </NavLink>
             </li>
-
             <li>
               <NavLink to="/admin/delete">
                 <FaTrash style={{ marginRight: "10px" }} />
@@ -60,7 +58,13 @@ function AdminHome() {
             <li>
               <NavLink to="/admin/booking">
                 <FaBook style={{ marginRight: "10px" }} />
-                <span>Booking_Detail</span>
+                <span>UserBooking_Detail</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin/add_department">
+                <FaBook style={{ marginRight: "10px" }} />
+                <span>Add Department</span>
               </NavLink>
             </li>
             {role !== "subadmin" ? (
@@ -73,26 +77,6 @@ function AdminHome() {
             ) : null}
           </ul>
         </nav>
-      </div>
-      <div className="third">
-        {facility
-          .filter((item) => item.department === currentUser.displayName)
-          .map((item, index) => {
-            return (
-              <div className="card-container" key={index}>
-                <div className="card-hall">
-                  <img className="card-img-top" src={item.Image} alt="poster" />
-                  <div className="card-body">
-                    <h5 className="card-title">{item.facility_name}</h5>
-                    <p className="card-text">{item.department} </p>
-                    <a href="#" className="btn btn-info">
-                      Learn More
-                    </a>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
       </div>
     </div>
   );

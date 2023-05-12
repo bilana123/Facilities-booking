@@ -62,7 +62,7 @@ function Home() {
         ))}
       </Carousel>
       <div className="billlu">
-        <h1>Explore our facilities</h1>
+        <h1 className="Title">Explore our facilities</h1>
         <div id="you">
           <div className="home-card">
             <div className="card-container d-flex justify-content-center">
@@ -97,7 +97,7 @@ function Home() {
                   <img className="card-img-top" src={book} alt="poster" />
                   <div className="card-body">
                     <h5 className="card-title">Classrooms</h5>
-                    <p className="card-text">
+                    <p className="card-text text-lg">
                       Facilitate instruction, learning, collaboration,
                       assessment, and safety and comfort for students.
                     </p>
