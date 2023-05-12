@@ -26,7 +26,7 @@ export default function Login() {
     <div className="d-flex justify-content-center align-items-center min-vh-100">
       <div className="bg-white shadow-lg p-5">
         <form onSubmit={handleSubmit} className="from-login">
-          <h5 className="Form">Admin</h5>
+          <h5 className="Form"></h5>
 
           <div className="form-group">
             <label htmlFor="username">Email:</label>

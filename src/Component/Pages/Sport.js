@@ -30,8 +30,8 @@ function Sport() {
                 <div className="card-body">
                   <h5 className="card-title">{item.facility_name}</h5>
                   <p className="card-text">{item.Description}</p>
-                  <Link to="/facilities" className="btn btn-info">
-                    Learn More
+                  <Link to="/facilities" state={item} className="btn btn-info">
+                    Book Now
                   </Link>
                 </div>
               </div>
