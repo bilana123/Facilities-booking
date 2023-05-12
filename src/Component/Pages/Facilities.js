@@ -67,7 +67,10 @@ function Facilities() {
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(collection(db, "Users"));
-<<<<<<< HEAD
+
+
+      <<<<<<<
+ HEAD
       setFacility(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   
       // Check if current user has already booked the facility
