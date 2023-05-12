@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { db } from "../../Database/Firebase-config";
-import { getDocs, collection, doc, deleteDoc } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  doc,
+  deleteDoc,
+  getDoc,
+} from "firebase/firestore";
 import { Link } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import Create from "./Create";
+import { AuthContext } from "../Context/AuthContex";
 
 import { Button, Box, Typography } from "@mui/material";
 //import { Create } from "@mui/icons-material";
@@ -22,6 +29,8 @@ const style = {
 
 export default function Delete() {
   const [facilityList, setFacilityList] = useState([]);
+  const { currentUser } = useContext(AuthContext);
+  const [category, setCategory] = useState("");
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -49,6 +58,15 @@ export default function Delete() {
   };
 
   useEffect(() => {
+    const handleCategory = async () => {
+      const roleDocRef = doc(db, "users", currentUser.uid);
+      const roleDocSnap = await getDoc(roleDocRef);
+      const roleData = roleDocSnap.data();
+      console.log(roleData);
+      setCategory(roleData.department);
+    };
+
+    handleCategory();
     get_facility_data();
   }, []);
 
@@ -88,38 +106,40 @@ export default function Delete() {
           </tr>
         </thead>
         <tbody>
-          {facilityList.map((facility) => {
-            return (
-              <tr key={facility.id}>
-                <td>{facility.facility_name}</td>
-                <td>
-                  <img src={facility.Image} width="50" />
-                </td>
-                <td>{facility.Category}</td>
-                <td>{facility.Description}</td>
+          {facilityList
+            .filter((item) => item.Category === category)
+            .map((facility) => {
+              return (
+                <tr key={facility.id}>
+                  <td>{facility.facility_name}</td>
+                  <td>
+                    <img src={facility.Image} width="50" />
+                  </td>
+                  <td>{facility.Category}</td>
+                  <td>{facility.Description}</td>
 
-                <td>
-                  <span>
-                    <Link
-                      to="/admin/Edit"
-                      state={facility}
-                      className="btn btn-success"
-                    >
-                      Edit
-                    </Link>
-                  </span>
-                  <span>
-                    <button
-                      className="btn mt-5"
-                      onClick={() => onDelete(facility.id)}
-                    >
-                      Delete
-                    </button>
-                  </span>
-                </td>
-              </tr>
-            );
-          })}
+                  <td>
+                    <span>
+                      <Link
+                        to="/admin/Edit"
+                        state={facility}
+                        className="btn btn-success"
+                      >
+                        Edit
+                      </Link>
+                    </span>
+                    <span>
+                      <button
+                        className="btn mt-5"
+                        onClick={() => onDelete(facility.id)}
+                      >
+                        Delete
+                      </button>
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>

@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { setDoc, doc, updateDoc, collection } from "firebase/firestore";
-import { db } from "../../Database/Firebase-config";
+import { storage, db } from "../../Database/Firebase-config";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Edit = () => {
   const [facility, setFacility] = useState("");
@@ -29,22 +30,32 @@ const Edit = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    const uploadTask = ref(storage, `images/${image.name}`);
+    await uploadBytes(uploadTask, image.file);
+    console.log("file uploaded");
+
+    // Get the download URL for the file
+    const url = await getDownloadURL(uploadTask);
+    console.log(url);
+    console.log(`File URL: ${url}`);
+
     const data = {
       id: facilitys.id,
       name: facility,
-      image: image,
-
+      image: url,
       Category: Category,
       description: description,
     };
     console.log(data.id);
     console.log(data.name);
     const collectionRef = doc(db, "Facility", data.id);
-    await updateDoc(collectionRef, { facility_name: data.name }).catch(
-      (err) => {
-        console.log(err);
-      }
-    );
+    await updateDoc(collectionRef, {
+      facility_name: data.name,
+      Image: data.image,
+      Description: data.description,
+    }).catch((err) => {
+      console.log(err);
+    });
   };
 
   return (

@@ -24,13 +24,19 @@ function Facilities() {
     e.preventDefault();
     console.log("Users:", Users);
 
-    const conflict = Users.find(
-      (item) =>
+    const conflict = Users.find((item) => {
+      // Check if the booking time overlaps with an existing booking
+      const existingStart = new Date(item.startDate + "T" + item.startTime);
+      const existingEnd = new Date(item.endDate + "T" + item.endTime);
+      const newStart = new Date(startDate + "T" + startTime);
+      const newEnd = new Date(endDate + "T" + endTime);
+
+      return (
         item.facility_Name === facility.facility_name &&
-        item.startTime === startTime &&
-        item.endTime === endTime &&
-        item.startDate === startDate
-    );
+        newStart < existingEnd &&
+        newEnd > existingStart
+      );
+    });
 
     if (conflict) {
       console.log("Conflict item:", conflict); // Log the item that conflicts with the booking
@@ -54,7 +60,7 @@ function Facilities() {
         console.log("Document written with ID: ", docRef.id);
         const button = document.getElementById("book-button");
         if (button) {
-          button.innerHTML = "BOOKED";
+          button.innerHTML = "Pending";
         }
         alert("Your request is pending. We will confirm through Email");
 
