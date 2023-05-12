@@ -15,7 +15,7 @@ import Footer from "./Component/Pages/Footer";
 import Facilities from "./Component/Pages/Facilities";
 import AdminHome from "./Component/Admin/AdminHome";
 import Create from "./Component/Admin/Create";
-import Delete from "./Component/Admin/Delete";
+import Delete from "./Component/Admin/ManageFacility";
 import { AuthContext } from "./Component/Context/AuthContex";
 import Sport from "./Component/Pages/Sport";
 import Classroom from "./Component/Pages/Classroom";
@@ -23,11 +23,14 @@ import HallCard from "./Component/Pages/HallCard";
 import Edit from "./Component/Admin/Edit";
 import { useContext } from "react";
 import Protectedroute from "./Routes/Protectedroute";
-import Booking_Detail from "./Component/Admin/Booking_Detail";
+import UserBooking_Detail from "./Component/Admin/UserBooking_Detail";
 //import { FirebaseApp } from "firebase/app";
-import BookingReq from "./Component/Admin/BookingReq";
+
 import UserManagement from "./Component/Admin/UserManagement";
 import Editsubadmin from "./Component/Admin/Editsubadmin";
+import AddDepartment from "./Component/Admin/AddDepartment";
+import ManageDepartment from "./Component/Admin/ManageDepartment";
+import ManageFacility from "./Component/Admin/ManageFacility";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -40,7 +43,9 @@ function App() {
         <Routes>
           <Route element={<Protectedroute user={currentUser} />}>
             <Route path="/admin" element={<AdminHome />} />
+            <Route path="/admin/add_department" element={<AddDepartment />} />
           </Route>
+
           <Route path="/login" element={<Login />} />
           <Route path="/admin/add_subadmin" element={<Signup />} />
           <Route path="/Aboutus" element={<Aboutus />} />
@@ -48,12 +53,13 @@ function App() {
           <Route path="/Facilities" element={<Facilities />} />
           <Route path="/admin/Edit" element={<Edit />} />
           <Route path="/admin/create" element={<Create />} />
-          <Route path="/admin/delete" element={<Delete />} />
+          <Route path="/admin/delete" element={<ManageFacility />} />
           <Route path="Sport" element={<Sport />} />
-          <Route path="/admin/booking" element={<Booking_Detail />} />
+          <Route path="/admin/booking" element={<UserBooking_Detail />} />
           <Route path="Classroom" element={<Classroom />} />
           <Route path="HallCard" element={<HallCard />} />
-          <Route path="/Booking" element={<BookingReq />} />
+          <Route path="/manageDepartment" element={<ManageDepartment />} />
+
           <Route path="/manage" element={<UserManagement />} />
           <Route path="/admin/edit-subadmin" element={<Editsubadmin />} />
         </Routes>

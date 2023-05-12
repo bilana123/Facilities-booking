@@ -39,13 +39,12 @@ const Edit = () => {
     };
     console.log(data.id);
     console.log(data.name);
-    const collectionRef = doc(db, "Facility", "23eyIQdsCC1MhpoO26jy");
-    console.log(collectionRef);
-    await updateDoc(collectionRef, {
-      facility_name: data.name,
-    }).catch((err) => {
+    const collectionRef = doc(db, "Facility", data.id);
+    await updateDoc(collectionRef, { facility_name: data.name }).catch(
+      (err) => {
         console.log(err);
-    });
+      }
+    );
   };
 
   return (

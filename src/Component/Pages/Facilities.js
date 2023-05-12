@@ -1,161 +1,137 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-//import copy from "../Image/copy.jpg";
-import { useEffect } from "react";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
+import { useLocation, useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
 
 function Facilities() {
-  const [Username, setUsername] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Location, setLocation] = useState("");
-  const [Programme, setProgramme] = useState("");
-  const [Start_Time, setStart_Time] = useState("");
-  const [End_Time, setEnd_Time] = useState("");
-  const [date, setdate] = useState("");
-  const [Facility, setFacility] = useState([]);
+  const [email, setEmail] = useState("");
+  const [contactNo, setContactNo] = useState("");
+  const [name, setName] = useState("");
+  const [programme, setProgramme] = useState("");
+  const navigate = useNavigate();
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [departments, setDepartments] = useState([]);
+  const locate = useLocation();
+  const facility = locate.state;
+
   const [Users, setUsers] = useState([]);
-  const [isBooked, setIsBooked] = useState(false);
+  const BOOK = async (e) => {
+    e.preventDefault();
+    console.log("Users:", Users);
+
+    const conflict = Users.find(
+      (item) =>
+        item.facility_Name === facility.facility_name &&
+        item.startTime === startTime &&
+        item.endTime === endTime &&
+        item.startDate === startDate
+    );
+
+    if (conflict) {
+      console.log("Conflict item:", conflict); // Log the item that conflicts with the booking
+      alert(
+        "It is already booked by other, you can book on another time or date"
+      );
+    } else {
+      try {
+        const docRef = await addDoc(collection(db, "Users"), {
+          facility_Name: facility.facility_name,
+          name: name,
+          contactNo: contactNo,
+          programme: programme,
+
+          startTime: startTime,
+          email: email,
+          endTime: endTime,
+          startDate: startDate,
+          endDate: endDate,
+          category: facility.Category,
+          status: "pending",
+        });
+        console.log("Document written with ID: ", docRef.id);
+        const button = document.getElementById("book-button");
+        if (button) {
+          button.innerHTML = "Pending";
+        }
+        alert("Your request is pending. We will confirm through Email");
+
+        const emailParams = {
+          to_email: "05210220.jnec@rub.edu.bt",
+          from_name: "Dechen",
+          from_email: "05210220.jnec@rub.edu.bt",
+          subject: "Facility Booked",
+          message: `${name} has booked the ${facility.facility_name} facility.`,
+        };
+        emailjs
+          .send(
+            "service_11c12c7",
+            "template_xzb7e69",
+            emailParams,
+            "KMZOReDKneLwcfgTZ"
+          )
+          .then(
+            (result) => {
+              console.log(result.text);
+            },
+            (error) => {
+              console.log(error.text);
+            }
+          );
+        navigate("/");
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    }
+  };
 
   useEffect(() => {
     const getUsers = async () => {
       const usersSnapshot = await getDocs(collection(db, "Users"));
-      const usersList = usersSnapshot.docs.map((doc) => doc.data());
+      const usersList = usersSnapshot.docs.map((doc) => ({
+        uid: doc.id,
+        ...doc.data(),
+      }));
+
       setUsers(usersList);
     };
 
-    getUsers();
-  }, []);
+    const fetchDepartments = async () => {
+      const departmentsCollection = collection(db, "departments");
+      const departmentsSnapshot = await getDocs(departmentsCollection);
+      const departmentsList = departmentsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
-  const handleBook = async () => {
-    const startDateStr = document.getElementById("start-date-time").value;
-    const endDateStr = document.getElementById("end-date-time").value;
-
-    const startDate = new Date(startDateStr);
-    const endDate = new Date(endDateStr);
-
-    if (endDate < startDate) {
-      alert("End date and time cannot be before start date and time.");
-      document.getElementById("end-date-time").value = "";
-      return;
-    }
-
-    try {
-      const docRef = await addDoc(collection(db, "Users"), {
-        Facility_Name: Facility_Name,
-        location: location,
-        contactNo: contactNo,
-        programme: programme,
-        startTime: startTime,
-        email: email,
-        endTime: endTime,
-        startDate: startDate,
-        endDate: endDate,
-        status: "pending",
-      });
-      console.log("Document written with ID: ", docRef.id);
-      const button = document.getElementById("book-button");
-      if (button) {
-        button.innerHTML = "BOOKED";
-      }
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  };
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(collection(db, "Users"));
-<<<<<<< HEAD
-      setFacility(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  
-      // Check if current user has already booked the facility
-      const currentUser = Users.find((user) => user.Email === Email);
-      if (currentUser) {
-        const button = document.getElementById("book-button");
-        if (button) {
-          button.disabled = true;
-          button.innerHTML = "BOOKED";
-        }
-      }
+      setDepartments(departmentsList);
     };
-    getFacility();
-  }, [Users, Email]);
-=======
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getUsers();
-  }, []);
+    fetchDepartments();
 
-  const BOOK = async () => {
-    try {
-      const docRef = await addDoc(collection(db, "Users"), {
-        Facility_Name: Facility_Name,
-        location: location,
-        contactNo: contactNo,
-        programme: programme,
-        startTime: startTime,
-        email: email,
-        endTime: endTime,
-        startDate: startDate,
-        endDate: endDate,
-        status: "pending",
-      });
-      console.log("Document written with ID: ", docRef.id);
-      const button = document.getElementById("book-button");
-      if (button) {
-        button.innerHTML = "BOOKED";
-      }
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  };
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(collection(db, "Users"));
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
     getUsers();
+    console.log(Users);
   }, []);
->>>>>>> origin/dechen
 
   return (
     <div>
-      {users.map((user) => {
-        return <div key={user.id}>{user.name}</div>;
-      })}
-      <div className="bg-white shadow-lg-3  ">
+      <div className="bg-white shadow-lg-3">
         <div className="row g-0"></div>
         <div className="col-md-6 offset-md-2">
-          <div className="bg-white shadow-lg-5 m-5 ">
-            <form>
+          <div className="bg-white shadow-lg-5 m-5">
+            <form onSubmit={BOOK}>
               <div className="mb-1">
-                <label for="Name" className="form-label">
-                  Facility_Name
-                </label>
-                <input
-                  type="text"
-                  value={Facility_Name}
-                  required
-                  className="form-control rounded-3"
-                  id="facility_Name"
-                  placeholder="Enter your username"
-                  onChange={(e) => {
-                    setFacility_Name(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="mb-1">
-                <label for="email" className="form-label">
+                <label htmlFor="email" className="form-label">
                   Email
                 </label>
                 <input
                   type="text"
                   value={email}
                   required
-                  class="form-control rounded-3"
+                  className="form-control rounded-3"
                   id="email"
                   placeholder="Enter your email"
                   onChange={(e) => {
@@ -164,121 +140,135 @@ function Facilities() {
                 />
               </div>
               <div className="mb-1">
-                <label for=" Contact_No" className="form-label">
-                  Contact_No
+                <label htmlFor="contactNo" className="form-label">
+                  Contact Number
                 </label>
                 <input
                   type="text"
                   value={contactNo}
                   required
                   className="form-control rounded-3"
-                  id=" Contact_No"
-                  placeholder="Enter your location"
+                  id="contactNo"
+                  placeholder="Enter your contact number"
                   onChange={(e) => {
                     setContactNo(e.target.value);
                   }}
                 />
-                <label htmlFor="email">Location</label>
+              </div>
+              <div className="mb-1">
+                <label for="Name" className="form-label">
+                  Name
+                </label>
                 <input
                   type="text"
-                  className="form rounded-3"
-                  id="Location"
-                  placeholder="Enter your email"
-                  onChange={(e) => setLocation(e.target.value)}
+                  value={name}
+                  required
+                  className="form-control rounded-3"
+                  id="name"
+                  placeholder="Enter your name"
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
                 />
-                <label htmlFor="Programme">Programme</label>
+              </div>
+              <div className="mb-1">
+                <label for="Programme" className="form-label">
+                  Programme
+                </label>
                 <select
                   className="form-select rounded-3"
+                  value={programme}
+                  required
                   aria-label="Default select example"
-                  id="Programme"
+                  id="programme"
                   onChange={(e) => {
                     setProgramme(e.target.value);
                   }}
                 >
-                  <option value="">Choose a Programme</option>
-                  <option value="Computer System And Networking">
-                    Computer System And Networking
-                  </option>
-                  <option value="Civil Engineering">Civil Engineering </option>
-                  <option value="Materials And Procurement Management">
-                    Materials And Procurement Management
-                  </option>
-                  <option value="Machnical Engneering">
-                    Machnical Engneering
-                  </option>
-                  <option value="Electrical Enginnering">
-                    Electrical Enginnering
-                  </option>
-                  <option value="Electronic And Communication">
-                    Electronic And Communication
-                  </option>
-                  <option value="Surveying">Surveying</option>
-                  <option value="B.E in Power Engineering">Marketing</option>
-                  <option value="B.E in Mechanical Engineering">
-                    B.E in Mechanical Engineering
-                  </option>
-                  <option value="B.E in Surveying and Geoinformatics">
-                    B.E in Surveying and Geoinformatics
-                  </option>
+                  <option value="">Choose a Programme or other user---</option>
+                  {departments.map((item) => (
+                    <option key={item.name} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
                 </select>
-                <label htmlFor="start-time">Start-Time</label>
-                <input
-                  type="time"
-                  className="form rounded-3"
-                  id="end-time"
-                  placeholder="Enter time in HH:MM AM/PM format"
-                  onChange={(e) => {
-                    setStart_Time(e.target.value);
-                  }}
-                />
-
-                <label htmlFor="end-time">End-Time</label>
-                <input
-                  type="time"
-                  className="form rounded-3"
-                  id="End-time"
-                  placeholder="Enter time in HH:MM AM/PM format"
-                  onChange={(e) => {
-                    setEnd_Time(e.target.value);
-                  }}
-                />
-
-                <div className="control">
-                  <label htmlFor="date">Start date</label>
-                  <input
-                    type="date"
-                    className="form-control rounded-3"
-                    id="date"
-                    placeholder="Enter time in MM/dd/yyyy format"
-                    onChange={(e) => {
-                      setdate(e.target.value);
-                    }}
-                  />
-                  <div className="control">
-                    <label htmlFor="date">End date</label>
-                    <input
-                      type="date"
-                      className="form-control rounded-3"
-                      id="date"
-                      placeholder="Enter time in MM/dd/yyyy format"
-                      onChange={(e) => {
-                        setdate(e.target.value);
-                      }}
-                    />
-                    <div className="col-md-5 mt-2 w-5 ">
-                      <button
-                        onClick={BOOK}
-                        className="btn btn-primary booked-btn "
-                        style={{ fontSize: "15px" }}
-                        id="book-button"
-                      >
-                        BOOK
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
-            </div>
+
+              <div className="mb-1">
+                <label for="start-time" className="form-label">
+                  Start-Time
+                </label>
+                <input
+                  type="time"
+                  value={startTime}
+                  required
+                  className="form-control rounded-3"
+                  id="start-time"
+                  placeholder="Enter time in MM:HH AM/PM format"
+                  onChange={(e) => {
+                    setStartTime(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="mb-1">
+                <label for="end-time" className="form-label">
+                  End-Time
+                </label>
+                <input
+                  type="time"
+                  value={endTime}
+                  required
+                  className="form-control rounded-3"
+                  id="end-time"
+                  placeholder="Enter time in MM:HH AM/PM format"
+                  onChange={(e) => {
+                    setEndTime(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="mb-1">
+                <label for="Start_date" className="form-label">
+                  Start Date
+                </label>
+                <input
+                  type="date"
+                  value={startDate}
+                  required
+                  className="form-control rounded-3"
+                  id="Start_date"
+                  placeholder="Enter date in DD-MM-YYYY format"
+                  onChange={(e) => {
+                    setStartDate(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="mb-1">
+                <label for="End_date" className="form-label">
+                  End Date
+                </label>
+                <input
+                  type="date"
+                  value={endDate}
+                  required
+                  className="form-control rounded-3"
+                  id="End_date"
+                  placeholder="Enter date in DD-MM-YYYY format"
+                  onChange={(e) => {
+                    setEndDate(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="col-md-5 mt-2 w-5">
+                <button
+                  className="btn btn-primary booked-btn"
+                  style={{ fontSize: "15px" }}
+                  type="submit"
+                  id="book-button"
+                >
+                  BOOK
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

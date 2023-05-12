@@ -63,15 +63,25 @@ export default function Navbar() {
             </div>
 
             <div class="nav-item mt-90 text-secondary">
+              <Link
+                class="nav-link active rounded-5"
+                aria-current="page"
+                to="/aboutus"
+              >
+                <b> Contact Us </b>
+              </Link>
+            </div>
+
+            <div class="nav-item mt-90 text-secondary">
               {!currentUser ? (
                 <>
-                  <div class="nav-item mt-90 text-secondary">
+                  <div class="nav-item mt-100 text-secondary">
                     <Link
                       class="nav-link active rounded-5"
                       aria-current="page"
                       to="/Login"
                     >
-                      <b>Login </b>
+                      <b>LogIn </b>
                     </Link>
                   </div>
                 </>

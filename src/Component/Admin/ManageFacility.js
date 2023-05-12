@@ -3,11 +3,7 @@ import { db } from "../../Database/Firebase-config";
 import { getDocs, collection, doc, deleteDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-
-
-
-
-export default function Delete() {
+export default function ManageFacility() {
   const [facilityList, setFacilityList] = useState([]);
 
   const [open, setOpen] = useState(false);
@@ -41,7 +37,12 @@ export default function Delete() {
 
   return (
     <div>
-      
+      <Link
+        to="/admin/create"
+        className="btn btn-primary btn-sm mt-5 ml-2 btn-short"
+      >
+        Add
+      </Link>
       <table className="booking-table mt-5 mb-5" align="center">
         <thead>
           <tr>

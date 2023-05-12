@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLogin } from "../../Hooks/useLogin";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./login.css";
 
 export default function Login() {
@@ -26,7 +26,7 @@ export default function Login() {
     <div className="d-flex justify-content-center align-items-center min-vh-100">
       <div className="bg-white shadow-lg p-5">
         <form onSubmit={handleSubmit} className="from-login">
-          <h5 className="Form">Admin</h5>
+          <h5 className="Form"></h5>
 
           <div className="form-group">
             <label htmlFor="username">Email:</label>
@@ -60,12 +60,13 @@ export default function Login() {
               Login
             </button>
           )}
-          {isPending && (
-            <button className="btn" disabled>
-              Loading
-            </button>
-          )}
+
           {error && <p>{error}</p>}
+          <br></br>
+          <a href="/forgot-password" className="forgot-password-Link">
+            {" "}
+            Forgot Password ?
+          </a>
         </form>
       </div>
     </div>

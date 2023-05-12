@@ -1,21 +1,16 @@
 .section_padding {
   padding: 1rem 4rem;
-  position: relative;
 }
 .footer {
   background-color: #2d2d32;
-<<<<<<< HEAD
-  position:static;
-=======
   position: initial;
->>>>>>> origin/dechen
 }
 .sb_footer {
   display: flex;
   flex-direction: column;
 }
 .sb_footer-links {
-  display:flex;
+  display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-direction: row;
@@ -107,4 +102,31 @@ hr {
 }
 .socialmedia h4 {
   flex-direction: row;
+}
+
+.sb_footer-links_div .socialmedia p {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.sb_footer-links_div .socialmedia {
+  display: flex;
+  align-items: center;
+}
+
+.sb_footer-links_div .socialmedia h4 {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.social-media-icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px; /* adjust as necessary */
+  margin-top: 20px; /* add margin to separate from h4 */
 }
