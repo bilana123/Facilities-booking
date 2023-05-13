@@ -31,6 +31,7 @@ import Editsubadmin from "./Component/Admin/Editsubadmin";
 import AddDepartment from "./Component/Admin/AddDepartment";
 import ManageDepartment from "./Component/Admin/ManageDepartment";
 import ManageFacility from "./Component/Admin/ManageFacility";
+import ForgotPassword from "./Component/logincomp/ForgotPassword";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -59,6 +60,7 @@ function App() {
           <Route path="Classroom" element={<Classroom />} />
           <Route path="HallCard" element={<HallCard />} />
           <Route path="/manageDepartment" element={<ManageDepartment />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
 
           <Route path="/manage" element={<UserManagement />} />
           <Route path="/admin/edit-subadmin" element={<Editsubadmin />} />

@@ -63,7 +63,7 @@ export default function Login() {
 
           {error && <p>{error}</p>}
           <br></br>
-          <a href="/forgot-password" className="forgot-password-Link">
+          <a href="/forgotpassword" className="forgot-password-Link">
             {" "}
             Forgot Password ?
           </a>

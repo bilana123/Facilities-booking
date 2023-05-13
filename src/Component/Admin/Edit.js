@@ -11,6 +11,7 @@ const Edit = () => {
   const [department, setdepartment] = useState("");
   const [Facilities, setfacilities] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
 
   const locate = useLocation();
   const facilitys = locate.state;
@@ -43,7 +44,6 @@ const Edit = () => {
       id: facilitys.id,
       name: facility,
       image: url,
-      Category: Category,
       image: image,
       department: department,
       facilities: Facilities,
@@ -77,35 +77,7 @@ const Edit = () => {
           <Form.Label>Image</Form.Label>
           <Form.Control type="file" onChange={ImgHandler} />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Department</Form.Label>
-          <Form.Select
-            defaultValue={facilitys.Department}
-            value={department}
-            onChange={(e) => setdepartment(e.target.value)}
-            required
-          >
-            <option value="">Select department</option>
-            <option value="Department A">Department A</option>
-            <option value="Department B">Department B</option>
-            <option value="Department C">Department C</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Facilities</Form.Label>
-          <Form.Select
-            defaultValue={facilitys.Facilities}
-            rows="3"
-            value={Facilities}
-            onChange={(e) => setfacilities(e.target.value)}
-            required
-          >
-            <option value="">Select facilities</option>
-            <option value="Facility A">Facility A</option>
-            <option value="Facility B">Facility B</option>
-            <option value="Facility C">Facility C</option>
-          </Form.Select>
-        </Form.Group>
+
         <Form.Group>
           <Form.Label>Description</Form.Label>
           <Form.Control

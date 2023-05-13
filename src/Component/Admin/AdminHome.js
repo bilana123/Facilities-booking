@@ -12,6 +12,7 @@ function AdminHome() {
   const [facility, setFacility] = useState([]);
   const [role, setRole] = useState("");
   const [currentSport, setCurrentSport] = useState("");
+  console.log(currentUser);
 
   const getFacilityData = async () => {
     const facilitySnapshot = await getDocs(collection(db, "Facility"));

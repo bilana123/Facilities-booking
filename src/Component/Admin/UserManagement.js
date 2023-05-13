@@ -73,35 +73,29 @@ function UserManagement() {
           </tr>
         </thead>
         <tbody>
-          {users
-            .filter((item) => item.department === category)
-            .map((user) => (
-              <tr key={user.id}>
-                <td>{user.displayName}</td>
-                <td>{user.email}</td>
-                <td>{user.department}</td>
-                <td>{user.createdAt.toDate().toLocaleString()}</td>
-                <td>
-                  <Link
-                    to={{
-                      pathname: "/admin/edit-subadmin",
-                      state: {
-                        user: user,
-                      },
-                    }}
-                    className="btn btn-success"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    className="btn mt-1"
-                    onClick={() => handleDelete(user.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{user.displayName}</td>
+              <td>{user.email}</td>
+              <td>{user.department}</td>
+              <td>{user.createdAt.toDate().toLocaleString()}</td>
+              <td>
+                <Link
+                  to="/admin/edit-subadmin"
+                  state={user}
+                  className="btn btn-success"
+                >
+                  Edit
+                </Link>
+                <button
+                  className="btn mt-1"
+                  onClick={() => handleDelete(user.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

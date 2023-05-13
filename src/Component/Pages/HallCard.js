@@ -20,9 +20,8 @@ function HallCard({ currentUser }) {
   console.log(facility);
 
   return (
-    <div className="card-storage">
-      {/* <div className="first"> */}
-      <div className="card-storage">
+    <div className="container">
+      <div className="row">
         {facility
           .filter((item) => item.Category === "Hall")
           .map((item, index) => (
@@ -41,7 +40,6 @@ function HallCard({ currentUser }) {
             </div>
           ))}
       </div>
-      {/* </div> */}
     </div>
   );
 }

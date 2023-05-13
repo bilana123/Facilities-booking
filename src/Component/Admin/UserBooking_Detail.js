@@ -145,52 +145,94 @@ export default function UserBooking_Detail() {
             <th>Start_Time</th>
             <th>End_Time</th>
             <th>Start_date</th>
-            <th>End_date</th>ssss
+            <th>End_date</th>
             <th> Action</th>
           </tr>
         </thead>
         <tbody>
-          {Users.filter((item) => category === item.category).map((user) => {
-            return (
-              <tr>
-                <td>{user.facility_Name}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.contactNo}</td>
-                <td>{user.programme}</td>
-                <td>{user.startTime}</td>
-                <td>{user.endTime}</td>
-                <td>{user.startDate}</td>
-                <td>{user.endDate}</td>
+          {!category
+            ? Users.map((user) => {
+                return (
+                  <tr>
+                    <td>{user.facility_Name}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.contactNo}</td>
+                    <td>{user.programme}</td>
+                    <td>{user.startTime}</td>
+                    <td>{user.endTime}</td>
+                    <td>{user.startDate}</td>
+                    <td>{user.endDate}</td>
 
-                <td>
-                  <>
-                    <span>
-                      <Link
-                        to=""
-                        onClick={(e) => {
-                          handelapprove(e, user.uid, user.email);
-                        }}
-                        className="btn btn-success"
-                      >
-                        Approve
-                      </Link>
-                    </span>
-                    <span>
-                      <button
-                        className="btn btn-sucess mt-5"
-                        onClick={(e) => {
-                          handelreject(e, user.uid);
-                        }}
-                      >
-                        Reject
-                      </button>
-                    </span>
-                  </>
-                </td>
-              </tr>
-            );
-          })}
+                    <td>
+                      <>
+                        <span>
+                          <Link
+                            to=""
+                            onClick={(e) => {
+                              handelapprove(e, user.uid, user.email);
+                            }}
+                            className="btn btn-success"
+                          >
+                            Approve
+                          </Link>
+                        </span>
+                        <span>
+                          <button
+                            className="btn btn-sucess mt-5"
+                            onClick={(e) => {
+                              handelreject(e, user.uid);
+                            }}
+                          >
+                            Reject
+                          </button>
+                        </span>
+                      </>
+                    </td>
+                  </tr>
+                );
+              })
+            : Users.filter((item) => category === item.category).map((user) => {
+                return (
+                  <tr>
+                    <td>{user.facility_Name}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.contactNo}</td>
+                    <td>{user.programme}</td>
+                    <td>{user.startTime}</td>
+                    <td>{user.endTime}</td>
+                    <td>{user.startDate}</td>
+                    <td>{user.endDate}</td>
+
+                    <td>
+                      <>
+                        <span>
+                          <Link
+                            to=""
+                            onClick={(e) => {
+                              handelapprove(e, user.uid, user.email);
+                            }}
+                            className="btn btn-success"
+                          >
+                            Approve
+                          </Link>
+                        </span>
+                        <span>
+                          <button
+                            className="btn btn-sucess mt-5"
+                            onClick={(e) => {
+                              handelreject(e, user.uid);
+                            }}
+                          >
+                            Reject
+                          </button>
+                        </span>
+                      </>
+                    </td>
+                  </tr>
+                );
+              })}
         </tbody>
       </table>
     </div>
