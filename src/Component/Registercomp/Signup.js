@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSignup } from "../../Hooks/useSignup";
 import { Link } from "react-router-dom";
 import "./Register.css";
+import emailjs from "emailjs-com";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +29,26 @@ const Signup = () => {
 
     try {
       await Signup(email, password, username, category);
-      navigate("/login");
+      const templateParams = {
+        to_email: email,
+        from_email: "05210220.jnec@rub.edu.bt",
+        subject: "Your booking request has been rejected",
+        message: `Hi ${username}, Your new password is: ${password}`,
+      };
+      emailjs
+        .send(
+          "service_11c12c7",
+          "template_zw1l2lf",
+          templateParams,
+          "KMZOReDKneLwcfgTZ"
+        )
+        .then((response) => {
+          console.log("Email sent successfully!", response.text);
+        })
+        .catch((error) => {
+          console.error("Error sending email:", error);
+        });
+      navigate("/admin");
     } catch (err) {
       console.log(err);
     }
@@ -116,7 +136,7 @@ const Signup = () => {
             </button>
             {error && <div className="text-danger mt-3">{error}</div>}
             <p className="text-center mt-3">
-              Already have an account? <Link to="/login">Log in</Link>
+              Already have an account? <Link to="/admin">Log in</Link>
             </p>
           </form>
         </div>

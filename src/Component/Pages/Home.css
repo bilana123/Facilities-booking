@@ -1,25 +1,28 @@
-.billu {
+.billlu {
   height: 700%;
-  width: 700px;
+  width: 100%;
   margin: center;
   padding: center;
   background-size: cover;
   position: relative;
   vertical-align: baseline;
+  margin-left: 210px;
 }
+
 .billu,
 h1 {
   text-align: center;
 }
+
 #you {
-  align-items: left;
-  border-image-width: 600px;
   display: flex;
-  justify-content: left;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
-  gap: 150px;
+  gap: 800px;
   border-radius: 25px;
 }
+
 .card-container {
   display: flex;
   justify-content: center;
@@ -27,8 +30,8 @@ h1 {
 }
 
 .card-hall {
-  width: 400px;
-  height: 450px;
+  width: 400px !important;
+  height: 500px;
   margin: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
@@ -41,13 +44,13 @@ h1 {
 }
 
 .card-img-top {
-  width: 100%;
-  height: 200px;
+  width: 200%;
+  height: 500px;
   object-fit: cover;
 }
 
 .card-body {
-  padding: 10px;
+  font-size: 20px;
 }
 
 .card-title {
@@ -55,7 +58,11 @@ h1 {
   margin-bottom: 10px;
 }
 
-.card-text {
-  font-size: 16px;
-  margin-bottom: 20px;
+.card-text p {
+  font-size: 20px !important;
+  margin-bottom: 50px;
+}
+.Title {
+  text-align: center;
+  margin-right: 350px;
 }

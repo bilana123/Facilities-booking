@@ -3,102 +3,79 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
 import { useLocation } from "react-router-dom";
-import emailjs from "emailjs-com";
 
 function Facilities() {
   const [email, setEmail] = useState("");
   const [contactNo, setContactNo] = useState("");
   const [name, setName] = useState("");
   const [programme, setProgramme] = useState("");
-  const [other, setOther] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [departments, setDepartments] = useState([]);
   const locate = useLocation();
   const facility = locate.state;
-  const [bookingConflict, setBookingConflict] = useState({});
+  console.log(facility);
 
   const [Users, setUsers] = useState([]);
   const BOOK = async (e) => {
     e.preventDefault();
-    console.log("Users:", Users); // Log the Users array to check if it has the data you expect
-    Users.filter(
-      (item) =>
-        item.facility_Name === facility.facility_name &&
-        item.startTime === startTime &&
-        item.endTime === endTime &&
-        item.startDate === startDate
-    ).map((item) => {
-      console.log("Conflict item:", item); // Log the item that conflicts with the booking
-      setBookingConflict(item);
-    });
-    console.log(Object.keys(bookingConflict).length);
-    if (Object.keys(bookingConflict).length === 0) {
-      try {
-        const docRef = await addDoc(collection(db, "Users"), {
-          facility_Name: facility.facility_name,
-          name: name,
-          contactNo: contactNo,
-          programme: programme,
-          other: other,
-          startTime: startTime,
-          email: email,
-          endTime: endTime,
-          startDate: startDate,
-          endDate: endDate,
-          category: facility.Category,
-          status: "pending",
-        });
-        console.log("Document written with ID: ", docRef.id);
-        const button = document.getElementById("book-button");
-        if (button) {
-          button.innerHTML = "BOOKED";
-        }
-        alert("Your request is pending. We will confirm through Email");
 
-        // const emailParams = {
-        //   to_email: "05210220.jnec@rub.edu.bt",
-        //   from_name: "Dechen",
-        //   from_email: "05210220.jnec@rub.edu.bt",
-        //   subject: "Facility Booked",
-        //   message: `${name} has booked the ${facility.facility_name} facility.`,
-        // };
-        // emailjs
-        //   .send(
-        //     "service_11c12c7",
-        //     "template_xzb7e69",
-        //     emailParams,
-        //     "KMZOReDKneLwcfgTZ"
-        //   )
-        //   .then(
-        //     (result) => {
-        //       console.log(result.text);
-        //     },
-        //     (error) => {
-        //       console.log(error.text);
-        //     }
-        //   );
-      } catch (e) {
-        console.error("Error adding document: ", e);
+    try {
+      const docRef = await addDoc(collection(db, "Users"), {
+        facility_Name: facility.facility_name,
+        name: name,
+        contactNo: contactNo,
+        programme: programme,
+        startTime: startTime,
+        email: email,
+        endTime: endTime,
+        startDate: startDate,
+        endDate: endDate,
+        category: facility.Category,
+        status: "pending",
+      });
+      console.log("Document written with ID: ", docRef.id);
+      const button = document.getElementById("book-button");
+      if (button) {
+        button.innerHTML = "BOOKED";
       }
-    } else {
-      alert("It is already booked");
+      alert("Your request is pending. We will confirm through Email");
+    } catch (e) {
+      console.error("Error adding document: ", e);
     }
   };
+
   useEffect(() => {
     const getUsers = async () => {
-      const data = await getDocs(collection(db, "Users"));
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const usersSnapshot = await getDocs(collection(db, "Users"));
+      const usersList = usersSnapshot.docs.map((doc) => ({
+        uid: doc.id,
+        ...doc.data(),
+      }));
+
+      setUsers(usersList);
     };
+
+    const fetchDepartments = async () => {
+      const departmentsCollection = collection(db, "departments");
+      const departmentsSnapshot = await getDocs(departmentsCollection);
+      const departmentsList = departmentsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setDepartments(departmentsList);
+    };
+    fetchDepartments();
+
     getUsers();
+    console.log(Users);
   }, []);
 
   return (
     <div>
-      {Users.map((users) => {
-        return <div key={users.id}>{Users.facility_Name}</div>;
-      })}
       <div className="bg-white shadow-lg-3">
         <div className="row g-0"></div>
         <div className="col-md-6 offset-md-2">
@@ -166,7 +143,7 @@ function Facilities() {
                     setProgramme(e.target.value);
                   }}
                 >
-                  <option value="">Choose a Programme---</option>
+                  <option value="">Choose a Programme</option>
                   <option value="Computer System And Networking">
                     Computer System And Networking
                   </option>
@@ -193,24 +170,6 @@ function Facilities() {
                   <option value="B.E in Surveying and Geoinformatics">
                     B.E in Surveying and Geoinformatics
                   </option>
-                </select>
-              </div>
-              <div className="mb-1">
-                <label for="Programme" className="form-label">
-                  Other
-                </label>
-                <select
-                  className="form-select rounded-3"
-                  value={other}
-                  required
-                  aria-label="Default select example"
-                  id="other"
-                  onChange={(e) => {
-                    setOther(e.target.value);
-                  }}
-                >
-                  <option value="">select---</option>
-                  <option value="Staffs">Staffs</option>
                 </select>
               </div>
               <div className="mb-1">

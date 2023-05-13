@@ -61,6 +61,12 @@ function AdminHome() {
                 <span>UserBooking_Detail</span>
               </NavLink>
             </li>
+            <li>
+              <NavLink to="/admin/add_department">
+                <FaBook style={{ marginRight: "10px" }} />
+                <span>Add Department</span>
+              </NavLink>
+            </li>
             {role !== "subadmin" ? (
               <li>
                 <NavLink to="/manage">

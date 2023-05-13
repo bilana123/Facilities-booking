@@ -4,7 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
 import { Link } from "react-router-dom";
 
-function Sport() {
+function Sport({ currentUser }) {
   const [facility, setFacility] = useState([]);
 
   const getFacilityData = async () => {
@@ -19,25 +19,34 @@ function Sport() {
 
   console.log(facility);
   return (
-    <div>
-      {facility
-        .filter((item) => item.Category === "Sports")
-        .map((item, index) => (
-          <div className="sport-list" key={index}>
-            <div className="card-container">
-              <div className="card-hall">
-                <img className="card-img-top" src={item.Image} alt="poster" />
-                <div className="card-body">
-                  <h5 className="card-title">{item.facility_name}</h5>
-                  <p className="card-text">{item.Description}</p>
-                  <Link to="/facilities" state={item} className="btn btn-info">
-                    Book Now
-                  </Link>
+    <div className="card-storage">
+      {/* <div className="first"> */}
+      <div className="card-storage">
+        {facility
+          .filter((item) => item.Category === "Sports")
+          .map((item, index) => (
+            <div className="sport-list" key={index}>
+              <div className="card-container">
+                <div className="card-hall">
+                  <img className="card-img-top" src={item.Image} alt="poster" />
+                  <div className="card-body">
+                    {item.facility_Name}
+                    <h5 className="card-title">{item.facility_name}</h5>
+                    <p className="card-text">{item.Description}</p>
+                    <Link
+                      to="/facilities"
+                      state={item}
+                      className="btn btn-info"
+                    >
+                      Book Now
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+      </div>
+      {/* </div> */}
     </div>
   );
 }

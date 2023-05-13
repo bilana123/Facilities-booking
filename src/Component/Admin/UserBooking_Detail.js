@@ -16,50 +16,50 @@ export default function UserBooking_Detail() {
   const { currentUser } = useContext(AuthContext);
   const [Users, setUsers] = useState([]);
   const [category, setCategory] = useState("");
+  const [showButtons, setShowButtons] = useState(true);
+  //const sendApprovalEmail = (user) => {
+  //  const templateParams = {
+  //  to_email: user.email,
+  //  from_email: "05210220.jnec@rub.edu.bt",
+  //  subject: "Your booking request has been approved",
+  //  message: `Hi ${user.name}, your booking request for facility ${user.facility_Name} has been approved.`,
+  // };
+  //  emailjs
+  //.send(
+  //  "service_11c12c7",
+  //  "template_xzb7e69",
+  //   templateParams,
+  //   "KMZOReDKneLwcfgTZ"
+  //  )
+  //  .then((response) => {
+  //    console.log("Email sent successfully!", response.text);
+  //  })
+  //   .catch((error) => {
+  //    console.error("Error sending email:", error);
+  //   });
+  // };
 
-  const sendApprovalEmail = (user) => {
-    const templateParams = {
-      to_email: user.email,
-      from_email: "05210220.jnec@rub.edu.bt",
-      subject: "Your booking request has been approved",
-      message: `Hi ${user.name}, your booking request for facility ${user.facility_Name} has been approved.`,
-    };
-    emailjs
-      .send(
-        "service_11c12c7",
-        "template_xzb7e69",
-        templateParams,
-        "KMZOReDKneLwcfgTZ"
-      )
-      .then((response) => {
-        console.log("Email sent successfully!", response.text);
-      })
-      .catch((error) => {
-        console.error("Error sending email:", error);
-      });
-  };
-
-  const sendRejectionEmail = (user) => {
-    const templateParams = {
-      to_email: user.email,
-      from_email: "05210220.jnec@rub.edu.bt",
-      subject: "Your booking request has been rejected",
-      message: `Hi ${user.name}, your booking request for facility ${user.facility_Name} has been rejected.`,
-    };
-    emailjs
-      .send(
-        "service_11c12c7",
-        "template_zw1l2lf",
-        templateParams,
-        "KMZOReDKneLwcfgTZ"
-      )
-      .then((response) => {
-        console.log("Email sent successfully!", response.text);
-      })
-      .catch((error) => {
-        console.error("Error sending email:", error);
-      });
-  };
+  // const sendRejectionEmail = (user) => {
+  // const templateParams = {
+  //  to_email: user.email,
+  //  from_email: "05210220.jnec@rub.edu.bt",
+  //  subject: "Your booking request has been rejected",
+  // message: `Hi ${user.name}, your booking request for facility ${user.facility_Name} has been rejected.`,
+  // };
+  //  emailjs
+  // .send(
+  //  "service_11c12c7",
+  //  "template_zw1l2lf",
+  //  templateParams,
+  //   "KMZOReDKneLwcfgTZ"
+  //  )
+  // .then((response) => {
+  //  console.log("Email sent successfully!", response.text);
+  //  })
+  //  .catch((error) => {
+  //    console.error("Error sending email:", error);
+  //  });
+  //};
 
   const handelapprove = async (e, id, email) => {
     e.preventDefault();
@@ -78,7 +78,8 @@ export default function UserBooking_Detail() {
 
     // Send email to user
     const user = Users.find((user) => user.uid === id);
-    sendApprovalEmail(user);
+    // sendApprovalEmail(user);
+    setShowButtons(false);
   };
 
   const handelreject = async (e, id) => {
@@ -98,7 +99,8 @@ export default function UserBooking_Detail() {
 
     // Send email to user
     const user = Users.find((user) => user.uid === id);
-    sendRejectionEmail(user);
+    //  sendRejectionEmail(user);
+    setShowButtons(false);
   };
 
   useEffect(() => {
@@ -108,9 +110,12 @@ export default function UserBooking_Detail() {
         uid: doc.id,
         ...doc.data(),
       }));
+
+      // sort users by id in ascending order
+      usersList.sort((a, b) => a.uid.localeCompare(b.uid));
+
       setUsers(usersList);
     };
-
     const handleCategory = async () => {
       const roleDocRef = doc(db, "users", currentUser.uid);
       const roleDocSnap = await getDoc(roleDocRef);
@@ -122,6 +127,7 @@ export default function UserBooking_Detail() {
     getUsers();
     handleCategory();
   }, []);
+
   return (
     <div>
       <table
@@ -156,27 +162,33 @@ export default function UserBooking_Detail() {
                 <td>{user.endTime}</td>
                 <td>{user.startDate}</td>
                 <td>{user.endDate}</td>
+
                 <td>
-                  <th>
-                    {" "}
-                    <Link
-                      to=""
-                      onClick={(e) => {
-                        handelapprove(e, user.uid, user.email);
-                      }}
-                      className="btn btn-success"
-                    >
-                      Approve
-                    </Link>
-                    <button
-                      className="btn mt-5"
-                      onClick={(e) => {
-                        handelreject(e, user.uid);
-                      }}
-                    >
-                      Reject
-                    </button>
-                  </th>
+                  {showButtons && (
+                    <>
+                      <span>
+                        <Link
+                          to=""
+                          onClick={(e) => {
+                            handelapprove(e, user.uid, user.email);
+                          }}
+                          className="btn btn-success"
+                        >
+                          Approve
+                        </Link>
+                      </span>
+                      <span>
+                        <button
+                          className="btn btn-sucess mt-5"
+                          onClick={(e) => {
+                            handelreject(e, user.uid);
+                          }}
+                        >
+                          Reject
+                        </button>
+                      </span>
+                    </>
+                  )}
                 </td>
               </tr>
             );
