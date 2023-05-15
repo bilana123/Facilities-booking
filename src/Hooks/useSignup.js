@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Auth, db } from "../Database/Firebase-config";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, addDoc, collection } from "firebase/firestore";
 
 export const useSignup = (dispatch) => {
   const [error, setError] = useState(null);
@@ -10,6 +10,8 @@ export const useSignup = (dispatch) => {
   const Signup = async (email, password, username, department) => {
     setError(null);
     setIsPending(true);
+
+    console.log(email);
 
     try {
       // signup user method
@@ -22,9 +24,7 @@ export const useSignup = (dispatch) => {
       // update user's display name
       await updateProfile(user, { displayName: username });
 
-      // create user document
-      const userDocRef = doc(db, "users", user.uid);
-      await setDoc(userDocRef, {
+      await addDoc(collection(db, "users"), {
         displayName: username,
         email: email,
         department: department,
