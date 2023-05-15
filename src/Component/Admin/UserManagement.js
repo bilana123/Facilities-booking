@@ -43,9 +43,9 @@ function UserManagement() {
       >
         <thead>
           <tr>
-            <th>Display Name</th>
+            <th>Name</th>
             <th>Email</th>
-            <th>Department</th>
+            <th>category</th>
             <th>Created At</th>
             <th>Action</th>
           </tr>
@@ -53,9 +53,9 @@ function UserManagement() {
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td>{user.displayName}</td>
+              <td>{user.Name}</td>
               <td>{user.email}</td>
-              <td>{user.department}</td>
+              <td>{user.category}</td>
               <td>{user.createdAt.toDate().toLocaleString()}</td>
               <td>
                 <Link

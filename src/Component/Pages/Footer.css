@@ -45,7 +45,7 @@ a {
   margin-top: 1rem;
   font-size: 7.9rem;
   color: #fff;
-  margin-left: 1200px;
+  margin-right: 1200px;
   flex-direction: column;
 }
 
@@ -129,4 +129,10 @@ hr {
   align-items: center;
   width: 200px; /* adjust as necessary */
   margin-top: 20px; /* add margin to separate from h4 */
+}
+.contact-us h4 {
+  margin-left: 12000;
+  text-align: center;
+  display: flex;
+  justify-content: left;
 }

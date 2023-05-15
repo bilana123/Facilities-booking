@@ -24,11 +24,11 @@ export default function Login() {
 
   return (
     <div className="d-flex justify-content-center align-items-center min-vh-100">
-      <div className="bg-white shadow-lg p-5">
+      <div className="bg-white shadow-lg p-5 mt-5">
         <form onSubmit={handleSubmit} className="from-login">
-          <h5 className="Form"></h5>
+          <h5 className="Form mt-5"></h5>
 
-          <div className="form-group">
+          <div className="form-group mt-5">
             <label htmlFor="username">Email:</label>
             <input
               type="email"
@@ -63,7 +63,7 @@ export default function Login() {
 
           {error && <p>{error}</p>}
           <br></br>
-          <a href="/forgot-password" className="forgot-password-Link">
+          <a href="/forgotpassword" className="forgot-password-Link">
             {" "}
             Forgot Password ?
           </a>

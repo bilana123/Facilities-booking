@@ -78,7 +78,7 @@ export default function Create({ userRole }) {
       const roleDocSnap = await getDoc(roleDocRef);
       const roleData = roleDocSnap.data();
       console.log(roleData);
-      setcategory(roleData.department);
+      setcategory(roleData.category);
     };
 
     getUsers();
