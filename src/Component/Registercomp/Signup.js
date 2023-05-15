@@ -9,12 +9,12 @@ const Signup = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    username: "",
+    Name: "",
     category: "",
     confirm_password: "",
   });
 
-  const { email, password, username, category, confirm_password } = formData;
+  const { email, password, name, category, confirm_password } = formData;
 
   const { Signup, isPending, error } = useSignup();
   const navigate = useNavigate();
@@ -28,26 +28,26 @@ const Signup = () => {
     }
 
     try {
-      await Signup(email, password, username, category);
-      const templateParams = {
-        to_email: email,
-        from_email: "05210220.jnec@rub.edu.bt",
-        subject: "Your booking request has been rejected",
-        message: `Hi ${username}, You have been added as SubAdmin for the category: ${category}, Your new password is: ${password}`,
-      };
-      emailjs
-        .send(
-          "service_11c12c7",
-          "template_zw1l2lf",
-          templateParams,
-          "KMZOReDKneLwcfgTZ"
-        )
-        .then((response) => {
-          console.log("Email sent successfully!", response.text);
-        })
-        .catch((error) => {
-          console.error("Error sending email:", error);
-        });
+      await Signup(email, password, name, category);
+      //const templateParams = {
+      // to_email: email,
+      //from_email: "05210220.jnec@rub.edu.bt",
+      // subject: "Your booking request has been rejected",
+      //message: `Hi ${name}, You have been added as SubAdmin for the category: ${category}, Your new password is: ${password}`,
+      //};
+      //emailjs
+      // .send(
+      // "service_11c12c7",
+      // "template_zw1l2lf",
+      // templateParams,
+      // "KMZOReDKneLwcfgTZ"
+      // )
+      // .then((response) => {
+      //   console.log("Email sent successfully!", response.text);
+      // })
+      // .catch((error) => {
+      //   console.error("Error sending email:", error);
+      //  });
       navigate("/admin");
     } catch (err) {
       console.log(err);
@@ -62,7 +62,7 @@ const Signup = () => {
       <div className="bg-white shadow-lg p-5">
         <div className="col-lg-12 col-md-5">
           <form onSubmit={handleSubmit} class="from-login">
-            <h2 className="text-center mb-4">Add Sub Admin</h2>
+            <h5 className="text-center mb-4">Add Sub Admin</h5>
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
@@ -76,19 +76,19 @@ const Signup = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="name">Name</label>
               <input
                 type="text"
-                name="username"
-                value={username}
+                name="name"
+                value={name}
                 onChange={handleChange}
                 required
                 className="form-control"
-                placeholder="Enter username"
+                placeholder="Enter name"
               />
             </div>
             <div className="form-group">
-              <label htmlFor="category">Category</label>
+              <label htmlFor="category">category</label>
               <select
                 name="category"
                 value={category}

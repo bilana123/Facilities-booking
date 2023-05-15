@@ -8,8 +8,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 const Edit = () => {
   const [facility, setFacility] = useState("");
   const [image, setImage] = useState(null);
-  const [department, setdepartment] = useState("");
-  const [Facilities, setfacilities] = useState("");
+
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
 
@@ -44,13 +43,9 @@ const Edit = () => {
       id: facilitys.id,
       name: facility,
       image: url,
-      image: image,
-      department: department,
-      facilities: Facilities,
       description: description,
     };
-    console.log(data.id);
-    console.log(data.name);
+
     const collectionRef = doc(db, "Facility", data.id);
     await updateDoc(collectionRef, {
       facility_name: data.name,

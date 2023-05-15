@@ -1,32 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-  collection,
-  query,
-  getDocs,
-  doc,
-  deleteDoc,
-  getDoc,
-} from "firebase/firestore";
+import React, { useState, useEffect } from "react";
+import { collection, query, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
 import { Link } from "react-router-dom";
 import "./user.css";
-import { AuthContext } from "../Context/AuthContex";
 
 function UserManagement() {
   const [users, setUsers] = useState([]);
-  const [category, setCategory] = useState("");
-
-  const { currentUser } = useContext(AuthContext);
-  console.log(currentUser.uid);
-
-  const deleteUser = async (id) => {
-    await deleteDoc(doc(db, "users", id));
-  };
-
-  const handleDelete = async (id) => {
-    await deleteUser(id);
-    setUsers(users.filter((user) => user.id !== id));
-  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -37,20 +16,19 @@ function UserManagement() {
         id: doc.id,
         ...doc.data(),
       }));
-
       setUsers(usersData);
     };
-    const handleCategory = async () => {
-      const roleDocRef = doc(db, "users", currentUser.uid);
-      const roleDocSnap = await getDoc(roleDocRef);
-      const roleData = roleDocSnap.data();
-      console.log(roleData);
-      setCategory(roleData.department);
-    };
-
     fetchUsers();
-    handleCategory();
   }, []);
+
+  const deleteUser = async (id) => {
+    await deleteDoc(doc(db, "users", id));
+  };
+
+  const handleDelete = async (id) => {
+    await deleteUser(id);
+    setUsers(users.filter((user) => user.id !== id));
+  };
 
   return (
     <div>
@@ -65,9 +43,9 @@ function UserManagement() {
       >
         <thead>
           <tr>
-            <th>Display Name</th>
+            <th>Name</th>
             <th>Email</th>
-            <th>Department</th>
+            <th>category</th>
             <th>Created At</th>
             <th>Action</th>
           </tr>
@@ -75,14 +53,18 @@ function UserManagement() {
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td>{user.displayName}</td>
+              <td>{user.Name}</td>
               <td>{user.email}</td>
-              <td>{user.department}</td>
+              <td>{user.category}</td>
               <td>{user.createdAt.toDate().toLocaleString()}</td>
               <td>
                 <Link
-                  to="/admin/edit-subadmin"
-                  state={user}
+                  to={{
+                    pathname: "/admin/edit-subadmin",
+                    state: {
+                      user: user,
+                    },
+                  }}
                   className="btn btn-success"
                 >
                   Edit

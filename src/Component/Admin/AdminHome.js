@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { db } from "../../Database/Firebase-config";
-import { FaHome, FaPlus, FaEdit, FaTrash, FaBook } from "react-icons/fa";
+import { FaTrash, FaBook } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import "./Admin.css";
 
@@ -11,7 +11,6 @@ function AdminHome() {
   const { currentUser } = useContext(AuthContext);
   const [facility, setFacility] = useState([]);
   const [role, setRole] = useState("");
-  const [currentSport, setCurrentSport] = useState("");
   console.log(currentUser);
 
   const getFacilityData = async () => {
@@ -24,10 +23,11 @@ function AdminHome() {
   };
 
   const handleRole = async () => {
-    const roleDocRef = doc(db, "roles", currentUser.uid);
+    const roleDocRef = doc(db, "users", currentUser.uid);
     const roleDocSnap = await getDoc(roleDocRef);
     const roleData = roleDocSnap.data();
-    setRole(roleData.role);
+    console.log(roleData.category);
+    setRole(roleData.category);
   };
 
   useEffect(() => {

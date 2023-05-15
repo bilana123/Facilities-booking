@@ -17,11 +17,9 @@ export default function Create({ userRole }) {
   console.log(currentUser);
   const [Users, setUsers] = useState([]);
   const [category, setcategory] = useState("");
-
   const [facility, setFacility] = useState("");
   const [image, setImage] = useState(null);
 
-  const [Category, setCategory] = useState("");
   const [description, setDescription] = useState("");
 
   const types = ["image/png", "image/jpeg"];
@@ -72,13 +70,20 @@ export default function Create({ userRole }) {
       }));
       setUsers(usersList);
     };
-
+    console.log(currentUser.uid);
     const handleCategory = async () => {
-      const roleDocRef = doc(db, "users", currentUser.uid);
-      const roleDocSnap = await getDoc(roleDocRef);
-      const roleData = roleDocSnap.data();
-      console.log(roleData);
-      setcategory(roleData.department);
+      const DocRef = doc(db, "users", currentUser.uid);
+      const DocSnap = await getDoc(DocRef);
+
+      if (DocSnap.exists()) {
+        const Data = DocSnap.data();
+        const category = Data.category;
+        console.log(category);
+        setcategory(category);
+      } else {
+        console.log("User document does not exist.");
+        // Handle the case when the user document doesn't exist
+      }
     };
 
     getUsers();

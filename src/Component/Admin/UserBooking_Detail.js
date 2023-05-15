@@ -5,6 +5,7 @@ import {
   doc,
   updateDoc,
   getDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
 import emailjs from "emailjs-com";
@@ -16,7 +17,7 @@ export default function UserBooking_Detail() {
   const { currentUser } = useContext(AuthContext);
   const [Users, setUsers] = useState([]);
   const [category, setCategory] = useState("");
-  const [showButtons, setShowButtons] = useState(true);
+
   const sendApprovalEmail = (user) => {
     const templateParams = {
       to_email: user.email,
@@ -68,7 +69,7 @@ export default function UserBooking_Detail() {
     await updateDoc(collectionRef, { status: "approved" }).catch((err) => {
       console.log(err);
     });
-
+    alert("You have approved successfully");
     // Update state with new data
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
@@ -78,8 +79,6 @@ export default function UserBooking_Detail() {
 
     // Send email to user
     const user = Users.find((user) => user.uid === id);
-    sendApprovalEmail(user);
-    setShowButtons(false);
   };
 
   const handelreject = async (e, id) => {
@@ -89,7 +88,7 @@ export default function UserBooking_Detail() {
     await updateDoc(collectionRef, { status: "rejected" }).catch((err) => {
       console.log(err);
     });
-
+    alert("You have rejected successfully");
     // Update state with new data
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
@@ -100,7 +99,22 @@ export default function UserBooking_Detail() {
     // Send email to user
     const user = Users.find((user) => user.uid === id);
     sendRejectionEmail(user);
-    setShowButtons(false);
+  };
+  const onDelete = async (usersId) => {
+    try {
+      await deleteDoc(doc(db, "Users", usersId));
+      console.log(`User '${usersId}' deleted successfully.`);
+      // fetch the updated data and update the state
+      const UsersSnapshot = await getDocs(collection(db, "Users"));
+      const UsersList = UsersSnapshot.docs.map((doc) => ({
+        uid: doc.id,
+        ...doc.data(),
+      }));
+      setUsers(UsersList);
+    } catch (error) {
+      console.error(`Error deleting user '${usersId}':`, error);
+    }
+    alert("You have deleted successfully");
   };
 
   useEffect(() => {
@@ -121,7 +135,7 @@ export default function UserBooking_Detail() {
       const roleDocSnap = await getDoc(roleDocRef);
       const roleData = roleDocSnap.data();
       console.log(roleData);
-      setCategory(roleData.department);
+      setCategory(roleData.category);
     };
 
     getUsers();
@@ -179,12 +193,22 @@ export default function UserBooking_Detail() {
                         </span>
                         <span>
                           <button
-                            className="btn btn-sucess mt-5"
+                            className="btn btn-sucess mt-1"
                             onClick={(e) => {
                               handelreject(e, user.uid);
                             }}
                           >
                             Reject
+                          </button>
+                        </span>
+                        <span>
+                          <button
+                            className="btn btn-sucess mt-1"
+                            onClick={() => {
+                              onDelete(user.uid);
+                            }}
+                          >
+                            Delete
                           </button>
                         </span>
                       </>
@@ -220,12 +244,22 @@ export default function UserBooking_Detail() {
                         </span>
                         <span>
                           <button
-                            className="btn btn-sucess mt-5"
+                            className="btn btn-sucess mt-1"
                             onClick={(e) => {
                               handelreject(e, user.uid);
                             }}
                           >
                             Reject
+                          </button>
+                        </span>
+                        <span>
+                          <button
+                            className="btn btn-sucess mt-1"
+                            onClick={() => {
+                              onDelete(user.uid);
+                            }}
+                          >
+                            Delete
                           </button>
                         </span>
                       </>

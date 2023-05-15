@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { Auth, db } from "../Database/Firebase-config";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { doc, addDoc, collection, setDoc } from "firebase/firestore";
 
 export const useSignup = (dispatch) => {
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
 
-  const Signup = async (email, password, username, department) => {
+  const Signup = async (email, password, name, category) => {
     setError(null);
     setIsPending(true);
-
-    console.log(email);
 
     try {
       // signup user method
@@ -22,15 +20,21 @@ export const useSignup = (dispatch) => {
       );
 
       // update user's display name
-      await updateProfile(user, { displayName: username });
+      await updateProfile(user, { Name: name });
 
-      await addDoc(collection(db, "users"), {
-        displayName: username,
+      // create user document
+
+      const docRef = doc(db, "users", user.uid);
+      await setDoc(docRef, {
+        Name: name,
         email: email,
-        department: department,
+        category: category,
         createdAt: new Date(),
       });
 
+      console.log("Document written with ID: ", docRef.id);
+
+      console.log();
       // create role document
       const roleDocRef = doc(db, "roles", user.uid);
       await setDoc(roleDocRef, { role: "subadmin" });
