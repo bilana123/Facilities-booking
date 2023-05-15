@@ -24,12 +24,14 @@ export const useSignup = (dispatch) => {
 
       // create user document
 
-      const docRef = await addDoc(collection(db, "users"), {
+      const docRef = doc(db, "users", user.uid);
+      await setDoc(docRef, {
         Name: name,
         email: email,
         category: category,
         createdAt: new Date(),
       });
+
       console.log("Document written with ID: ", docRef.id);
 
       console.log();

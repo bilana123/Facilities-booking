@@ -15,6 +15,10 @@ export default function ManageFacility() {
   const { currentUser } = useContext(AuthContext);
   const [category, setCategory] = useState("");
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const get_facility_data = async () => {
     const facilitySnapshot = await getDocs(collection(db, "Facility"));
     const facilities = facilitySnapshot.docs.map((doc) => ({
@@ -42,7 +46,7 @@ export default function ManageFacility() {
       const roleDocSnap = await getDoc(roleDocRef);
       const roleData = roleDocSnap.data();
       console.log(roleData);
-      setCategory(roleData.category);
+      setCategory(roleData.department);
     };
 
     handleCategory();
@@ -69,40 +73,73 @@ export default function ManageFacility() {
           </tr>
         </thead>
         <tbody>
-          {facilityList
-            .filter((item) => item.Category === category)
-            .map((facility) => {
-              return (
-                <tr key={facility.id}>
-                  <td>{facility.facility_name}</td>
-                  <td>
-                    <img src={facility.Image} width="50" />
-                  </td>
-                  <td>{facility.Category}</td>
-                  <td>{facility.Description}</td>
+          {!category
+            ? facilityList.map((facility) => {
+                return (
+                  <tr key={facility.id}>
+                    <td>{facility.facility_name}</td>
+                    <td>
+                      <img src={facility.Image} width="50" />
+                    </td>
+                    <td>{facility.Category}</td>
+                    <td>{facility.Description}</td>
 
-                  <td>
-                    <span>
-                      <Link
-                        to="/admin/Edit"
-                        state={facility}
-                        className="btn btn-success"
-                      >
-                        Edit
-                      </Link>
-                    </span>
-                    <span>
-                      <button
-                        className="btn mt-5"
-                        onClick={() => onDelete(facility.id)}
-                      >
-                        Delete
-                      </button>
-                    </span>
-                  </td>
-                </tr>
-              );
-            })}
+                    <td>
+                      <span>
+                        <Link
+                          to="/admin/Edit"
+                          state={facility}
+                          className="btn btn-success"
+                        >
+                          Edit
+                        </Link>
+                      </span>
+                      <span>
+                        <button
+                          className="btn mt-5"
+                          onClick={() => onDelete(facility.id)}
+                        >
+                          Delete
+                        </button>
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })
+            : facilityList
+                .filter((item) => item.Category === category)
+                .map((facility) => {
+                  return (
+                    <tr key={facility.id}>
+                      <td>{facility.facility_name}</td>
+                      <td>
+                        <img src={facility.Image} width="50" />
+                      </td>
+                      <td>{facility.Category}</td>
+                      <td>{facility.Description}</td>
+
+                      <td>
+                        <span>
+                          <Link
+                            to="/admin/Edit"
+                            state={facility}
+                            className="btn btn-success"
+                          >
+                            Edit
+                          </Link>
+                        </span>
+                        <span>
+                          <button
+                            className="btn mt-5"
+                            onClick={() => onDelete(facility.id)}
+                          >
+                            Delete
+                          </button>
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
         </tbody>
       </table>
     </div>
