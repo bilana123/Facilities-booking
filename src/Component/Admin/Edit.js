@@ -2,14 +2,15 @@ import { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { setDoc, doc, updateDoc, collection } from "firebase/firestore";
-import { db } from "../../Database/Firebase-config";
+import { storage, db } from "../../Database/Firebase-config";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Edit = () => {
   const [facility, setFacility] = useState("");
   const [image, setImage] = useState(null);
-  const [department, setdepartment] = useState("");
-  const [Facilities, setfacilities] = useState("");
+
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
 
   const locate = useLocation();
   const facilitys = locate.state;
@@ -29,22 +30,30 @@ const Edit = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    const uploadTask = ref(storage, `images/${image.name}`);
+    await uploadBytes(uploadTask, image.file);
+    console.log("file uploaded");
+
+    // Get the download URL for the file
+    const url = await getDownloadURL(uploadTask);
+    console.log(url);
+    console.log(`File URL: ${url}`);
+
     const data = {
       id: facilitys.id,
       name: facility,
-      image: image,
-      department: department,
-      facilities: Facilities,
+      image: url,
       description: description,
     };
-    console.log(data.id);
-    console.log(data.name);
+
     const collectionRef = doc(db, "Facility", data.id);
-    await updateDoc(collectionRef, { facility_name: data.name }).catch(
-      (err) => {
-        console.log(err);
-      }
-    );
+    await updateDoc(collectionRef, {
+      facility_name: data.name,
+      Image: data.image,
+      Description: data.description,
+    }).catch((err) => {
+      console.log(err);
+    });
   };
 
   return (
@@ -63,35 +72,7 @@ const Edit = () => {
           <Form.Label>Image</Form.Label>
           <Form.Control type="file" onChange={ImgHandler} />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Department</Form.Label>
-          <Form.Select
-            defaultValue={facilitys.Department}
-            value={department}
-            onChange={(e) => setdepartment(e.target.value)}
-            required
-          >
-            <option value="">Select department</option>
-            <option value="Department A">Department A</option>
-            <option value="Department B">Department B</option>
-            <option value="Department C">Department C</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Facilities</Form.Label>
-          <Form.Select
-            defaultValue={facilitys.Facilities}
-            rows="3"
-            value={Facilities}
-            onChange={(e) => setfacilities(e.target.value)}
-            required
-          >
-            <option value="">Select facilities</option>
-            <option value="Facility A">Facility A</option>
-            <option value="Facility B">Facility B</option>
-            <option value="Facility C">Facility C</option>
-          </Form.Select>
-        </Form.Group>
+
         <Form.Group>
           <Form.Label>Description</Form.Label>
           <Form.Control
