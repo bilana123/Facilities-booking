@@ -11,6 +11,7 @@ function AdminHome() {
   const { currentUser } = useContext(AuthContext);
   const [facility, setFacility] = useState([]);
   const [role, setRole] = useState("");
+  console.log(currentUser);
 
   const getFacilityData = async () => {
     const facilitySnapshot = await getDocs(collection(db, "Facility"));
@@ -25,7 +26,8 @@ function AdminHome() {
     const roleDocRef = doc(db, "users", currentUser.uid);
     const roleDocSnap = await getDoc(roleDocRef);
     const roleData = roleDocSnap.data();
-    setRole(roleData.role.category);
+    console.log(roleData.category);
+    setRole(roleData.category);
   };
 
   useEffect(() => {

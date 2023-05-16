@@ -29,25 +29,25 @@ const Signup = () => {
 
     try {
       await Signup(email, password, name, category);
-      //const templateParams = {
-      // to_email: email,
-      //from_email: "05210220.jnec@rub.edu.bt",
-      // subject: "Your booking request has been rejected",
-      //message: `Hi ${name}, You have been added as SubAdmin for the category: ${category}, Your new password is: ${password}`,
-      //};
-      //emailjs
-      // .send(
-      // "service_11c12c7",
-      // "template_zw1l2lf",
-      // templateParams,
-      // "KMZOReDKneLwcfgTZ"
-      // )
-      // .then((response) => {
-      //   console.log("Email sent successfully!", response.text);
-      // })
-      // .catch((error) => {
-      //   console.error("Error sending email:", error);
-      //  });
+      const templateParams = {
+        to_email: email,
+        from_email: "05210220.jnec@rub.edu.bt",
+        subject: "Your booking request has been rejected",
+        message: `Hi ${name}, Your new password is: ${password}`,
+      };
+      emailjs
+        .send(
+          "service_11c12c7",
+          "template_zw1l2lf",
+          templateParams,
+          "KMZOReDKneLwcfgTZ"
+        )
+        .then((response) => {
+          console.log("Email sent successfully!", response.text);
+        })
+        .catch((error) => {
+          console.error("Error sending email:", error);
+        });
       navigate("/admin");
     } catch (err) {
       console.log(err);
