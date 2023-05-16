@@ -45,11 +45,12 @@ export default function ManageFacility() {
       const roleDocRef = doc(db, "users", currentUser.uid);
       const roleDocSnap = await getDoc(roleDocRef);
       const roleData = roleDocSnap.data();
-      console.log(roleData);
-      setCategory(roleData.department);
+
+      setCategory(roleData.category);
     };
 
     handleCategory();
+
     get_facility_data();
   }, []);
 

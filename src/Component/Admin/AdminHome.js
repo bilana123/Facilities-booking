@@ -23,11 +23,11 @@ function AdminHome() {
   };
 
   const handleRole = async () => {
-    const roleDocRef = doc(db, "users", currentUser.uid);
+    const roleDocRef = doc(db, "roles", currentUser.uid);
     const roleDocSnap = await getDoc(roleDocRef);
     const roleData = roleDocSnap.data();
-    console.log(roleData.category);
-    setRole(roleData.category);
+    console.log(roleData.role);
+    setRole(roleData.role);
   };
 
   useEffect(() => {

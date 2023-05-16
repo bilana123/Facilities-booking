@@ -23,7 +23,7 @@ export default function UserBooking_Detail() {
       to_email: user.email,
       from_email: "05210220.jnec@rub.edu.bt",
       subject: "Your booking request has been approved",
-      message: `Hi ${user.name}, your booking request for facility ${user.facility_Name} has been approved.`,
+      message: `Hi ${user.name}, your booking request for facility ${user.facility_Name} has been approved. from ${user.start_Time} to ${user.endTime}`,
     };
     emailjs
       .send(
