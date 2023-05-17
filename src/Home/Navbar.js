@@ -26,26 +26,16 @@ export default function Navbar() {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-yellow">
-        <div class="container-fluid">
+        <div class="container-fluid ">
           <img src={logo} alt="logo" />
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+
           <div class="collapse navbar-collapse text-secondary" id="navbarNav">
             <li class="navbar-nav me-auto mb-20 mb-lg-0">
               <div class="nav-item mt-90 text-secondary"></div>
             </li>
             <div class="nav-item mt-90 text-secondary">
               <Link
-                class="nav-link active rounded-5"
+                class="nav-link active rounded-5 text-white"
                 aria-current="page"
                 to="/"
               >
@@ -54,7 +44,7 @@ export default function Navbar() {
             </div>
             <div class="nav-item mt-90 text-secondary">
               <Link
-                class="nav-link active rounded-5"
+                class="nav-link active rounded-5 text-white"
                 aria-current="page"
                 to="/aboutus"
               >
@@ -62,22 +52,12 @@ export default function Navbar() {
               </Link>
             </div>
 
-            <div class="nav-item mt-90 text-secondary">
-              <Link
-                class="nav-link active rounded-5"
-                aria-current="page"
-                to="/aboutus"
-              >
-                <b> Contact Us </b>
-              </Link>
-            </div>
-
-            <div class="nav-item mt-90 text-secondary">
+            <div class="nav-item mt-90 text-primary">
               {!currentUser ? (
                 <>
                   <div class="nav-item mt-100 text-secondary">
                     <Link
-                      class="nav-link active rounded-5"
+                      class="nav-link active rounded-5 text-white"
                       aria-current="page"
                       to="/Login"
                     >
@@ -87,7 +67,7 @@ export default function Navbar() {
                 </>
               ) : (
                 <Link
-                  class="nav-link active rounded-5"
+                  class="nav-link active rounded-5 text-white"
                   aria-current="page"
                   onClick={handelLogout}
                 >

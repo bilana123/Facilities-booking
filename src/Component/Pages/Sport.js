@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 function Sport({ currentUser }) {
   const [facility, setFacility] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   const getFacilityData = async () => {
     const facilitySnapshot = await getDocs(collection(db, "Facility"));
@@ -17,15 +18,39 @@ function Sport({ currentUser }) {
     getFacilityData();
   }, []);
 
-  console.log(facility);
+  const handleSearchInput = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const filterFacilityBySearchInput = (facilityList, searchInput) => {
+    if (!searchInput) {
+      return facilityList;
+    }
+
+    return facilityList.filter((item) =>
+      item.facility_name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+  };
+
+  const filteredFacility = filterFacilityBySearchInput(
+    facility.filter((item) => item.Category === "Sports"),
+    searchInput
+  );
+
   return (
     <div className="card-storage">
-      {/* <div className="first"> */}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search games..."
+          value={searchInput}
+          onChange={handleSearchInput}
+        />
+      </div>
       <div className="card-storage">
-        {facility
-          .filter((item) => item.Category === "Sports")
-          .map((item, index) => (
-            <div className="sport-list" key={index}>
+        <div className="row">
+          {filteredFacility.map((item, index) => (
+            <div className="col-sm-4" key={index}>
               <div className="card-container">
                 <div className="card-hall">
                   <img className="card-img-top" src={item.Image} alt="poster" />
@@ -45,8 +70,8 @@ function Sport({ currentUser }) {
               </div>
             </div>
           ))}
+        </div>
       </div>
-      {/* </div> */}
     </div>
   );
 }

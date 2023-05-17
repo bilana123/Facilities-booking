@@ -32,8 +32,8 @@ const Signup = () => {
       const templateParams = {
         to_email: email,
         from_email: "05210220.jnec@rub.edu.bt",
-        subject: "Your booking request has been rejected",
-        message: `Hi ${name}, Your new password is: ${password}`,
+        subject: "You have new notification",
+        message: `Hi ${name},You have been added as subadmin for ${category},Your new password is: ${password} `,
       };
       emailjs
         .send(

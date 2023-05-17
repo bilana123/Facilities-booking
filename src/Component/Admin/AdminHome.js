@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { db } from "../../Database/Firebase-config";
-import { FaTrash, FaBook } from "react-icons/fa";
+import { FaCogs, FaBook, FaUsers, FaSitemap } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import "./Admin.css";
 
@@ -23,11 +23,11 @@ function AdminHome() {
   };
 
   const handleRole = async () => {
-    const roleDocRef = doc(db, "users", currentUser.uid);
+    const roleDocRef = doc(db, "roles", currentUser.uid);
     const roleDocSnap = await getDoc(roleDocRef);
     const roleData = roleDocSnap.data();
-    console.log(roleData.category);
-    setRole(roleData.category);
+    console.log(roleData.role);
+    setRole(roleData.role);
   };
 
   useEffect(() => {
@@ -40,36 +40,33 @@ function AdminHome() {
     <div className="Sidebar ">
       <div className="Sidebar-content">
         <div className="Admin">
-          <p>Admin Home</p>
+          <p>
+            <b>Dashboard</b>
+          </p>
         </div>
         <nav className="links">
           <ul>
-            <li>
-              <NavLink to="/admin/delete">
-                <FaTrash style={{ marginRight: "10px" }} />
-                <span>Manage Facility</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/admin/booking">
-                <FaBook style={{ marginRight: "10px" }} />
-                <span>UserBooking_Detail</span>
-              </NavLink>
-            </li>
+            <NavLink to="/admin/delete">
+              <FaCogs style={{ marginRight: "10px" }} />
+              <span>Manage Facility</span>
+            </NavLink>
+            <br></br>
+            <NavLink to="/admin/booking">
+              <FaBook style={{ marginRight: "10px" }} />
+              <span>UserBooking_Detail</span>
+            </NavLink>
+            <br></br>
 
-            <li>
-              <NavLink to="/manageDepartment">
-                <FaBook style={{ marginRight: "10px" }} />
-                <span>Manage Department</span>
-              </NavLink>
-            </li>
+            <NavLink to="/manageDepartment">
+              <FaSitemap style={{ marginRight: "10px" }} />
+              <span>Manage Department</span>
+            </NavLink>
+            <br></br>
             {role !== "subadmin" ? (
-              <li>
-                <NavLink to="/manage">
-                  <FaBook style={{ marginRight: "10px" }} />
-                  <span>Managesub_Admin</span>
-                </NavLink>
-              </li>
+              <NavLink to="/manage">
+                <FaUsers style={{ marginRight: "10px" }} />
+                <span>Managesub_Admin</span>
+              </NavLink>
             ) : null}
           </ul>
         </nav>

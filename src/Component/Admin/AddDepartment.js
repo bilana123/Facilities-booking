@@ -23,6 +23,7 @@ function AddDepartment() {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+    alert("You have added successfully ");
   };
 
   return (

@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import emailjs from "emailjs-com";
 
 function Facilities() {
   const [email, setEmail] = useState("");
   const [contactNo, setContactNo] = useState("");
   const [name, setName] = useState("");
   const [programme, setProgramme] = useState("");
+  const navigate = useNavigate();
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -16,34 +18,80 @@ function Facilities() {
   const [departments, setDepartments] = useState([]);
   const locate = useLocation();
   const facility = locate.state;
-  console.log(facility);
 
   const [Users, setUsers] = useState([]);
   const BOOK = async (e) => {
     e.preventDefault();
+    console.log("Users:", Users);
 
-    try {
-      const docRef = await addDoc(collection(db, "Users"), {
-        facility_Name: facility.facility_name,
-        name: name,
-        contactNo: contactNo,
-        programme: programme,
-        startTime: startTime,
-        email: email,
-        endTime: endTime,
-        startDate: startDate,
-        endDate: endDate,
-        category: facility.Category,
-        status: "pending",
-      });
-      console.log("Document written with ID: ", docRef.id);
-      const button = document.getElementById("book-button");
-      if (button) {
-        button.innerHTML = "BOOKED";
+    const conflict = Users.find((item) => {
+      // Check if the booking time overlaps with an existing booking
+      const existingStart = new Date(item.startDate + "T" + item.startTime);
+      const existingEnd = new Date(item.endDate + "T" + item.endTime);
+      const newStart = new Date(startDate + "T" + startTime);
+      const newEnd = new Date(endDate + "T" + endTime);
+
+      return (
+        item.facility_Name === facility.facility_name &&
+        newStart < existingEnd &&
+        newEnd > existingStart
+      );
+    });
+
+    if (conflict) {
+      console.log("Conflict item:", conflict); // Log the item that conflicts with the booking
+      alert(
+        "It is already booked by other, you can book on another time or date"
+      );
+    } else {
+      try {
+        const docRef = await addDoc(collection(db, "Users"), {
+          facility_Name: facility.facility_name,
+          name: name,
+          contactNo: contactNo,
+          programme: programme,
+
+          startTime: startTime,
+          email: email,
+          endTime: endTime,
+          startDate: startDate,
+          endDate: endDate,
+          category: facility.Category,
+          status: "pending",
+        });
+        console.log("Document written with ID: ", docRef.id);
+        const button = document.getElementById("book-button");
+        if (button) {
+          button.innerHTML = "Pending";
+        }
+        alert("Your request is pending. We will confirm through Email");
+
+        const emailParams = {
+          to_email: "05210220.jnec@rub.edu.bt",
+          from_name: "Dechen",
+          from_email: "05210220.jnec@rub.edu.bt",
+          subject: "Facility Booked",
+          message: `${name} has booked the ${facility.facility_name} facility.`,
+        };
+        emailjs
+          .send(
+            "service_11c12c7",
+            "template_xzb7e69",
+            emailParams,
+            "KMZOReDKneLwcfgTZ"
+          )
+          .then(
+            (result) => {
+              console.log(result.text);
+            },
+            (error) => {
+              console.log(error.text);
+            }
+          );
+        navigate("/");
+      } catch (e) {
+        console.error("Error adding document: ", e);
       }
-      alert("Your request is pending. We will confirm through Email");
-    } catch (e) {
-      console.error("Error adding document: ", e);
     }
   };
 
@@ -143,35 +191,15 @@ function Facilities() {
                     setProgramme(e.target.value);
                   }}
                 >
-                  <option value="">Choose a Programme</option>
-                  <option value="Computer System And Networking">
-                    Computer System And Networking
-                  </option>
-                  <option value="Civil Engineering">Civil Engineering</option>
-                  <option value="Materials And Procurement Management">
-                    Materials And Procurement Management
-                  </option>
-                  <option value="Machnical Engneering">
-                    Machnical Engneering
-                  </option>
-                  <option value="Electrical Enginnering">
-                    Electrical Enginnering
-                  </option>
-                  <option value="Electronic And Communication">
-                    Electronic And Communication
-                  </option>
-                  <option value="Surveying">Surveying</option>
-                  <option value="B.E in Power Engineering">
-                    B.E in Power Engineering
-                  </option>
-                  <option value="B.E in Mechanical Engineering">
-                    B.E in Mechanical Engineering
-                  </option>
-                  <option value="B.E in Surveying and Geoinformatics">
-                    B.E in Surveying and Geoinformatics
-                  </option>
+                  <option value="">Choose a Programme or other user---</option>
+                  {departments.map((item) => (
+                    <option key={item.name} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
                 </select>
               </div>
+
               <div className="mb-1">
                 <label for="start-time" className="form-label">
                   Start-Time

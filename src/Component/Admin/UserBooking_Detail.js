@@ -17,13 +17,14 @@ export default function UserBooking_Detail() {
   const { currentUser } = useContext(AuthContext);
   const [Users, setUsers] = useState([]);
   const [category, setCategory] = useState("");
+  const [approvalMessage, setApprovalMessage] = useState("");
 
   const sendApprovalEmail = (user) => {
     const templateParams = {
       to_email: user.email,
       from_email: "05210220.jnec@rub.edu.bt",
       subject: "Your booking request has been approved",
-      message: `Hi ${user.name}, your booking request for facility ${user.facility_Name} has been approved.`,
+      message: `Hi ${user.name}, your booking request for facility ${user.facility_Name} has been approved. from ${user.start_Time} to ${user.endTime}`,
     };
     emailjs
       .send(
@@ -34,7 +35,12 @@ export default function UserBooking_Detail() {
       )
       .then((response) => {
         console.log("Email sent successfully!", response.text);
+        setApprovalMessage(
+          `Hi ${user.name}, your booking request for facility ${user.facility_Name}, has been approved.has been approved. from ${user.start_Time}, 
+          to ${user.endTime}`
+        );
       })
+
       .catch((error) => {
         console.error("Error sending email:", error);
       });
@@ -62,9 +68,8 @@ export default function UserBooking_Detail() {
       });
   };
 
-  const handelapprove = async (e, id, email) => {
+  const handelapprove = async (e, id) => {
     e.preventDefault();
-
     const collectionRef = doc(db, "Users", id);
     await updateDoc(collectionRef, { status: "approved" }).catch((err) => {
       console.log(err);
@@ -79,6 +84,7 @@ export default function UserBooking_Detail() {
 
     // Send email to user
     const user = Users.find((user) => user.uid === id);
+    sendApprovalEmail(user);
   };
 
   const handelreject = async (e, id) => {
@@ -100,6 +106,7 @@ export default function UserBooking_Detail() {
     const user = Users.find((user) => user.uid === id);
     sendRejectionEmail(user);
   };
+
   const onDelete = async (usersId) => {
     try {
       await deleteDoc(doc(db, "Users", usersId));

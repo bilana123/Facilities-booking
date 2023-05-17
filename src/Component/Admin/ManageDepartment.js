@@ -38,7 +38,7 @@ function ManageDepartment({ category }) {
     <div>
       <Link
         to="/admin/add_department"
-        className="btn btn-primary btn-sm mt-5 ml-2 btn-short"
+        className="btn btn-primary btn-sm mt-5 col-lg-2 w-auto"
       >
         Add
       </Link>

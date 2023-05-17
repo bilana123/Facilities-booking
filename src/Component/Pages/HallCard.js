@@ -6,6 +6,7 @@ import { db } from "../../Database/Firebase-config";
 
 function HallCard({ currentUser }) {
   const [facility, setFacility] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   const getFacilityData = async () => {
     const facilitySnapshot = await getDocs(collection(db, "Facility"));
@@ -17,15 +18,38 @@ function HallCard({ currentUser }) {
     getFacilityData();
   }, []);
 
-  console.log(facility);
+  const handleSearchInput = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const filterFacilityBySearchInput = (facilityList, searchInput) => {
+    if (!searchInput) {
+      return facilityList;
+    }
+
+    return facilityList.filter((item) =>
+      item.facility_name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+  };
+
+  const filteredFacility = filterFacilityBySearchInput(
+    facility.filter((item) => item.Category === "Hall"),
+    searchInput
+  );
 
   return (
     <div className="card-storage">
-      {/* <div className="first"> */}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search halls..."
+          value={searchInput}
+          onChange={handleSearchInput}
+        />
+      </div>
       <div className="card-storage">
-        {facility
-          .filter((item) => item.Category === "Hall")
-          .map((item, index) => (
+        <div className="row">
+          {filteredFacility.map((item, index) => (
             <div className="col-sm-4" key={index}>
               <div className="card-hall">
                 <img className="card-img-top" src={item.Image} alt="poster" />
@@ -40,8 +64,8 @@ function HallCard({ currentUser }) {
               </div>
             </div>
           ))}
+        </div>
       </div>
-      {/* </div> */}
     </div>
   );
 }

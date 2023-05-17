@@ -2,8 +2,7 @@ import React, { useRef } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Auth } from "../../Database/Firebase-config";
-
-export default function ForgotPassword() {
+function ForgotPassword() {
   const emailRef = useRef("");
   const navigate = useNavigate();
 
@@ -21,25 +20,31 @@ export default function ForgotPassword() {
     }
   };
   return (
-    <div className="d-flex justify-content-center align-items-center">
-      <div className="container mt-5 " id="forgotpasswordcontainer">
+    <div>
+      <div class="container" id="forgotpasswordcontainer">
         <form onSubmit={Resetpassword}>
-          <div className="row bg-white shadow-sm p-4">
-            <div className="col-md-6 ">
+          <div class="row">
+            <span>
+              <button type="submit" class="btn">
+                Reset
+              </button>
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span>
               <input
                 type="email"
                 required
                 ref={emailRef}
-                className="form-control"
+                size="50"
+                class="border border-dark"
                 placeholder="Enter Your Email"
               />
-              <button type="submit" className="btn btn-primary mt-3">
-                Reset
-              </button>
-            </div>
+            </span>
           </div>
         </form>
       </div>
     </div>
   );
 }
+
+export default ForgotPassword;
