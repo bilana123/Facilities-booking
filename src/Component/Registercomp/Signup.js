@@ -58,8 +58,8 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
-    <div className="d-flex justify-content-center align-items-center m-5 ">
-      <div className="bg-white shadow-lg p-5">
+    <div className="d-flex justify-content-center align-items-center  ">
+      <div className="bg-white shadow-lg p-5 m-5 col-md-3 mt-5 ml-6">
         <div className="col-lg-12 col-md-5">
           <form onSubmit={handleSubmit} class="from-login">
             <h5 className="text-center mb-4">Add Sub Admin</h5>
@@ -75,7 +75,7 @@ const Signup = () => {
                 placeholder="Enter email"
               />
             </div>
-            <div className="form-group">
+            <div className="form-group col-md-17 ">
               <label htmlFor="name">Name</label>
               <input
                 type="text"
@@ -102,7 +102,7 @@ const Signup = () => {
                 <option value="Hall">Hall</option>
               </select>
             </div>
-            <div className="form-group">
+            <div className="orm-control form-control-lg">
               <label htmlFor="password">Password</label>
               <input
                 type="password"

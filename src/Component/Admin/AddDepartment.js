@@ -34,7 +34,7 @@ function AddDepartment() {
             <div className="col-lg-6">
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
-                  Department Name:
+                  Programme Name:
                 </label>
                 <input
                   type="text"
@@ -51,7 +51,7 @@ function AddDepartment() {
             <div className="col-lg-6">
               <div className="mb-3">
                 <button type="submit" className="btn btn-primary">
-                  Add Department
+                  Add Programme
                 </button>
               </div>
             </div>

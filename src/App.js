@@ -43,10 +43,9 @@ function App() {
 
         <Routes>
           <Route element={<Protectedroute user={currentUser} />}>
-            <Route path="/admin" element={<AdminHome />} />
             <Route path="/admin/add_department" element={<AddDepartment />} />
           </Route>
-
+          <Route path="/admin" element={<AdminHome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin/add_subadmin" element={<Signup />} />
           <Route path="/Aboutus" element={<Aboutus />} />
@@ -54,7 +53,7 @@ function App() {
           <Route path="/Facilities" element={<Facilities />} />
           <Route path="/admin/Edit" element={<Edit />} />
           <Route path="/admin/create" element={<Create />} />
-          <Route path="/admin/delete" element={<ManageFacility />} />
+          <Route path="/admin/managefacility" element={<ManageFacility />} />
           <Route path="Sport" element={<Sport />} />
           <Route path="/admin/booking" element={<UserBooking_Detail />} />
           <Route path="Classroom" element={<Classroom />} />

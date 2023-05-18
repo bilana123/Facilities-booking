@@ -32,12 +32,19 @@ function UserManagement() {
 
   return (
     <div>
-      <Link to="/admin/add_subadmin" state={users} className="btn btn-success">
+      <Link
+        to="/admin/add_subadmin"
+        state={users}
+        className="btn btn-success mt-5 ml-7 col-md-3"
+        align
+        content="end"
+        style={{ width: "100px" }}
+      >
         Add
       </Link>
 
       <table
-        className="booking-table mt-5 "
+        className="booking-table mt-3 "
         align="center"
         style={{ width: "80%", height: "auto" }}
       >
@@ -70,7 +77,7 @@ function UserManagement() {
                   Edit
                 </Link>
                 <button
-                  className="btn mt-1"
+                  className="btn btn-danger mt-1 delete-button"
                   onClick={() => handleDelete(user.id)}
                 >
                   Delete

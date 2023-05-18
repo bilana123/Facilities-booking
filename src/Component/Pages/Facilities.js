@@ -66,29 +66,29 @@ function Facilities() {
         }
         alert("Your request is pending. We will confirm through Email");
 
-        const emailParams = {
-          to_email: "05210220.jnec@rub.edu.bt",
-          from_name: "Dechen",
-          from_email: "05210220.jnec@rub.edu.bt",
-          subject: "Facility Booked",
-          message: `${name} has booked the ${facility.facility_name} facility.`,
-        };
-        emailjs
-          .send(
-            "service_11c12c7",
-            "template_xzb7e69",
-            emailParams,
-            "KMZOReDKneLwcfgTZ"
-          )
-          .then(
-            (result) => {
-              console.log(result.text);
-            },
-            (error) => {
-              console.log(error.text);
-            }
-          );
-        navigate("/");
+        // const emailParams = {
+        // to_email: "05210220.jnec@rub.edu.bt",
+        // from_name: "Dechen",
+        // from_email: "05210220.jnec@rub.edu.bt",
+        // subject: "Facility Booked",
+        //   message: `${name} has booked the ${facility.facility_name} facility.`,
+        // };
+        // emailjs
+        //   .send(
+        //     "service_11c12c7",
+        //     "template_xzb7e69",
+        //     emailParams,
+        //     "KMZOReDKneLwcfgTZ"
+        //   )
+        //   .then(
+        //     (result) => {
+        //       console.log(result.text);
+        //     },
+        //     (error) => {
+        //       console.log(error.text);
+        //     }
+        //   );
+        // navigate("/");
       } catch (e) {
         console.error("Error adding document: ", e);
       }

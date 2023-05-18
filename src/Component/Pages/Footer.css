@@ -130,3 +130,7 @@ hr {
   width: 200px; /* adjust as necessary */
   margin-top: 20px; /* add margin to separate from h4 */
 }
+.Email {
+  margin-right: 200px;
+  margin-left: 20px;
+}

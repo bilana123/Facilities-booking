@@ -33,7 +33,7 @@ export default function Search() {
               <div class="card-body">
                 <h5 class="card-title">{pro.facility_name}</h5>
 
-                <Link to={`/detail/ ${pro.facility_id}`} class="btn" state={pro}>
+                <Link to={`/detail/ ${pro.acility_id}`} class="btn" state={pro}>
                   Book now
                 </Link>
               </div>

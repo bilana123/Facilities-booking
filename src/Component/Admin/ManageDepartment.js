@@ -38,7 +38,7 @@ function ManageDepartment({ category }) {
     <div>
       <Link
         to="/admin/add_department"
-        className="btn btn-primary btn-sm mt-5 col-lg-2 w-auto"
+        className="btn btn-success mt-5 ml-7 col-md-3"
       >
         Add
       </Link>
@@ -61,7 +61,7 @@ function ManageDepartment({ category }) {
                 <td>{dept.name}</td>
                 <td>
                   <button
-                    className="btn mt-2"
+                    className="btn btn-danger mt-1 delete-button"
                     onClick={() => onDelete(dept.uid)}
                   >
                     Delete

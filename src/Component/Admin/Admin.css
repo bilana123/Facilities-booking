@@ -104,3 +104,6 @@
 .third {
   margin-bottom: 5000px;
 }
+.hidden {
+  display: none;
+}

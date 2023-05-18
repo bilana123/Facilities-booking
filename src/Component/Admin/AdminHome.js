@@ -46,7 +46,7 @@ function AdminHome() {
         </div>
         <nav className="links">
           <ul>
-            <NavLink to="/admin/delete">
+            <NavLink to="/admin/managefacility">
               <FaCogs style={{ marginRight: "10px" }} />
               <span>Manage Facility</span>
             </NavLink>
@@ -56,11 +56,12 @@ function AdminHome() {
               <span>UserBooking_Detail</span>
             </NavLink>
             <br></br>
-
-            <NavLink to="/manageDepartment">
-              <FaSitemap style={{ marginRight: "10px" }} />
-              <span>Manage Department</span>
-            </NavLink>
+            {role !== "subadmin" ? (
+              <NavLink to="/manageDepartment">
+                <FaSitemap style={{ marginRight: "10px" }} />
+                <span>Manage Programme</span>
+              </NavLink>
+            ) : null}
             <br></br>
             {role !== "subadmin" ? (
               <NavLink to="/manage">

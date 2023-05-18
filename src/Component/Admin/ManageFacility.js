@@ -14,6 +14,7 @@ export default function ManageFacility() {
   const [facilityList, setFacilityList] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const [category, setCategory] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // New state for search query
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -56,6 +57,13 @@ export default function ManageFacility() {
 
   return (
     <div>
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        placeholder="Search facility"
+      />
+
       <Link
         to="/admin/create"
         className="btn btn-primary btn-sm mt-5 ml-2 btn-short"
@@ -75,46 +83,60 @@ export default function ManageFacility() {
         </thead>
         <tbody>
           {!category
-            ? facilityList.map((facility) => {
-                return (
-                  <tr key={facility.id}>
-                    <td>{facility.facility_name}</td>
-                    <td>
-                      <img src={facility.Image} width="50" />
-                    </td>
-                    <td>{facility.Category}</td>
-                    <td>{facility.Description}</td>
-
-                    <td>
-                      <span>
-                        <Link
-                          to="/admin/Edit"
-                          state={facility}
-                          className="btn btn-success"
-                        >
-                          Edit
-                        </Link>
-                      </span>
-                      <span>
-                        <button
-                          className="btn mt-5"
-                          onClick={() => onDelete(facility.id)}
-                        >
-                          Delete
-                        </button>
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })
-            : facilityList
-                .filter((item) => item.Category === category)
+            ? facilityList
+                .filter((item) => item.facility_name.includes(searchQuery))
                 .map((facility) => {
                   return (
                     <tr key={facility.id}>
                       <td>{facility.facility_name}</td>
                       <td>
-                        <img src={facility.Image} width="50" />
+                        <img
+                          src={facility.Image}
+                          width="50"
+                          alt={facility.facility_name}
+                        />
+                      </td>
+                      <td>{facility.Category}</td>
+                      <td>{facility.Description}</td>
+
+                      <td>
+                        <span>
+                          <Link
+                            to="/admin/Edit"
+                            state={facility}
+                            className="btn btn-success"
+                          >
+                            Edit
+                          </Link>
+                        </span>
+                        <span>
+                          <button
+                            className="btn mt-5"
+                            onClick={() => onDelete(facility.id)}
+                          >
+                            Delete
+                          </button>
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })
+            : facilityList
+                .filter(
+                  (item) =>
+                    item.Category === category &&
+                    item.facility_name.includes(searchQuery)
+                )
+                .map((facility) => {
+                  return (
+                    <tr key={facility.id}>
+                      <td>{facility.facility_name}</td>
+                      <td>
+                        <img
+                          src={facility.Image}
+                          width="50"
+                          alt={facility.facility_name}
+                        />
                       </td>
                       <td>{facility.Category}</td>
                       <td>{facility.Description}</td>

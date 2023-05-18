@@ -18,6 +18,8 @@ export default function UserBooking_Detail() {
   const [Users, setUsers] = useState([]);
   const [category, setCategory] = useState("");
   const [approvalMessage, setApprovalMessage] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // Added searchQuery state variable
+  const [filteredUsers, setFilteredUsers] = useState([]);
 
   const sendApprovalEmail = (user) => {
     const templateParams = {
@@ -123,6 +125,36 @@ export default function UserBooking_Detail() {
     }
     alert("You have deleted successfully");
   };
+  useEffect(() => {
+    const filterUsers = () => {
+      if (searchQuery === "") {
+        // If the search query is empty, show all users
+        setFilteredUsers(Users);
+      } else {
+        // Filter the users based on the search query
+        const filtered = Users.filter((user) => {
+          // Perform case-insensitive search on the desired fields
+          const fieldsToSearch = [
+            user.facility_Name,
+            user.name,
+            user.email,
+            user.contactNo,
+            user.programme,
+            user.startTime,
+            user.endTime,
+            user.startDate,
+            user.endDate,
+          ];
+          return fieldsToSearch.some((field) =>
+            field.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+        });
+        setFilteredUsers(filtered);
+      }
+    };
+
+    filterUsers();
+  }, [Users, searchQuery]);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -150,132 +182,145 @@ export default function UserBooking_Detail() {
   }, []);
 
   return (
-    <div>
-      <table
-        className="booking-table mt-5 "
-        align="center"
-        style={{ width: "80%", height: "auto" }}
-      >
-        <thead>
-          <tr>
-            <th>Facility_Name</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Contact_No</th>
-            <th>programme</th>
-            <th>Start_Time</th>
-            <th>End_Time</th>
-            <th>Start_date</th>
-            <th>End_date</th>
-            <th> Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {!category
-            ? Users.map((user) => {
-                return (
-                  <tr>
-                    <td>{user.facility_Name}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.contactNo}</td>
-                    <td>{user.programme}</td>
-                    <td>{user.startTime}</td>
-                    <td>{user.endTime}</td>
-                    <td>{user.startDate}</td>
-                    <td>{user.endDate}</td>
+    <div className="mb-5 ">
+      <div className="input-group justify-content-end">
+        <div className="col-md-3 mt-5 ml-6">
+          <input
+            type="text"
+            className="form-control "
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="table-responsive mt-5">
+        <table className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Facility_Name</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Contact_No</th>
+              <th>programme</th>
+              <th>Start_Time</th>
+              <th>End_Time</th>
+              <th>Start_date</th>
+              <th>End_date</th>
+              <th> Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {!category
+              ? filteredUsers.map((user) => {
+                  return (
+                    <tr>
+                      <td>{user.facility_Name}</td>
+                      <td>{user.name}</td>
+                      <td>{user.email}</td>
+                      <td>{user.contactNo}</td>
+                      <td>{user.programme}</td>
+                      <td>{user.startTime}</td>
+                      <td>{user.endTime}</td>
+                      <td>{user.startDate}</td>
+                      <td>{user.endDate}</td>
 
-                    <td>
-                      <>
-                        <span>
-                          <Link
-                            to=""
-                            onClick={(e) => {
-                              handelapprove(e, user.uid, user.email);
-                            }}
-                            className="btn btn-success"
-                          >
-                            Approve
-                          </Link>
-                        </span>
-                        <span>
-                          <button
-                            className="btn btn-sucess mt-1"
-                            onClick={(e) => {
-                              handelreject(e, user.uid);
-                            }}
-                          >
-                            Reject
-                          </button>
-                        </span>
-                        <span>
-                          <button
-                            className="btn btn-sucess mt-1"
-                            onClick={() => {
-                              onDelete(user.uid);
-                            }}
-                          >
-                            Delete
-                          </button>
-                        </span>
-                      </>
-                    </td>
-                  </tr>
-                );
-              })
-            : Users.filter((item) => category === item.category).map((user) => {
-                return (
-                  <tr>
-                    <td>{user.facility_Name}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.contactNo}</td>
-                    <td>{user.programme}</td>
-                    <td>{user.startTime}</td>
-                    <td>{user.endTime}</td>
-                    <td>{user.startDate}</td>
-                    <td>{user.endDate}</td>
+                      <td>
+                        <>
+                          <span>
+                            <Link
+                              to=""
+                              onClick={(e) => {
+                                handelapprove(e, user.uid, user.email);
+                              }}
+                              className="btn btn-success"
+                            >
+                              Approve
+                            </Link>
+                          </span>
+                          <span>
+                            <button
+                              className="btn btn-sucess mt-1"
+                              onClick={(e) => {
+                                handelreject(e, user.uid);
+                              }}
+                            >
+                              Reject
+                            </button>
+                          </span>
+                          <span>
+                            <div className="">
+                              <button
+                                className="btn btn-danger mt-1  delete-button"
+                                onClick={() => {
+                                  onDelete(user.uid);
+                                }}
+                              >
+                                Cancle
+                              </button>
+                            </div>
+                          </span>
+                        </>
+                      </td>
+                    </tr>
+                  );
+                })
+              : filteredUsers
+                  .filter((item) => category === item.category)
+                  .map((user) => {
+                    return (
+                      <tr>
+                        <td>{user.facility_Name}</td>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.contactNo}</td>
+                        <td>{user.programme}</td>
+                        <td>{user.startTime}</td>
+                        <td>{user.endTime}</td>
+                        <td>{user.startDate}</td>
+                        <td>{user.endDate}</td>
 
-                    <td>
-                      <>
-                        <span>
-                          <Link
-                            to=""
-                            onClick={(e) => {
-                              handelapprove(e, user.uid, user.email);
-                            }}
-                            className="btn btn-success"
-                          >
-                            Approve
-                          </Link>
-                        </span>
-                        <span>
-                          <button
-                            className="btn btn-sucess mt-1"
-                            onClick={(e) => {
-                              handelreject(e, user.uid);
-                            }}
-                          >
-                            Reject
-                          </button>
-                        </span>
-                        <span>
-                          <button
-                            className="btn btn-sucess mt-1"
-                            onClick={() => {
-                              onDelete(user.uid);
-                            }}
-                          >
-                            Delete
-                          </button>
-                        </span>
-                      </>
-                    </td>
-                  </tr>
-                );
-              })}
-        </tbody>
-      </table>
+                        <td>
+                          <>
+                            <span>
+                              <Link
+                                to=""
+                                onClick={(e) => {
+                                  handelapprove(e, user.uid, user.email);
+                                }}
+                                className="btn btn-success"
+                              >
+                                Approve
+                              </Link>
+                            </span>
+                            <span>
+                              <button
+                                className="btn btn-sucess mt-1"
+                                onClick={(e) => {
+                                  handelreject(e, user.uid);
+                                }}
+                              >
+                                Reject
+                              </button>
+                            </span>
+                            <span>
+                              <button
+                                className="btn btn-sucess mt-1"
+                                onClick={() => {
+                                  onDelete(user.uid);
+                                }}
+                              >
+                                Cancle
+                              </button>
+                            </span>
+                          </>
+                        </td>
+                      </tr>
+                    );
+                  })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

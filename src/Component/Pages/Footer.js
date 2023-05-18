@@ -9,11 +9,17 @@ const Footer = () => {
     <div className="footer">
       <div className="sb_footer section_padding">
         <div className="sb_footer-links">
+          <div className="Email text-white">
+            <h4>Contact Us</h4>
+            <p>Email: webmaster@jnec.edu.bt</p>
+            <p>Phone: +975-260-192</p>
+          </div>
+          <hr />
           <div className="sb_footer-links_div">
             <div className="sb_footer-links_div">
-              <div class="socialmedia">
-                <h4 class="Follow">Follow Us On!!!</h4>
-                <div class="social-media-icons">
+              <div className="socialmedia">
+                <h4 className="Follow">Follow Us On!!!</h4>
+                <div className="social-media-icons">
                   <a href="https://www.google.com/search?gs_ssp=eJzj4tbP1TcwNDDNKy-uMGD0YsnKS00GADWqBZY&q=jnec&rlz=1C1PNKB_enBT1053BT1053&oq=jnec&aqs=chrome.1.69i57j46i512j69i59j0i512j69i60l2j69i61j69i60.2536j0j7&sourceid=chrome&ie=UTF-8">
                     <p>
                       <FaInstagram size={40} color="#C13584" />
@@ -28,7 +34,6 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <hr />
         </div>
       </div>
     </div>

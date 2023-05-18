@@ -25,3 +25,6 @@
 .booking-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+.delete-button {
+  background-color: rgb(230, 29, 29);
+}
