@@ -11,7 +11,15 @@ function AdminHome() {
   const { currentUser } = useContext(AuthContext);
   const [facility, setFacility] = useState([]);
   const [role, setRole] = useState("");
-  console.log(currentUser);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
+
+  const openSidebar = () => {
+    setSidebarOpen(true);
+  };
 
   const getFacilityData = async () => {
     const facilitySnapshot = await getDocs(collection(db, "Facility"));
@@ -32,45 +40,57 @@ function AdminHome() {
 
   useEffect(() => {
     getFacilityData();
-
     handleRole();
   }, []);
 
   return (
-    <div className="Sidebar ">
-      <div className="Sidebar-content">
-        <div className="Admin">
-          <p>
-            <b>Dashboard</b>
-          </p>
+    <div className="Sidebar">
+      {sidebarOpen && (
+        <div className="Sidebar-content">
+          <div className="Admin">
+            <p>
+              <b>Dashboard</b>
+            </p>
+          </div>
+          <nav className="links">
+            <ul>
+              <NavLink to="/admin/managefacility">
+                <FaCogs style={{ marginRight: "10px" }} />
+                <span>Manage Facility</span>
+              </NavLink>
+              <br />
+              <NavLink to="/admin/booking">
+                <FaBook style={{ marginRight: "10px" }} />
+                <span>UserBooking_Detail</span>
+              </NavLink>
+              <br />
+              {role !== "subadmin" && (
+                <NavLink to="/manageDepartment">
+                  <FaSitemap style={{ marginRight: "10px" }} />
+                  <span>Manage Programme</span>
+                </NavLink>
+              )}
+              <br />
+              {role !== "subadmin" && (
+                <NavLink to="/manage">
+                  <FaUsers style={{ marginRight: "10px" }} />
+                  <span>Managesub_Admin</span>
+                </NavLink>
+              )}
+            </ul>
+          </nav>
         </div>
-        <nav className="links">
-          <ul>
-            <NavLink to="/admin/managefacility">
-              <FaCogs style={{ marginRight: "10px" }} />
-              <span>Manage Facility</span>
-            </NavLink>
-            <br></br>
-            <NavLink to="/admin/booking">
-              <FaBook style={{ marginRight: "10px" }} />
-              <span>UserBooking_Detail</span>
-            </NavLink>
-            <br></br>
-            {role !== "subadmin" ? (
-              <NavLink to="/manageDepartment">
-                <FaSitemap style={{ marginRight: "10px" }} />
-                <span>Manage Programme</span>
-              </NavLink>
-            ) : null}
-            <br></br>
-            {role !== "subadmin" ? (
-              <NavLink to="/manage">
-                <FaUsers style={{ marginRight: "10px" }} />
-                <span>Managesub_Admin</span>
-              </NavLink>
-            ) : null}
-          </ul>
-        </nav>
+      )}
+      <div className="Sidebar-toggle">
+        {sidebarOpen ? (
+          <button className="toggle-button" onClick={closeSidebar}>
+            Close Sidebar
+          </button>
+        ) : (
+          <button className="toggle-button" onClick={openSidebar}>
+            Open Sidebar
+          </button>
+        )}
       </div>
     </div>
   );

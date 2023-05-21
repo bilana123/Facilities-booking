@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { storage, db } from "../../Database/Firebase-config";
 import { AuthContext } from "../Context/AuthContex";
+import { useNavigate } from "react-router-dom";
 
 export default function Create({ userRole }) {
   const { currentUser } = useContext(AuthContext);
@@ -19,6 +20,7 @@ export default function Create({ userRole }) {
   const [category, setcategory] = useState("");
   const [facility, setFacility] = useState("");
   const [image, setImage] = useState(null);
+  const navigate = useNavigate();
 
   const [description, setDescription] = useState("");
 
@@ -59,6 +61,7 @@ export default function Create({ userRole }) {
       console.error("Error adding document: ", e);
     }
     alert("You have successfully created");
+    navigate("/admin/managefacility");
   };
 
   useEffect(() => {
@@ -91,61 +94,63 @@ export default function Create({ userRole }) {
   }, []);
 
   return (
-    <div class="container justify-content-center" id="id_for_admin_div">
-      <div class="row">
-        <div class=""></div>
-      </div>
-      <br />
-      <div className="bg-white shadow-lg-5  ">
+    <div className="padding mt-5">
+      <div class="container justify-content-center" id="id_for_admin_div">
         <div class="row">
-          <div class="col d-flex justify-content-center">
-            <form onSubmit={handleSubmit} style={{ padding: "5" }}>
-              <div class="form-group">
-                <label htmlFor="facilityname">Facility Name</label>
-                <input
-                  type="text"
-                  name="facilityname"
-                  class="form-control rounded-3"
-                  id="facilityname"
-                  placeholder="Type Name"
-                  value={facility}
-                  onChange={(e) => setFacility(e.target.value)}
-                  style={{ width: "350px" }}
-                />
-              </div>
-              <div class="form-group">
-                <label htmlFor="Selectimage">Select Image</label>
-                <input
-                  type="file"
-                  name="selectimage"
-                  class="form-control rounded-3"
-                  onChange={ImgHandler}
-                  id="file"
-                  placeholder="insert image"
-                />
-              </div>
+          <br />
 
-              <div class="form-group">
-                <label htmlFor="description">Description</label>
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  name="description"
-                  class="form-control rounded-3"
-                  id="description"
-                ></textarea>
+          <div className="bg-white shadow col-15 ">
+            <div class="row">
+              <div class="col d-flex justify-content-center ">
+                <form onSubmit={handleSubmit}>
+                  <div class="form-group mt-5">
+                    <label htmlFor="facilityname">Facility Name</label>
+                    <input
+                      type="text"
+                      name="facilityname"
+                      class="form-control rounded-3"
+                      id="facilityname"
+                      placeholder="Type Name"
+                      value={facility}
+                      onChange={(e) => setFacility(e.target.value)}
+                      style={{ width: "350px" }}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label htmlFor="Selectimage">Select Image</label>
+                    <input
+                      type="file"
+                      name="selectimage"
+                      class="form-control rounded-3"
+                      onChange={ImgHandler}
+                      id="file"
+                      placeholder="insert image"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      name="description"
+                      class="form-control rounded-3"
+                      id="description"
+                    ></textarea>
+                  </div>
+                  <br />
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <button
+                      type="submit"
+                      class="btn btn-success"
+                      onClick={handleSubmit}
+                    >
+                      Create
+                    </button>
+                  </div>
+                </form>
               </div>
-              <br />
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <button
-                  type="submit"
-                  class="btn btn-success"
-                  onClick={handleSubmit}
-                >
-                  Create
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>

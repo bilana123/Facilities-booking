@@ -57,19 +57,26 @@ export default function ManageFacility() {
 
   return (
     <div>
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="Search facility"
-      />
-
-      <Link
-        to="/admin/create"
-        className="btn btn-primary btn-sm mt-5 ml-2 btn-short"
-      >
-        Add
-      </Link>
+      <div className=" input-group justify-content-end ">
+        <div className="mt-5 col-md-2">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search facility"
+          />{" "}
+        </div>
+      </div>
+      <div className=" col-md-2 ">
+        <div className="justify-content-center">
+          <Link
+            to="/admin/create"
+            className="btn btn-primary btn-sm  ml-3 btn-short"
+          >
+            Add
+          </Link>
+        </div>
+      </div>
       <table className="booking-table mt-5 mb-5" align="center">
         <thead>
           <tr>
@@ -111,7 +118,7 @@ export default function ManageFacility() {
                         </span>
                         <span>
                           <button
-                            className="btn mt-5"
+                            className="btn btn-danger mt-1  delete-button"
                             onClick={() => onDelete(facility.id)}
                           >
                             Delete

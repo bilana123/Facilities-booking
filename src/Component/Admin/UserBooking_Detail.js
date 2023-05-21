@@ -207,6 +207,7 @@ export default function UserBooking_Detail() {
               <th>End_Time</th>
               <th>Start_date</th>
               <th>End_date</th>
+              <th>Status</th>
               <th> Action</th>
             </tr>
           </thead>
@@ -224,6 +225,7 @@ export default function UserBooking_Detail() {
                       <td>{user.endTime}</td>
                       <td>{user.startDate}</td>
                       <td>{user.endDate}</td>
+                      <td>{user.status}</td>
 
                       <td>
                         <>
@@ -279,6 +281,7 @@ export default function UserBooking_Detail() {
                         <td>{user.endTime}</td>
                         <td>{user.startDate}</td>
                         <td>{user.endDate}</td>
+                        <td>{user.status}</td>
 
                         <td>
                           <>
