@@ -107,3 +107,8 @@
 .hidden {
   display: none;
 }
+/* Admin.css */
+.subadmin {
+  margin-left: 900px;
+  padding-bottom: 1200px;
+}

@@ -32,6 +32,7 @@ import AddDepartment from "./Component/Admin/AddDepartment";
 import ManageDepartment from "./Component/Admin/ManageDepartment";
 import ManageFacility from "./Component/Admin/ManageFacility";
 import ForgotPassword from "./Component/logincomp/ForgotPassword";
+import AdminDasboard from "./Component/Admin/AdminDasboard";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -44,18 +45,21 @@ function App() {
         <Routes>
           <Route element={<Protectedroute user={currentUser} />}>
             <Route path="/admin/add_department" element={<AddDepartment />} />
+            <Route path="/admin" element={<AdminHome />} />
+            <Route path="/admin/managefacility" element={<ManageFacility />} />
+            <Route path="/admin/create" element={<Create />} />
+            <Route path="/admin/booking" element={<UserBooking_Detail />} />
           </Route>
-          <Route path="/admin" element={<AdminHome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin/add_subadmin" element={<Signup />} />
           <Route path="/Aboutus" element={<Aboutus />} />
           <Route path="/" element={<Home />} />
           <Route path="/Facilities" element={<Facilities />} />
           <Route path="/admin/Edit" element={<Edit />} />
-          <Route path="/admin/create" element={<Create />} />
-          <Route path="/admin/managefacility" element={<ManageFacility />} />
+          <Route path="/admin/user" element={<AdminDasboard />} />
+
           <Route path="Sport" element={<Sport />} />
-          <Route path="/admin/booking" element={<UserBooking_Detail />} />
+
           <Route path="Classroom" element={<Classroom />} />
           <Route path="HallCard" element={<HallCard />} />
           <Route path="/manageDepartment" element={<ManageDepartment />} />

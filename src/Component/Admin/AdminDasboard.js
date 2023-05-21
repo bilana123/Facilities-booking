@@ -6,10 +6,8 @@ import "./Admin.css";
 
 import { getDocs, collection, getDoc, doc } from "firebase/firestore";
 import { AuthContext } from "../Context/AuthContex";
-import ManageFacility from "./ManageFacility"; // Import the ManageFacility component
-import { colors } from "@mui/material";
 
-function AdminHome() {
+function AdminDasboard() {
   const { currentUser } = useContext(AuthContext);
   const [facility, setFacility] = useState([]);
   const [role, setRole] = useState("");
@@ -57,41 +55,11 @@ function AdminHome() {
               <FaBook style={{ marginRight: "10px" }} />
               <span>UserBooking_Detail</span>
             </NavLink>
-            <br></br>
-            {role !== "subadmin" ? (
-              <NavLink to="/manageDepartment">
-                <FaSitemap style={{ marginRight: "10px" }} />
-                <span>Manage Programme</span>
-              </NavLink>
-            ) : null}
-            <br></br>
-            {role !== "subadmin" ? (
-              <NavLink to="/manage">
-                <FaUsers style={{ marginRight: "10px" }} />
-                <span>Managesub_Admin</span>
-              </NavLink>
-            ) : null}
           </ul>
         </nav>
-      </div>
-      <div className="subadmin">
-        {role === "subadmin" && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "20vh",
-              color: "black",
-            }}
-          >
-            <ManageFacility />{" "}
-            {/* ManageFacility component wrapped in a container div */}
-          </div>
-        )}
       </div>
     </div>
   );
 }
 
-export default AdminHome;
+export default AdminDasboard;

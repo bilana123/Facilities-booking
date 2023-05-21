@@ -1,21 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-import { setDoc, doc, updateDoc, collection } from "firebase/firestore";
+import { useLocation, useNavigate } from "react-router-dom";
+import { updateDoc, doc } from "firebase/firestore";
 import { storage, db } from "../../Database/Firebase-config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Edit = () => {
   const [facility, setFacility] = useState("");
   const [image, setImage] = useState(null);
-
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const navigate = useNavigate();
 
   const locate = useLocation();
   const facilitys = locate.state;
 
   const types = ["image/png", "image/jpeg"];
+
   const ImgHandler = (e) => {
     let selectedFile = e.target.files[0];
     console.log(selectedFile);
@@ -54,7 +54,16 @@ const Edit = () => {
     }).catch((err) => {
       console.log(err);
     });
+    alert("Updated successfully");
+    navigate("/admin/managefacility");
   };
+
+  // Set the initial form field values based on the existing data
+  useEffect(() => {
+    setFacility(facilitys.facility_name || "");
+    setDescription(facilitys.Description || "");
+    setImage({ file: null, name: "" }); // Set initial image state to null or provide default image state object
+  }, [facilitys]);
 
   return (
     <Container>
@@ -63,7 +72,7 @@ const Edit = () => {
           <Form.Label>Facility Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder={facilitys.facility_name}
+            placeholder="Enter facility name"
             value={facility}
             onChange={(e) => setFacility(e.target.value)}
           />
@@ -78,7 +87,7 @@ const Edit = () => {
           <Form.Control
             as="textarea"
             rows={3}
-            placeholder={facilitys.Description}
+            placeholder="Enter description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -92,4 +101,5 @@ const Edit = () => {
     </Container>
   );
 };
+
 export default Edit;

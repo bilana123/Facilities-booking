@@ -18,6 +18,7 @@ function Facilities() {
   const [departments, setDepartments] = useState([]);
   const locate = useLocation();
   const facility = locate.state;
+  const [contactError, setContactError] = useState("");
 
   const [Users, setUsers] = useState([]);
   const BOOK = async (e) => {
@@ -67,10 +68,10 @@ function Facilities() {
         alert("Your request is pending. We will confirm through Email");
 
         // const emailParams = {
-        // to_email: "05210220.jnec@rub.edu.bt",
-        // from_name: "Dechen",
-        // from_email: "05210220.jnec@rub.edu.bt",
-        // subject: "Facility Booked",
+        //   to_email: "05210220.jnec@rub.edu.bt",
+        //   from_name: "Dechen",
+        //   from_email: "05210220.jnec@rub.edu.bt",
+        //   subject: "Facility Booked",
         //   message: `${name} has booked the ${facility.facility_name} facility.`,
         // };
         // emailjs
@@ -86,15 +87,27 @@ function Facilities() {
         //     },
         //     (error) => {
         //       console.log(error.text);
-        //     }
-        //   );
-        // navigate("/");
+        // }
+        //);
+        navigate("/");
       } catch (e) {
         console.error("Error adding document: ", e);
       }
     }
   };
+  const handleContactNoChange = (value) => {
+    value = value.trim();
 
+    if (value === "") {
+      setContactError("Contact number is required");
+    } else if (!/^\d+$/.test(value)) {
+      setContactError("Contact number should only contain digits");
+    } else {
+      setContactError("");
+    }
+
+    setContactNo(value);
+  };
   useEffect(() => {
     const getUsers = async () => {
       const usersSnapshot = await getDocs(collection(db, "Users"));
@@ -145,22 +158,7 @@ function Facilities() {
                   }}
                 />
               </div>
-              <div className="mb-1">
-                <label htmlFor="contactNo" className="form-label">
-                  Contact Number
-                </label>
-                <input
-                  type="text"
-                  value={contactNo}
-                  required
-                  className="form-control rounded-3"
-                  id="contactNo"
-                  placeholder="Enter your contact number"
-                  onChange={(e) => {
-                    setContactNo(e.target.value);
-                  }}
-                />
-              </div>
+
               <div className="mb-1">
                 <label for="Name" className="form-label">
                   Name
@@ -175,7 +173,26 @@ function Facilities() {
                   onChange={(e) => {
                     setName(e.target.value);
                   }}
+                />{" "}
+              </div>
+              <div className="mb-1">
+                <label htmlFor="contactNo" className="form-label">
+                  Contact Number
+                </label>
+                <input
+                  type="text"
+                  value={contactNo}
+                  required
+                  className="form-control rounded-3"
+                  id="contactNo"
+                  placeholder="Enter your contact number"
+                  onChange={(e) => {
+                    handleContactNoChange(e.target.value); // Use the updated function
+                  }}
                 />
+                {contactError && (
+                  <div className="text-danger">{contactError}</div>
+                )}
               </div>
               <div className="mb-1">
                 <label for="Programme" className="form-label">
