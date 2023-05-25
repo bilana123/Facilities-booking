@@ -32,19 +32,19 @@ function UserManagement() {
 
   return (
     <div>
-      <Link
-        to="/admin/add_subadmin"
-        state={users}
-        className="btn btn-success mt-5 ml-7 col-md-3"
-        align
-        content="end"
-        style={{ width: "100px" }}
-      >
-        Add
-      </Link>
+      <div className="d-flex justify-content-center mt-5">
+        <Link
+          to="/admin/add_subadmin"
+          state={users}
+          className="btn btn-success col-md-3"
+          style={{ width: "100px" }}
+        >
+          Add
+        </Link>
+      </div>
 
       <table
-        className="booking-table mt-3 "
+        className="booking-table mt-3"
         align="center"
         style={{ width: "80%", height: "auto" }}
       >
@@ -52,7 +52,7 @@ function UserManagement() {
           <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>category</th>
+            <th>Category</th>
             <th>Created At</th>
             <th>Action</th>
           </tr>

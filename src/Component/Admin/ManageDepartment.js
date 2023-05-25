@@ -2,46 +2,61 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../Database/Firebase-config";
 import { Link } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 import "./manage.css";
+import AddDepartment from "../Admin/AddDepartment";
+
 function ManageDepartment({ category }) {
   const [departments, setDepartments] = useState([]);
+  const [showAddDepartment, setShowAddDepartment] = useState(false);
+
+  const getDepartmentsData = async () => {
+    const departmentsSnapshot = await getDocs(collection(db, "departments"));
+    const departmentsList = departmentsSnapshot.docs.map((doc) => ({
+      uid: doc.id,
+      ...doc.data(),
+    }));
+    setDepartments(departmentsList);
+  };
 
   useEffect(() => {
-    const get_departments_data = async () => {
-      const departmentsSnapshot = await getDocs(collection(db, "departments"));
-      const departmentsList = departmentsSnapshot.docs.map((doc) => ({
-        uid: doc.id,
-        ...doc.data(),
-      }));
-      setDepartments(departmentsList);
-    };
-    get_departments_data();
+    getDepartmentsData();
   }, []);
 
-  const onDelete = async (DepartmentsId) => {
+  const onDelete = async (departmentId) => {
     try {
-      await deleteDoc(doc(db, "departments", DepartmentsId));
-      console.log(`Department '${DepartmentsId}' deleted successfully.`);
+      await deleteDoc(doc(db, "departments", departmentId));
+      console.log(`Department '${departmentId}' deleted successfully.`);
       // fetch the updated data and update the state
-      const departmentsSnapshot = await getDocs(collection(db, "departments"));
-      const departmentsList = departmentsSnapshot.docs.map((doc) => ({
-        uid: doc.id,
-        ...doc.data(),
-      }));
-      setDepartments(departmentsList);
+      getDepartmentsData();
     } catch (error) {
-      console.error(`Error deleting department '${DepartmentsId}':`, error);
+      console.error(`Error deleting department '${departmentId}':`, error);
     }
   };
+  const handleRefresh = () => {
+    getDepartmentsData();
+  };
+
+  const handleClose = () => setShowAddDepartment(false);
+  const handleShow = () => setShowAddDepartment(true);
 
   return (
     <div>
-      <Link
-        to="/admin/add_department"
-        className="btn btn-success mt-5 ml-7 col-md-3"
-      >
-        Add
-      </Link>
+      <div className="col-7 mt-5">
+        <div className="add">
+          <Button variant="primary" className="btn btn-sm" onClick={handleShow}>
+            Add
+          </Button>
+
+          <Button
+            variant="primary"
+            className="btn btn-sm ml-2"
+            onClick={handleRefresh}
+          >
+            Refresh
+          </Button>
+        </div>
+      </div>
       <table
         className="booking-table mt-3"
         align="center"
@@ -71,6 +86,19 @@ function ManageDepartment({ category }) {
             ))}
         </tbody>
       </table>
+
+      <Modal show={showAddDepartment} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Programme</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddDepartment
+            onClose={handleClose}
+            getFacilityData={getDepartmentsData}
+          />
+        </Modal.Body>
+        <Modal.Footer></Modal.Footer>
+      </Modal>
     </div>
   );
 }

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { collection, addDoc, getDocs } from "firebase/firestore";
-import { db } from "../../Database/Firebase-config";
+import { db, getting_token } from "../../Database/Firebase-config";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getMessaging } from "firebase/messaging";
+import axios from "axios";
 import emailjs from "emailjs-com";
 
 function Facilities() {
@@ -18,8 +20,31 @@ function Facilities() {
   const [departments, setDepartments] = useState([]);
   const locate = useLocation();
   const facility = locate.state;
+  const [contactError, setContactError] = useState("");
 
   const [Users, setUsers] = useState([]);
+
+  // Function to send a push notification to the user
+  // Function to send a push notification to the user
+  async function sendNotification(token) {
+    const messaging = getMessaging();
+    const notificationPayload = {
+      notification: {
+        title: "Booking Approval",
+        body: "Your booking is pending approval.",
+      },
+      token: token,
+    };
+
+    try {
+      // Send the notification payload to the user's device token
+      const response = await messaging.send(notificationPayload);
+      console.log("Notification sent successfully:", response);
+    } catch (error) {
+      console.error("Error sending notification:", error);
+    }
+  }
+
   const BOOK = async (e) => {
     e.preventDefault();
     console.log("Users:", Users);
@@ -50,7 +75,6 @@ function Facilities() {
           name: name,
           contactNo: contactNo,
           programme: programme,
-
           startTime: startTime,
           email: email,
           endTime: endTime,
@@ -65,34 +89,44 @@ function Facilities() {
           button.innerHTML = "Pending";
         }
         alert("Your request is pending. We will confirm through Email");
-
-        // const emailParams = {
-        // to_email: "05210220.jnec@rub.edu.bt",
-        // from_name: "Dechen",
-        // from_email: "05210220.jnec@rub.edu.bt",
-        // subject: "Facility Booked",
-        //   message: `${name} has booked the ${facility.facility_name} facility.`,
-        // };
-        // emailjs
-        //   .send(
-        //     "service_11c12c7",
-        //     "template_xzb7e69",
-        //     emailParams,
-        //     "KMZOReDKneLwcfgTZ"
-        //   )
-        //   .then(
-        //     (result) => {
-        //       console.log(result.text);
-        //     },
-        //     (error) => {
-        //       console.log(error.text);
-        //     }
-        //   );
-        // navigate("/");
+        getting_token
+          .then((currentToken) => {
+            if (currentToken) {
+              // Send the token to your server and update the UI if necessary
+              // ...
+              // Call the sendNotification function here
+              sendNotification(currentToken);
+            } else {
+              // Show permission request UI
+              console.log(
+                "No registration token available. Request permission to generate one."
+              );
+              // ...
+            }
+          })
+          .catch((err) => {
+            console.log("An error occurred while retrieving token. ", err);
+            // ...
+          });
+        navigate("/");
       } catch (e) {
         console.error("Error adding document: ", e);
       }
     }
+  };
+
+  const handleContactNoChange = (value) => {
+    value = value.trim();
+
+    if (value === "") {
+      setContactError("Contact number is required");
+    } else if (!/^\d+$/.test(value)) {
+      setContactError("Contact number should only contain digits");
+    } else {
+      setContactError("");
+    }
+
+    setContactNo(value);
   };
 
   useEffect(() => {
@@ -116,10 +150,9 @@ function Facilities() {
 
       setDepartments(departmentsList);
     };
-    fetchDepartments();
 
+    fetchDepartments();
     getUsers();
-    console.log(Users);
   }, []);
 
   return (
@@ -145,24 +178,9 @@ function Facilities() {
                   }}
                 />
               </div>
+
               <div className="mb-1">
-                <label htmlFor="contactNo" className="form-label">
-                  Contact Number
-                </label>
-                <input
-                  type="text"
-                  value={contactNo}
-                  required
-                  className="form-control rounded-3"
-                  id="contactNo"
-                  placeholder="Enter your contact number"
-                  onChange={(e) => {
-                    setContactNo(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="mb-1">
-                <label for="Name" className="form-label">
+                <label htmlFor="name" className="form-label">
                   Name
                 </label>
                 <input
@@ -177,8 +195,29 @@ function Facilities() {
                   }}
                 />
               </div>
+
               <div className="mb-1">
-                <label for="Programme" className="form-label">
+                <label htmlFor="contactNo" className="form-label">
+                  Contact Number
+                </label>
+                <input
+                  type="text"
+                  value={contactNo}
+                  required
+                  className="form-control rounded-3"
+                  id="contactNo"
+                  placeholder="Enter your contact number"
+                  onChange={(e) => {
+                    handleContactNoChange(e.target.value);
+                  }}
+                />
+                {contactError && (
+                  <div className="text-danger">{contactError}</div>
+                )}
+              </div>
+
+              <div className="mb-1">
+                <label htmlFor="programme" className="form-label">
                   Programme
                 </label>
                 <select
@@ -201,7 +240,7 @@ function Facilities() {
               </div>
 
               <div className="mb-1">
-                <label for="start-time" className="form-label">
+                <label htmlFor="start-time" className="form-label">
                   Start-Time
                 </label>
                 <input
@@ -210,14 +249,15 @@ function Facilities() {
                   required
                   className="form-control rounded-3"
                   id="start-time"
-                  placeholder="Enter time in MM:HH AM/PM format"
+                  placeholder="Enter time in HH:MM AM/PM format"
                   onChange={(e) => {
                     setStartTime(e.target.value);
                   }}
                 />
               </div>
+
               <div className="mb-1">
-                <label for="end-time" className="form-label">
+                <label htmlFor="end-time" className="form-label">
                   End-Time
                 </label>
                 <input
@@ -226,14 +266,15 @@ function Facilities() {
                   required
                   className="form-control rounded-3"
                   id="end-time"
-                  placeholder="Enter time in MM:HH AM/PM format"
+                  placeholder="Enter time in HH:MM AM/PM format"
                   onChange={(e) => {
                     setEndTime(e.target.value);
                   }}
                 />
               </div>
+
               <div className="mb-1">
-                <label for="Start_date" className="form-label">
+                <label htmlFor="start-date" className="form-label">
                   Start Date
                 </label>
                 <input
@@ -241,15 +282,16 @@ function Facilities() {
                   value={startDate}
                   required
                   className="form-control rounded-3"
-                  id="Start_date"
-                  placeholder="Enter date in DD-MM-YYYY format"
+                  id="start-date"
+                  placeholder="Enter date in YYYY-MM-DD format"
                   onChange={(e) => {
                     setStartDate(e.target.value);
                   }}
                 />
               </div>
+
               <div className="mb-1">
-                <label for="End_date" className="form-label">
+                <label htmlFor="end-date" className="form-label">
                   End Date
                 </label>
                 <input
@@ -257,13 +299,14 @@ function Facilities() {
                   value={endDate}
                   required
                   className="form-control rounded-3"
-                  id="End_date"
-                  placeholder="Enter date in DD-MM-YYYY format"
+                  id="end-date"
+                  placeholder="Enter date in YYYY-MM-DD format"
                   onChange={(e) => {
                     setEndDate(e.target.value);
                   }}
                 />
               </div>
+
               <div className="col-md-5 mt-2 w-5">
                 <button
                   className="btn btn-primary booked-btn"

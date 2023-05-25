@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 //import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getMessaging, getToken } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkI3rlSd3XKW70cRiHdr7m1d_mMmtjCo4",
@@ -21,5 +22,10 @@ const Auth = getAuth(app);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
-
-export { Auth, db, storage };
+const messaging = getMessaging();
+// Add the public key generated from the console here.
+const getting_token = getToken(messaging, {
+  vapidKey:
+    "BM56AL82_g25SZ3kgZj-7r-jT1CU2EyGyTyUFEn3mwDz-yGteop-lRq7BuFmlIdBaHJzqnzV_jRPb51KW1zRZYI",
+});
+export { Auth, db, storage, getting_token, messaging };

@@ -17,58 +17,55 @@ export default function UserBooking_Detail() {
   const { currentUser } = useContext(AuthContext);
   const [Users, setUsers] = useState([]);
   const [category, setCategory] = useState("");
-  const [approvalMessage, setApprovalMessage] = useState("");
+
   const [searchQuery, setSearchQuery] = useState(""); // Added searchQuery state variable
   const [filteredUsers, setFilteredUsers] = useState([]);
 
-  const sendApprovalEmail = (user) => {
-    const templateParams = {
-      to_email: user.email,
-      from_email: "05210220.jnec@rub.edu.bt",
-      subject: "Your booking request has been approved",
-      message: `Hi ${user.name}, your booking request for facility ${user.facility_Name} has been approved. from ${user.start_Time} to ${user.endTime}`,
-    };
-    emailjs
-      .send(
-        "service_11c12c7",
-        "template_xzb7e69",
-        templateParams,
-        "KMZOReDKneLwcfgTZ"
-      )
-      .then((response) => {
-        console.log("Email sent successfully!", response.text);
-        setApprovalMessage(
-          `Hi ${user.name}, your booking request for facility ${user.facility_Name}, has been approved.has been approved. from ${user.start_Time}, 
-          to ${user.endTime}`
-        );
-      })
+  // const sendApprovalEmail = (user) => {
+  //   const templateParams = {
+  //     to_email: user.email,
+  //     from_email: "05210220.jnec@rub.edu.bt",
+  //     subject: "Your booking request has been approved",
+  //     message: `Hi ${user.name}, your booking request for facility ${user.facility_Name} has been approved. from ${user.start_Time} to ${user.endTime}`,
+  //   };
+  //   emailjs
+  //     .send(
+  //       "service_11c12c7",
+  //       "template_xzb7e69",
+  //       templateParams,
+  //       "KMZOReDKneLwcfgTZ"
+  //     )
+  //     .then((response) => {
+  //       console.log("Email sent successfully!", response.text);
+  //     })
 
-      .catch((error) => {
-        console.error("Error sending email:", error);
-      });
-  };
+  //     .catch((error) => {
+  //       console.error("Error sending email:", error);
+  //     });
+  // };
 
-  const sendRejectionEmail = (user) => {
-    const templateParams = {
-      to_email: user.email,
-      from_email: "05210220.jnec@rub.edu.bt",
-      subject: "Your booking request has been rejected",
-      message: `Hi ${user.name}, your booking request for facility ${user.facility_Name} has been rejected.`,
-    };
-    emailjs
-      .send(
-        "service_11c12c7",
-        "template_zw1l2lf",
-        templateParams,
-        "KMZOReDKneLwcfgTZ"
-      )
-      .then((response) => {
-        console.log("Email sent successfully!", response.text);
-      })
-      .catch((error) => {
-        console.error("Error sending email:", error);
-      });
-  };
+  // const sendRejectionEmail = (user) => {
+  //   const templateParams = {
+  //     to_email: user.email,
+  //     from_email: "05210220.jnec@rub.edu.bt",
+  //     subject: "Your booking request has been rejected",
+  //     message: `Hi ${user.name}, your booking request for facility ${user.facility_Name}, has been approved.has been approved${user.start_Time},
+  //     to ${user.endTime}`,
+  //   };
+  //   emailjs
+  //     .send(
+  //       "service_11c12c7",
+  //       "template_xzb7e69",
+  //       templateParams,
+  //       "KMZOReDKneLwcfgTZ"
+  //     )
+  //     .then((response) => {
+  //       console.log("Email sent successfully!", response.text);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error sending email:", error);
+  //     });
+  // };
 
   const handelapprove = async (e, id) => {
     e.preventDefault();
@@ -86,7 +83,7 @@ export default function UserBooking_Detail() {
 
     // Send email to user
     const user = Users.find((user) => user.uid === id);
-    sendApprovalEmail(user);
+    // sendApprovalEmail(user);
   };
 
   const handelreject = async (e, id) => {
@@ -106,7 +103,7 @@ export default function UserBooking_Detail() {
 
     // Send email to user
     const user = Users.find((user) => user.uid === id);
-    sendRejectionEmail(user);
+    // sendRejectionEmail(user);
   };
 
   const onDelete = async (usersId) => {
@@ -161,11 +158,16 @@ export default function UserBooking_Detail() {
       const usersSnapshot = await getDocs(collection(db, "Users"));
       const usersList = usersSnapshot.docs.map((doc) => ({
         uid: doc.id,
+        bookingTimestamp: doc.data().bookingTimestamp,
         ...doc.data(),
       }));
 
       // sort users by id in ascending order
-      usersList.sort((a, b) => a.uid.localeCompare(b.uid));
+      usersList.sort((a, b) => {
+        const dateA = new Date(a.bookingTimestamp);
+        const dateB = new Date(b.bookingTimestamp);
+        return dateB - dateA;
+      });
 
       setUsers(usersList);
     };
@@ -282,7 +284,6 @@ export default function UserBooking_Detail() {
                         <td>{user.startDate}</td>
                         <td>{user.endDate}</td>
                         <td>{user.status}</td>
-
                         <td>
                           <>
                             <span>

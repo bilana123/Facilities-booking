@@ -29,12 +29,14 @@ const Signup = () => {
 
     try {
       await Signup(email, password, name, category);
+
       const templateParams = {
         to_email: email,
         from_email: "05210220.jnec@rub.edu.bt",
         subject: "You have new notification",
         message: `Hi ${name},You have been added as subadmin for ${category},Your new password is: ${password} `,
       };
+
       emailjs
         .send(
           "service_11c12c7",
@@ -102,7 +104,7 @@ const Signup = () => {
                 <option value="Hall">Hall</option>
               </select>
             </div>
-            <div className="orm-control form-control-lg">
+            <div className="form-control ">
               <label htmlFor="password">Password</label>
               <input
                 type="password"

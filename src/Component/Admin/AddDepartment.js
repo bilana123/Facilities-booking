@@ -28,34 +28,24 @@ function AddDepartment() {
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <div className="padding">
-        <div className="bg-white shadow-lg-5 ">
-          <div className="row justify-content-center">
-            <div className="col-lg-6">
-              <div className="mb-3">
-                <label htmlFor="name" className="form-label">
-                  Programme Name:
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="form-control form-control-sm"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-lg-6">
-              <div className="mb-3">
-                <button type="submit" className="btn btn-primary">
-                  Add Programme
-                </button>
-              </div>
-            </div>
-          </div>
+      <div className="add-department-container">
+        <div className="form-group">
+          <label htmlFor="name" className="form-label">
+            Programme Name:
+          </label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="form-control"
+            required
+          />
+        </div>
+        <div className="text-center">
+          <button type="submit" className="btn btn-primary">
+            Add Programme
+          </button>
         </div>
       </div>
     </form>

@@ -4,3 +4,11 @@
 .delete-button {
   background-color: rgb(226, 54, 54);
 }
+.add {
+  text-align: center;
+
+  justify-content: center;
+  text-justify: auto;
+  padding-left: 30px;
+  margin-left: 500px;
+}
