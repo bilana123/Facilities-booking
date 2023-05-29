@@ -27,10 +27,10 @@ export default function Login() {
       <div className="row">
         <div
           className="col-md-11 mx-auto bg-white shadow-lg p-5 rounded-3"
-          style={{ maxWidth: "600px" }}
+          style={{ minWidth: "600px" }}
         >
           <form onSubmit={handleSubmit} className="from-login">
-            <h5 className="Form"> Login</h5>
+            <h5 className="Form text-center"> Login</h5>
 
             <div className="form-group">
               <label htmlFor="username">Email:</label>
