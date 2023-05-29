@@ -1,0 +1,114 @@
+.Sidebar {
+  width: 300px;
+  min-width: 300px;
+  background: var(--primary-color);
+  min-height: 70vh;
+  box-sizing: border-box;
+  position: relative;
+  color: #f3edf8;
+  background-color: #5d626d;
+  position: relative;
+}
+.Sidebar-content {
+  position: relative;
+  width: inherit;
+}
+.Sidebar.Admin {
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 1px;
+  padding: 40px 20px;
+  border-bottom: 1px solid rgba(red, green, blue, alpha);
+  color: #5695f5;
+}
+.Sidebar .links {
+  margin-top: 80px;
+  margin-left: 20px;
+}
+.Sidebar.links li {
+  margin-top: 10px;
+}
+.Sidebar.links a {
+  display: flex;
+}
+.Sidebar.links img {
+  margin-right: 10px;
+  filter: invert(100%);
+}
+.Sidebar.links a.active {
+  color: #110a0a;
+  background: var(--bg-color);
+  border-radius: 20px 0 0 20px;
+}
+.Sidebar.links .active img {
+  filter: invert(40%);
+}
+.Sidebar.p {
+  text-align: center;
+}
+.card-hall {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-left: 900px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 20px;
+  color: #110a0a;
+}
+
+.card-text {
+  margin: 10px 0;
+  color: #110a0a;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: #0069d9;
+}
+.Sidebar {
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.Sidebar-content {
+  height: 100%;
+  overflow-y: auto;
+}
+.Admin p {
+  text-align: center;
+}
+.third {
+  margin-bottom: 5000px;
+}
+.hidden {
+  display: none;
+}
+/* Admin.css */
+.subadmin {
+  margin-left: 900px;
+  padding-bottom: 1200px;
+}

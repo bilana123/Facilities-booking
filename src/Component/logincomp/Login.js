@@ -1,0 +1,79 @@
+import { useState } from "react";
+import { useLogin } from "../../Hooks/useLogin";
+import { useNavigate } from "react-router-dom";
+import "./login.css";
+
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [password, setPassword] = useState("");
+  const { login, isPending } = useLogin();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await login(email, password).then(() => {
+        navigate("/admin");
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <div className="row">
+        <div
+          className="col-md-11 mx-auto bg-white shadow-lg p-5 rounded-3"
+          style={{ maxWidth: "600px" }}
+        >
+          <form onSubmit={handleSubmit} className="from-login">
+            <h5 className="Form"> Login</h5>
+
+            <div className="form-group">
+              <label htmlFor="username">Email:</label>
+              <input
+                type="email"
+                name="email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+                className="form-control"
+                placeholder="Enter email"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                name="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                required
+                className="form-control"
+                placeholder="Enter password"
+              />
+            </div>
+            <br></br>
+
+            {!isPending && (
+              <button type="submit" className="btn btn-primary btn-block">
+                Login
+              </button>
+            )}
+
+            {error && <p>{error}</p>}
+            <br></br>
+            <a href="/forgotpassword" className="forgot-password-Link">
+              {" "}
+              Forgot Password ?
+            </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
