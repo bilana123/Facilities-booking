@@ -1,0 +1,18 @@
+.about-heading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5em;
+}
+
+.about-paragraph-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.paragraph-container {
+  max-width: 700px;
+}

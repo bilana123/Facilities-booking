@@ -1,0 +1,120 @@
+.App {
+  text-align: center;
+  display: flex;
+  min-height: 200vh;
+  align-items: center;
+  justify-content: center;
+  color: rgb(20, 6, 6);
+  background-image: linear-gradient (79deg, #1d1131, #904b90 48%, #430c0e);
+}
+
+.auth-form-container,
+.Login,
+.Register {
+  display: flex;
+  flex-direction: column;
+
+}
+
+@media screen and (min-width: 200px) {
+}
+.auth-form-container {
+  padding: 2rem;
+  border: 5px solid rgb(246, 242, 245);
+  border-radius: 10px;
+  margin: 0.5rem;
+  background-color: #ece6ec;
+  text-align: center;
+  margin-left: 35%;
+  margin-top: 10%;
+  width: 30%;
+  box-sizing: border-box;
+}
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+}
+.field1{
+
+border-radius: 20%;
+
+  
+}
+input {
+  margin: 0.9rem 0;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(241, 236, 240);
+  width: 100%;
+  padding: 12px 20px;
+}
+button {
+  border: none;
+  background-color: rgb(66, 89, 222);
+  padding: 10px;
+  border-radius: 40%;
+  cursor: pointer;
+  color: #f1e9f2;
+  width: 280px;
+}
+.link-bin {
+  background: none;
+  color: rgb(255, 57, 212);
+  text-decoration: underline;
+}
+.Aboutus {
+  text-align: center;
+  color: rgb(173, 244, 7);
+  background-color: blueviolet;
+  max-width: 100px;
+  margin-bottom: auto;
+  padding-bottom: 80px;
+  column-count: 2;
+}
+.center {
+  text-align: center;
+}
+.billu {
+  border-image: round;
+  border-image-width: 60px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0px;
+  flex-wrap: nowrap;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 100px;
+}
+img {
+  width: 100px;
+  height: auto;
+  margin-right: 30px;
+}
+.ll {
+  max-height: 7000px;
+  max-width: 9000px;
+}
+.billuu {
+  height: 900%;
+  width: 900%;
+  margin: center;
+  padding: 400px;
+  background-size: cover;
+  position: relative;
+  top: 60%;
+  left: 60%;
+  right: 60%;
+  z-index: 20;
+  align-items: center baseline;
+  display: block;
+}
+.love {
+  top: 600%;
+  left: 600%;
+  right: 600%;
+  z-index: 200;
+
+  display: block;
+}
