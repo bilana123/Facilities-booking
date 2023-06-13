@@ -1,64 +1,66 @@
 <!DOCTYPE html>
 <html>
-<head>
+
   <title>Register Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-    }
-    
-    .container {
-      width: 300px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-      margin-top: 100px;
-    }
-    
-    .container h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    
-    .container input[type="text"],
-    .container input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
-    
-    .container input[type="submit"] {
-      width: 100%;
-      background-color: #4caf50;
-      color: #fff;
-      padding: 10px;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-    
-    .container input[type="submit"]:hover {
-      background-color: #45a049;
-    }
-  </style>
-</head>
+  @include('common.css')
+
 <body>
-  <div class="container">
-    <h2>Register</h2>
-    <p>{{$registertion_txt}}</p>
-    <form>
-      <label for="username">Username:</label>
-      <input type="text" id="username" placeholder="Enter your username" required>
+<section class="contact_section layout_padding">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 col-lg-6 offset-md-1 offset-lg-2">
+          <div class="form_container">
+            <div class="heading_container">
+              <h2>
+                Registeration form
+                
+   
+              </h2>
+            </div>
+            <form method="POST" action="/register_new_user">
+            @csrf 
+              <div>
+              <label for="full name">full name:<span class=""text-danger>*</label>
+                <input type="text" id="full name"  name="fullname"placeholder="Full Name " />
+
+              </div>
+              <div>
+              <label for="email">email:</label>
+                <input type="email"  name="email"  placeholder="Email" />
+              </div>
+              <div>
+              <label for="contact no">contact_no:</label>
+                <input type="text"  name="contactno" placeholder="Password" />
+              </div>
+              <div>
+              <label for="Password">Password:</label>
+                <input type="text"  name="password" placeholder="Password" />
+              </div>
+              <div>
+              <div className="dropdown">
+      <label for="role">Role:</label>
       
-      <label for="password">Password:</label>
-      <input type="password" id="password" placeholder="Enter your password" required>
-      
-      <input type="submit" value="Login">
+      <select name="role" id="role">
+         <option value="">Select role </option>
+         @foreach ($response_data as $data)
+            <option value="{{ $data->id }}">{{ $data->name}} </option>
+          @endforeach
+  </select>
+              </div>
+              <div class="d-flex ">
+                <button>
+                  SEND
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        </div>
+      </div>
+    </div>
+  </section>
+  
     </form>
   </div>
 </body>

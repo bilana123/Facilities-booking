@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\registration;
 
-use App\Models\RoleModel;
+
+use App\Models\registration\RoleModel;
+use App\Models\registration\UserModel;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
@@ -10,8 +13,8 @@ class RegistrationController extends Controller
    public function register(){
 
    // dd('reached in Register method');
-   $registertion_txt="welcome to registration page";
-   return view ('register')->with(compact('registertion_txt'));
+   $response_data=RoleModel::where('status', 'Active')->get();
+   return view ('register')->with('response_data', $response_data);
    }
    public function create_role(Request $request){    //creating 
 
@@ -40,7 +43,7 @@ public function get_role_list($param_type,$id,$status){//parameter//pulling data
       $response_data=RoleModel::where('status',$status)->get();
    }
    //select * from t_role_master;
-   return view ('list_roles')->with(compact('response_data'));
+   return view ('registration/list_roles')->with(compact('response_data'));
  //select *from t_role_master where status="Active"
 }
 public function edit_roles($id){
@@ -64,4 +67,22 @@ public function update_role(Request $request){
    //calling rigister route
    return redirect()->away('/get_role_list/ALL/NA/ALL');
 }
+
+public function register_new_user(Request $request){    //creating 
+
+   $user_data=[
+      'Full_name' => $request->fullname,
+      'contact_no' => $request->contactno,
+      'email' => $request->email,
+      'password' => $request->password,
+      'role_id' => $request->role,
+      'created_by' =>1,
+      'created_at' => date('Y-m-d h:i:s'),
+   ];
+   //dd($user_data);
+  UserModel::create($user_data);
+   //calling rigister route
+   return redirect()->away('/get_role_list/ALL/NA/ALL');
+}
+
 }
