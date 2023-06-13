@@ -44,7 +44,7 @@
         </div>
         <a class="navbar-brand" href="index.html">
           <span>
-            Seomark
+            Link changed
           </span>
         </a>
         <div class="user_option">
